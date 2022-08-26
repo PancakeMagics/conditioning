@@ -1,0 +1,72 @@
+{
+"notYetComplete": "Not yet Complete",
+"expectationCount": "{count, plural, =0{expectation count: 0} =1{expectation count: 1} other{expectation count: {count}}}",
+  "@expectationCount": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "expectation count: 7"
+      }
+    }
+  },
+  "yourExpectationCount": "{count, plural, =0{your expectation count: 0} =1{your expectation count: 1} other{your expectation count: {count}}}",
+    "@yourExpectationCount": {
+      "placeholders": {
+        "count": {
+          "type": "int",
+          "example": "your expectation count: 7"
+        }
+      }
+    },
+"doExpect": "yes!",
+"doNotExpect": "no",
+"cool": "cool",
+"ok": "ok",
+"send": "send",
+"dismiss": "dismiss",
+"cancel": "cancel",
+"loading": "loading...",
+
+"userName": "user name",
+  "email": "email",
+  "password": "password",
+  "thisFieldCannotBeEmpty": "this field cannot be empty",
+  "pleaseEnterCorrectEmailFormat": "please enter correct email format",
+"register": "register",
+"registerNewAccount": "Register new account",
+"backToLoginScreen": "Back to login screen",
+  "registerAndLogin": "Register and login",
+  "login": "Login",
+  "loginWithGoogleAccount": "Login with Google",
+  "registerAndLoginWithGoogleAccount": "Register with Google",
+  "loginAsVisitor": "Visitor Login",
+
+  "userNotFound": "User not found",
+  "wrongPassword": "Wrong password",
+  "somethingBadHappenedWhileLogin": "Something bad happened while login",
+  "weakPasswordLessThan6": "Weak password (less than 6 chars)",
+  "emailAlreadyInUse": "Email already in use",
+  "invalidEmail": "Invalid email",
+"deleteThisAccount": "delete this account",
+
+
+  "logout": "Logout",
+  "homeScreen": "HomeScreen",
+  "eventScreen": "EventScreen",
+  "findEvent": "FindEvent",
+  "findFriend": "FindFriend",
+  "orgScreen": "Organization",
+  "backToHome": "back to home",
+  "profile": "Profile",
+  "eventName": "存活綠 market",
+  "eventTickets": "event tickets",
+  "eventChatRoom": "event chat room",
+  "eventFeedback": "event feedback",
+  "attendanceGreen": "A Green",
+  "bringUpGreen": "B Green",
+  "conductGreen": "C Green",
+  "tooltips_goTo_home": "go to 'home' page",
+  "tooltips_goTo_attendanceGreen": "go to 'A Green' page",
+  "tooltips_goTo_bringUpGreen": "go to 'B Green' page",
+  "tooltips_goTo_conductGreen": "go to 'C Green' page"
+}
