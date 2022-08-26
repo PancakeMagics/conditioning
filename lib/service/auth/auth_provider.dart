@@ -1,20 +1,43 @@
-
-import 'package:conditioning/service/auth/entities/auth_user.dart';
+import 'entities/auth_user.dart';
 
 abstract class AuthProvider {
   Future<void> initialize();
+  AuthUser? get currentAuthUser;
 
-  AuthUser? get currentUser;
-  Future<AuthUser> loginAndNotify({
+  //app
+  Future<AuthUser> appLoginAndNotify({
   required String email,
     required String password,
-});
-  Future<AuthUser> registerAndLoginAndNotify({
+  });
+  Future<AuthUser> appRegisterAndLoginAndNotify({
     required String email,
     required String password,
   });
+  Future<void> appLogout();
 
-  Future<void> logout();
+  //org
+  Future<AuthUser> orgLoginAndNotify({
+    required String email,
+    required String password,
+  });
+  Future<AuthUser> orgRegisterAndLoginAndNotify({
+    required String email,
+    required String password,
+  });
+  Future<void> orgLogout();
+
+  //event
+  Future<AuthUser> eventLoginAndNotify({
+    required String email,
+    required String password,
+  });
+  Future<AuthUser> eventRegisterAndLoginAndNotify({
+    required String email,
+    required String password,
+  });
+  Future<void> eventLogout();
+
+
   Future<void> sendEmailVerification();
   Future<void> sendPasswordReset({required String toEmail});
 }

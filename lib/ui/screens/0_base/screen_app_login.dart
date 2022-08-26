@@ -1,16 +1,16 @@
 
-import 'package:conditioning/bloc/app_user/app_user_bloc.dart';
+import 'package:conditioning/bloc/auth/auth_bloc.dart';
+import 'package:conditioning/bloc/auth/blocs/bloc_screens.dart';
+import 'package:conditioning/bloc/auth/events/event_app_login.dart';
+import 'package:conditioning/bloc/auth/states/app/state_app_login_yet.dart';
 import 'package:conditioning/service/auth/auth_exception.dart';
 import 'package:conditioning/service/l10n/util.dart';
-import 'package:conditioning/ui/animations/slide_in_widget.dart';
 import 'package:conditioning/ui/elements/buttons/icon_text_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppLoginScreen extends StatefulWidget {
-  const AppLoginScreen({Key? key, required this.isSlideIn, required this.slideDirection,}) : super(key: key);
-  final bool isSlideIn;
-  final SlideDirection slideDirection;
+  const AppLoginScreen({Key? key}) : super(key: key);
 
   @override
   State<AppLoginScreen> createState() => _AppLoginScreenState();
@@ -30,7 +30,7 @@ class _AppLoginScreenState extends State<AppLoginScreen> {
     super.dispose();
   }
 
-  late bool _isRegisterScreen = false;
+  late bool _isRegisterView = false;
   late String screenTitle;
   late String topButtonText;
   late String bottomButton1Text;
@@ -38,14 +38,14 @@ class _AppLoginScreenState extends State<AppLoginScreen> {
 
   List<Widget> _middleTextField() {
     final List<Widget> textFields = <Widget>[];
-    if (_isRegisterScreen) {
+    if (_isRegisterView) {
       textFields.add(Padding(
         padding: const EdgeInsets.fromLTRB(50.0, 20.0, 50.0, 8.0),
         child: TextFormField(
           controller: _userName,
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return context.loc.thisFieldCannotBeEmpty;
+              return context.loc.textFieldErrorMessage_thisFieldCannotBeEmpty;
             }
             return null;
           },
@@ -53,9 +53,9 @@ class _AppLoginScreenState extends State<AppLoginScreen> {
               border: const OutlineInputBorder(),
               label: Row(children: [
                 const Icon(Icons.account_box),
-                Text(context.loc.userName)
+                Text(context.loc.textFieldTitle_userName)
               ])),
-          style: const TextStyle(fontFamily: 'Roboto'),
+          style: const TextStyle(fontFamily: 'Roboto'),//TODO: custom font
         ),
       ));
     }
@@ -64,13 +64,13 @@ class _AppLoginScreenState extends State<AppLoginScreen> {
       controller: _email,
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return context.loc.pleaseEnterCorrectEmailFormat;
+          return context.loc.textFieldErrorMessage_pleaseEnterCorrectEmailFormat;
         }
         return null;
       },
       decoration: InputDecoration(
         label:
-        Row(children: [const Icon(Icons.email), Text(context.loc.email)]),
+        Row(children: [const Icon(Icons.email), Text(context.loc.textFieldTitle_email)]),
       ),
       style: const TextStyle(fontFamily: 'Roboto'),
     ));
@@ -78,14 +78,14 @@ class _AppLoginScreenState extends State<AppLoginScreen> {
       controller: _password,
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return context.loc.thisFieldCannotBeEmpty;
+          return context.loc.textFieldErrorMessage_thisFieldCannotBeEmpty;
         }
         return null;
       },
       decoration: InputDecoration(
           label: Row(children: [
             const Icon(Icons.password),
-            Text(context.loc.password)
+            Text(context.loc.textFieldTitle_password)
           ])),
       style: const TextStyle(fontFamily: 'Roboto'),
     ));
@@ -94,109 +94,105 @@ class _AppLoginScreenState extends State<AppLoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    switch (_isRegisterScreen) {
+    switch (_isRegisterView) {
       case true:
-        screenTitle = context.loc.register;
-        bottomButton1Text = context.loc.registerAndLogin;
-        bottomButton2Text = context.loc.registerAndLoginWithGoogleAccount;
-        topButtonText = context.loc.backToLoginScreen;
+        screenTitle = context.loc.title_register;
+        bottomButton1Text = context.loc.buttonTitle_registerAndLogin;
+        bottomButton2Text = context.loc.buttonTitle_registerAndLoginWithGoogleAccount;
+        topButtonText = context.loc.buttonTitle_backToLoginScreen;
         break;
       default:
-        screenTitle = context.loc.login;
+        screenTitle = context.loc.screenName_login;
         bottomButton1Text = screenTitle;
-        bottomButton2Text = context.loc.loginWithGoogleAccount;
-        topButtonText = context.loc.registerNewAccount;
+        bottomButton2Text = context.loc.buttonTitle_loginWithGoogleAccount;
+        topButtonText = context.loc.buttonTitle_registerAccount;
         break;
     }
-    return BlocListener<AppUserBloc, AppUserState>(
+    return BlocListener<ScreensBloc, AuthState>(
       listener: (context, state) {
-        if (state is AppUserStateInitial && state.exception != null) {
+        if (state is AuthStateAppUserLoginYet && state.exception != null) {
           final e = state.exception;
           late final String snackBarText;
 
-          if (state is AppUserStateLoginYet) {
-            if (e is UserNotFoundAuthException) {
-              snackBarText = context.loc.userNotFound;
-            } else if (e is WrongPasswordAuthException) {
-              snackBarText = context.loc.wrongPassword;
-            } else {
-              snackBarText = context.loc.somethingBadHappenedWhileLogin;
-            }
-          } else if (state is AppUserStateRegisterYet) {
+          if (state is AuthStateAppUserRegisterYet) {
             if (e is WeakPasswordAuthException) {
-              snackBarText = context.loc.weakPasswordLessThan6;
+              snackBarText = context.loc.errorMessage_weakPasswordLessThan6;
             } else if (e is EmailAlreadyInUseAuthException) {
-              snackBarText = context.loc.emailAlreadyInUse;
+              snackBarText = context.loc.errorMessage_emailAlreadyInUse;
             } else if (e is InvalidEmailAuthException) {
-              snackBarText = context.loc.invalidEmail;
+              snackBarText = context.loc.errorMessage_invalidEmail;
             } else {
-              snackBarText = context.loc.somethingBadHappenedWhileLogin;
+              snackBarText = context.loc.errorMessage_somethingBadHappenedWhileLogin;
+            }
+          } else {
+            if (e is UserNotFoundAuthException) {
+              snackBarText = context.loc.errorMessage_userNotFound;
+            } else if (e is WrongPasswordAuthException) {
+              snackBarText = context.loc.errorMessage_wrongPassword;
+            } else {
+              snackBarText = context.loc.errorMessage_somethingBadHappenedWhileLogin;
             }
           }
           ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Center(child: Text(snackBarText))));
         }
       },
-      child: SlideWidgetBuilder(
-        isSlideIn: widget.isSlideIn,
-        slideDirection: widget.slideDirection,
-        child: Scaffold(
-          backgroundColor: Colors.white,
-          body: Center(
-            child: SizedBox(
-              height: 520,
-              width: 320,
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 20.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          getIconTextCard(
-                              icon: Icons.app_registration,
-                              text: topButtonText,
-                              onTap: () => setState(() {
-                                _isRegisterScreen = !_isRegisterScreen;
-                                _formKey.currentState!.reset();
-                                FocusManager.instance.primaryFocus
-                                    ?.unfocus();
-                              })),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                      child: Column(children: [
-                        Text(screenTitle,
-                            style: Theme.of(context).textTheme.titleLarge),
-                        ..._middleTextField(),
-                      ]),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 30.0),
-                      child: Column(children: <Widget>[
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: Center(
+          child: SizedBox(
+            height: 520,
+            width: 320,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 20.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
                         getIconTextCard(
-                            icon: Icons.login,
-                            text: bottomButton1Text,
-                            onTap: () {
-                              if (_formKey.currentState!.validate()) {
-                                _loginWithContext(context);
-                              }
-                            }),
-                        getIconTextCard(
-                            icon: Icons.g_mobiledata_rounded,
-                            text: bottomButton2Text,
-                            onTap: () {
+                            icon: Icons.app_registration,
+                            text: topButtonText,
+                            onTap: () => setState(() {
+                              _isRegisterView = !_isRegisterView;
+                              _formKey.currentState!.reset();
+                              FocusManager.instance.primaryFocus
+                                  ?.unfocus();
+                            })),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                    child: Column(children: [
+                      Text(screenTitle,
+                          style: Theme.of(context).textTheme.titleLarge),
+                      ..._middleTextField(),
+                    ]),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 30.0),
+                    child: Column(children: <Widget>[
+                      getIconTextCard(
+                          icon: Icons.login,
+                          text: bottomButton1Text,
+                          onTap: () {
+                            if (_formKey.currentState!.validate()) {
                               _loginWithContext(context);
-                            }),
-                      ]),
-                    ),
-                  ],
-                ),
+                            }
+                          }),
+                      getIconTextCard(
+                          icon: Icons.g_mobiledata_rounded,
+                          text: bottomButton2Text,
+                          onTap: () {
+                            _loginWithContext(context);
+                          }),
+                    ]),
+                  ),
+                ],
               ),
             ),
           ),
@@ -206,16 +202,17 @@ class _AppLoginScreenState extends State<AppLoginScreen> {
   }
 
   void _loginWithContext(BuildContext context) {
-    switch (_isRegisterScreen) {
+    switch (_isRegisterView) {
       case true:
-        context.read<AppUserBloc>().add(AppUserEventRegisterAndLogin(
+        //TODO: test read AuthBloc
+        context.read<ScreensBloc>().add(AuthEventAppUserRegisterAndLogin(
           userName: _userName.text,
           email: _email.text,
           password: _password.text,
         ));
         break;
       default:
-        context.read<AppUserBloc>().add(AppUserEventLogin(
+        context.read<ScreensBloc>().add(AuthEventAppUserLogin(
           email: _email.text,
           password: _password.text,
         ));

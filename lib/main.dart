@@ -1,10 +1,6 @@
-import 'package:conditioning/bloc/app_user/app_user_bloc.dart';
+import 'package:conditioning/bloc/auth/blocs/bloc_screens.dart';
 import 'package:conditioning/service/auth/auth_provider_firebase.dart';
-import 'package:conditioning/service/l10n/util.dart';
-import 'package:conditioning/ui/animations/slide_in_widget.dart';
-import 'package:conditioning/ui/elements/view_loading.dart';
-import 'package:conditioning/ui/screens/0_base/screen_app_login.dart';
-import 'package:conditioning/ui/screens/1_user/screen_app_user.dart';
+import 'package:conditioning/ui/screens/screens_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart'
@@ -54,44 +50,9 @@ class MyApp extends StatelessWidget {
             ),
       ),
       home: BlocProvider(
-        create: (context) => AppUserBloc(authProvider: AuthProviderFirebase()),
-        child: const MainScreen(),
+        create: (context) => ScreensBloc(authProvider: AuthProviderFirebase()),
+        child: const ScreensController(),
       ),
-    );
-  }
-}
-
-class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
-
-  @override
-  State<MainScreen> createState() => _MainScreenState();
-}
-
-class _MainScreenState extends State<MainScreen> {
-  @override
-  Widget build(BuildContext context) {
-    context.read<AppUserBloc>().add(const AppUserEventInitialize());
-
-    return BlocConsumer<AppUserBloc, AppUserState>(
-      listener: (context, state) {
-        if (state.isLoading) {
-          LoadingView().show(context: context, text: context.loc.loading);
-        } else {
-          LoadingView().hide();
-        }
-      },
-      builder: (context, state) {
-        log(context.read<AppUserBloc>().state.toString());
-
-        if (state is AppUserStateLoginYet) {
-          return const AppLoginScreen(slideDirection: SlideDirection.upWord, isSlideIn: true,);
-        } else if (state is AppUserStateLogin) {
-          return const AppUserScreen();
-        } else {
-          return const CircularProgressIndicator();
-        }
-      },
     );
   }
 }

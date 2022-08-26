@@ -1,6 +1,6 @@
 {
-"notYetComplete": "Not yet Complete",
-"expectationCount": "{count, plural, =0{expectation count: 0} =1{expectation count: 1} other{expectation count: {count}}}",
+  "notYetComplete": "Not yet Complete",
+  "expectationCount": "{count, plural, =0{expectation count: 0} =1{expectation count: 1} other{expectation count: {count}}}",
   "@expectationCount": {
     "placeholders": {
       "count": {
@@ -10,63 +10,64 @@
     }
   },
   "yourExpectationCount": "{count, plural, =0{your expectation count: 0} =1{your expectation count: 1} other{your expectation count: {count}}}",
-    "@yourExpectationCount": {
-      "placeholders": {
-        "count": {
-          "type": "int",
-          "example": "your expectation count: 7"
-        }
+  "@yourExpectationCount": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "your expectation count: 7"
       }
-    },
-"doExpect": "yes!",
-"doNotExpect": "no",
-"cool": "cool",
-"ok": "ok",
-"send": "send",
-"dismiss": "dismiss",
-"cancel": "cancel",
-"loading": "loading...",
+    }
+  },
+  "screenName_login": "登入",
+  "screenName_home": "首頁",
+  "screenName_friend": "朋友",
+  "screenName_orgUser": "組織",
+  "screenName_orgDocumention": "組織文及",
+  "screenName_eventUser": "活動",
+  "screenName_eventManagement": "活動管理",
+  "screenName_explore": "探索",
 
-"userName": "user name",
-  "email": "email",
-  "password": "password",
-  "thisFieldCannotBeEmpty": "this field cannot be empty",
-  "pleaseEnterCorrectEmailFormat": "please enter correct email format",
-"register": "register",
-"registerNewAccount": "Register new account",
-"backToLoginScreen": "Back to login screen",
-  "registerAndLogin": "Register and login",
-  "login": "Login",
-  "loginWithGoogleAccount": "Login with Google",
-  "registerAndLoginWithGoogleAccount": "Register with Google",
-  "loginAsVisitor": "Visitor Login",
+  "tooltip_toScreen_login": "登出並回到「登入」頁面",
+  "tooltip_toScreen_appUser": "前往「首頁」",
+  "tooltip_toScreen_friend": "前往「朋友」頁面",
+  "tooltip_toScreen_explore": "前往「探索」頁面",
+  "tooltip_toScreen_orgUser": "前往「組織首頁」",
+  "tooltip_toScreen_orgDocumention": "前往「組織文及」頁面",
+  "tooltip_toScreen_eventUser": "前往「活動首頁」",
+  "tooltip_toScreen_eventManagement": "前往「活動管理」頁面",
 
-  "userNotFound": "User not found",
-  "wrongPassword": "Wrong password",
-  "somethingBadHappenedWhileLogin": "Something bad happened while login",
-  "weakPasswordLessThan6": "Weak password (less than 6 chars)",
-  "emailAlreadyInUse": "Email already in use",
-  "invalidEmail": "Invalid email",
-"deleteThisAccount": "delete this account",
+  "viewTitle_appSetting": "應用程式設定",
+  "viewTitle_exploreOrgs": "探索組織",
+  "viewTitle_exploreEvents": "探索活動",
+  "viewTitle_eventChatroom": "活動聊天室",
+  "viewTitle_yourEventTickets": "你的活動票券",
 
+  "tooltip_toView_exploreOrgs": "前往「探索組織」視窗",
+  "tooltip_toView_exploreEvents": "前往「探索活動」視窗",
 
-  "logout": "Logout",
-  "homeScreen": "HomeScreen",
-  "eventScreen": "EventScreen",
-  "findEvent": "FindEvent",
-  "findFriend": "FindFriend",
-  "orgScreen": "Organization",
-  "backToHome": "back to home",
-  "profile": "Profile",
-  "eventName": "存活綠 market",
-  "eventTickets": "event tickets",
-  "eventChatRoom": "event chat room",
-  "eventFeedback": "event feedback",
-  "attendanceGreen": "A Green",
-  "bringUpGreen": "B Green",
-  "conductGreen": "C Green",
-  "tooltips_goTo_home": "go to 'home' page",
-  "tooltips_goTo_attendanceGreen": "go to 'A Green' page",
-  "tooltips_goTo_bringUpGreen": "go to 'B Green' page",
-  "tooltips_goTo_conductGreen": "go to 'C Green' page"
+  "buttonTitle_logout": "登出",
+  "buttonTitle_logoutAndDeleteThisAccount": "登出並刪除此帳號",
+
+  "textFieldTitle_userName": "使用者名稱",
+  "textFieldTitle_email": "信箱",
+  "textFieldTitle_password": "密碼",
+  "textFieldErrorMessage_thisFieldCannotBeEmpty": "此欄不可空白",
+  "textFieldErrorMessage_pleaseEnterCorrectEmailFormat": "請輸入正確的信箱格式",
+  "title_register": "註冊",
+  "buttonTitle_registerAccount": "我要註冊帳號",
+  "buttonTitle_backToLoginScreen": "我註冊過了",
+  "buttonTitle_registerAndLogin": "註冊並登入",
+  "buttonTitle_loginWithGoogleAccount": "使用Google帳號登入",
+  "buttonTitle_registerAndLoginWithGoogleAccount": "使用Google帳號註冊並登入",
+  "buttonTitle_loginAsVisitor": "訪客登入",
+  "errorMessage_userNotFound": "尚未註冊",
+  "errorMessage_wrongPassword": "密碼錯誤",
+  "errorMessage_somethingBadHappenedWhileLogin": "剛剛發生了一些意外，所以你沒登入成功！",
+  "errorMessage_weakPasswordLessThan6": "密碼不可以少於六個字！",
+  "errorMessage_emailAlreadyInUse": "該信箱已經註冊過了！",
+  "errorMessage_invalidEmail": "信箱格式錯誤",
+  "loading": "等一下喔..",
+
+  "title_profile": "個人資訊",
+  "title_eventName": "活動名稱"
 }

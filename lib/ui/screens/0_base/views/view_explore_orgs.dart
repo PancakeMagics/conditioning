@@ -1,0 +1,22 @@
+
+import 'package:conditioning/service/l10n/util.dart';
+import 'package:flutter/material.dart';
+
+class ExploreOrgsScreen extends StatefulWidget {
+  const ExploreOrgsScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ExploreOrgsScreen> createState() => _ExploreOrgsScreenState();
+}
+
+class _ExploreOrgsScreenState extends State<ExploreOrgsScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(context.loc.viewTitle_exploreOrgs),
+      ),
+    );
+  }
+}
+
