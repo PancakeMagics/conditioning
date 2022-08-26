@@ -13,6 +13,7 @@ import 'states/app/state_app_login.dart';
 import 'states/app/state_app_login_yet.dart';
 
 part 'auth_event.dart';
+
 part 'auth_state.dart';
 
 typedef AuthFunction = Function();
@@ -22,7 +23,8 @@ abstract class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthOrgUser? authOrgUser;
   AuthEventUser? authEventUser;
 
-  AuthBloc({required AuthProvider authProvider}) : super(const AuthStateAppUserInitialYet(isLoading: true)) {
+  AuthBloc({required AuthProvider authProvider})
+      : super(const AuthStateAppUserInitialYet(isLoading: true)) {
     on<AuthEventInitialize>((event, emit) async {
       try {
         await authProvider.initialize();
@@ -30,60 +32,68 @@ abstract class AuthBloc extends Bloc<AuthEvent, AuthState> {
           emit(const AuthStateAppUserLoginYet(isLoading: false));
         } else {
           authAppUser = authProvider.currentAuthUser as AuthAppUser;
-          emit(AuthStateAppUserLogin(authAppUser: authAppUser, isLoading: false));
+          emit(AuthStateAppUserLogin(
+              authAppUser: authAppUser, isLoading: false));
         }
-      } on Exception catch(e) {
+      } on Exception catch (e) {
         emit(AuthStateAppUserLoginYet(exception: e, isLoading: false));
       }
     });
 
     on<AuthEventAppUserLogin>((event, emit) async {
       await _appUserLoginTryCatch(emit, () async {
-        authAppUser = await authProvider.appLoginAndNotify(email: event.email, password: event.password) as AuthAppUser;
+        authAppUser = await authProvider.appLoginAndNotify(
+            email: event.email, password: event.password) as AuthAppUser;
       });
     });
     on<AuthEventAppUserRegisterAndLogin>((event, emit) async {
       await _appUserLoginTryCatch(emit, () async {
-        authAppUser = await authProvider.appRegisterAndLoginAndNotify(email: event.email, password: event.password) as AuthAppUser;
+        authAppUser = await authProvider.appRegisterAndLoginAndNotify(
+            email: event.email, password: event.password) as AuthAppUser;
       });
     });
 
     on<AppUserEventOrgUserLogin>((event, emit) async {
       await _orgUserLoginTryCatch(emit, () async {
-        authOrgUser = await authProvider.orgLoginAndNotify(email: event.email, password: event.password) as AuthOrgUser;
+        authOrgUser = await authProvider.orgLoginAndNotify(
+            email: event.email, password: event.password) as AuthOrgUser;
       });
     });
     on<AppUserEventOrgUserRegisterAndLogin>((event, emit) async {
       await _orgUserLoginTryCatch(emit, () async {
-        authOrgUser = await authProvider.orgRegisterAndLoginAndNotify(email: event.email, password: event.password) as AuthOrgUser;
+        authOrgUser = await authProvider.orgRegisterAndLoginAndNotify(
+            email: event.email, password: event.password) as AuthOrgUser;
       });
     });
 
     on<AppUserEventEventUserLogin>((event, emit) async {
       await _eventUserLoginTryCatch(emit, () async {
-        authEventUser = await authProvider.eventLoginAndNotify(email: event.email, password: event.password) as AuthEventUser;
+        authEventUser = await authProvider.eventLoginAndNotify(
+            email: event.email, password: event.password) as AuthEventUser;
       });
     });
     on<AppUserEventEventUserRegisterAndLogin>((event, emit) async {
       await _eventUserLoginTryCatch(emit, () async {
-        authEventUser = await authProvider.eventRegisterAndLoginAndNotify(email: event.email, password: event.password) as AuthEventUser;
+        authEventUser = await authProvider.eventRegisterAndLoginAndNotify(
+            email: event.email, password: event.password) as AuthEventUser;
       });
     });
 
     on<AuthEventAppUserForgotPassword>((event, emit) async {
-      emit(const AuthStateAppUserForgotPassword(hasSentEmail: false, isLoading: true));
+      emit(const AuthStateAppUserForgotPassword(
+          hasSentEmail: false, isLoading: true));
       bool didSendEmail;
       Exception? exception;
       try {
         await authProvider.sendPasswordReset(toEmail: event.email);
         didSendEmail = true;
         exception = null;
-
-      } on Exception catch(e) {
+      } on Exception catch (e) {
         didSendEmail = false;
         exception = e;
       }
-      emit(AuthStateAppUserForgotPassword(exception: exception, isLoading: false, hasSentEmail: didSendEmail));
+      emit(AuthStateAppUserForgotPassword(
+          exception: exception, isLoading: false, hasSentEmail: didSendEmail));
     });
 
     on<AppUserEventLogout>((event, emit) async {
@@ -92,7 +102,8 @@ abstract class AuthBloc extends Bloc<AuthEvent, AuthState> {
         authAppUser = null;
         emit(const AppUserStateLogout(isLoading: false));
       } on Exception catch (e) {
-        emit(AppUserStateLogoutYet(exception: e, authAppUser: authAppUser, isLoading: false));
+        emit(AppUserStateLogoutYet(
+            exception: e, authAppUser: authAppUser, isLoading: false));
       }
     });
     on<AppUserEventOrgUserLogout>((event, emit) async {
@@ -101,7 +112,11 @@ abstract class AuthBloc extends Bloc<AuthEvent, AuthState> {
         authOrgUser = null;
         emit(OrgUserStateLogout(authAppUser: authAppUser, isLoading: false));
       } on Exception catch (e) {
-        emit(OrgUserStateLogoutYet(exception: e, authAppUser: authAppUser, authOrgUser: authOrgUser, isLoading: false));
+        emit(OrgUserStateLogoutYet(
+            exception: e,
+            authAppUser: authAppUser,
+            authOrgUser: authOrgUser,
+            isLoading: false));
       }
     });
     on<AppUserEventEventUserLogout>((event, emit) async {
@@ -110,7 +125,11 @@ abstract class AuthBloc extends Bloc<AuthEvent, AuthState> {
         authAppUser = null;
         emit(EventUserStateLogout(authAppUser: authAppUser, isLoading: false));
       } on Exception catch (e) {
-        emit(EventUserStateLogoutYet(exception: e, authAppUser: authAppUser, authEventUser: authEventUser, isLoading: false));
+        emit(EventUserStateLogoutYet(
+            exception: e,
+            authAppUser: authAppUser,
+            authEventUser: authEventUser,
+            isLoading: false));
       }
     });
   }
@@ -124,22 +143,34 @@ abstract class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthStateAppUserLoginYet(exception: e, isLoading: false));
     }
   }
-  _eventUserLoginTryCatch(Emitter<AuthState> emit, AuthFunction function) async {
-    emit(AppUserStateEventUserLoginYet(isLoading: true, authAppUser: authAppUser));
+
+  _eventUserLoginTryCatch(
+      Emitter<AuthState> emit, AuthFunction function) async {
+    emit(AppUserStateEventUserLoginYet(
+        isLoading: true, authAppUser: authAppUser));
     try {
       await function();
-      emit(AppUserStateEventUserLogin(isLoading: false, authAppUser: authAppUser, authEventUser: authEventUser));
+      emit(AppUserStateEventUserLogin(
+          isLoading: false,
+          authAppUser: authAppUser,
+          authEventUser: authEventUser));
     } on Exception catch (e) {
-      emit(AppUserStateEventUserLoginYet(exception: e, isLoading: false, authAppUser: authAppUser));
+      emit(AppUserStateEventUserLoginYet(
+          exception: e, isLoading: false, authAppUser: authAppUser));
     }
   }
+
   _orgUserLoginTryCatch(Emitter<AuthState> emit, AuthFunction function) async {
     emit(AppUserStateOrgLoginYet(isLoading: true, authAppUser: authAppUser));
     try {
       await function();
-      emit(AppUserStateOrgLogin(isLoading: false, authAppUser: authAppUser, authOrgUser: authOrgUser));
+      emit(AppUserStateOrgLogin(
+          isLoading: false,
+          authAppUser: authAppUser,
+          authOrgUser: authOrgUser));
     } on Exception catch (e) {
-      emit(AppUserStateOrgLoginYet(exception: e, isLoading: false, authAppUser: authAppUser));
+      emit(AppUserStateOrgLoginYet(
+          exception: e, isLoading: false, authAppUser: authAppUser));
     }
   }
 }
