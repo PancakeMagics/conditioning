@@ -11,9 +11,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'events/event_app_login.dart';
 import 'states/app/state_app_login.dart';
 import 'states/app/state_app_login_yet.dart';
+import 'dart:developer' show log;
 
 part 'auth_event.dart';
-
 part 'auth_state.dart';
 
 typedef AuthFunction = Function();
@@ -53,26 +53,26 @@ abstract class AuthBloc extends Bloc<AuthEvent, AuthState> {
       });
     });
 
-    on<AppUserEventOrgUserLogin>((event, emit) async {
+    on<OrgUserEventLogin>((event, emit) async {
       await _orgUserLoginTryCatch(emit, () async {
         authOrgUser = await authProvider.orgLoginAndNotify(
             email: event.email, password: event.password) as AuthOrgUser;
       });
     });
-    on<AppUserEventOrgUserRegisterAndLogin>((event, emit) async {
+    on<OrgUserEventRegisterAndLogin>((event, emit) async {
       await _orgUserLoginTryCatch(emit, () async {
         authOrgUser = await authProvider.orgRegisterAndLoginAndNotify(
             email: event.email, password: event.password) as AuthOrgUser;
       });
     });
 
-    on<AppUserEventEventUserLogin>((event, emit) async {
+    on<EventUserEventLogin>((event, emit) async {
       await _eventUserLoginTryCatch(emit, () async {
         authEventUser = await authProvider.eventLoginAndNotify(
             email: event.email, password: event.password) as AuthEventUser;
       });
     });
-    on<AppUserEventEventUserRegisterAndLogin>((event, emit) async {
+    on<EventUserEventRegisterAndLogin>((event, emit) async {
       await _eventUserLoginTryCatch(emit, () async {
         authEventUser = await authProvider.eventRegisterAndLoginAndNotify(
             email: event.email, password: event.password) as AuthEventUser;
@@ -106,7 +106,7 @@ abstract class AuthBloc extends Bloc<AuthEvent, AuthState> {
             exception: e, authAppUser: authAppUser, isLoading: false));
       }
     });
-    on<AppUserEventOrgUserLogout>((event, emit) async {
+    on<OrgUserEventLogout>((event, emit) async {
       try {
         await authProvider.orgLogout();
         authOrgUser = null;
@@ -119,7 +119,7 @@ abstract class AuthBloc extends Bloc<AuthEvent, AuthState> {
             isLoading: false));
       }
     });
-    on<AppUserEventEventUserLogout>((event, emit) async {
+    on<EventUserEventLogout>((event, emit) async {
       try {
         await authProvider.eventLogout();
         authAppUser = null;

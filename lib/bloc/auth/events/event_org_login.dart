@@ -1,23 +1,23 @@
 import 'package:conditioning/bloc/auth/auth_bloc.dart';
 
-class AppUserEventOrgUserLogin extends AuthEvent {
+class OrgUserEventLogin extends AuthEvent {
   final String email;
   final String password;
-  const AppUserEventOrgUserLogin({required this.email, required this.password});
+  const OrgUserEventLogin({required this.email, required this.password});
 }
 
-class AppUserEventOrgUserForgotPassword extends AuthEvent {
+class OrgUserEventForgotPassword extends AuthEvent {
   final String email;
-  const AppUserEventOrgUserForgotPassword({required this.email});
+  const OrgUserEventForgotPassword({required this.email});
 }
 
-class AppUserEventOrgUserRegisterAndLogin extends AuthEvent {
+class OrgUserEventRegisterAndLogin extends AuthEvent {
   final String userName;
   final String email;
   final String password;
-  const AppUserEventOrgUserRegisterAndLogin({required this.userName, required this.email, required this.password});
+  const OrgUserEventRegisterAndLogin({required this.userName, required this.email, required this.password});
 }
 
-class AppUserEventOrgUserLogout extends AuthEvent {
-  const AppUserEventOrgUserLogout();
+class OrgUserEventLogout extends AuthEvent {
+  const OrgUserEventLogout();
 }

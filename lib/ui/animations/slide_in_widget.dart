@@ -1,6 +1,22 @@
 import 'package:flutter/material.dart';
 
-enum SlideDirection { leftWord, upWord, rightWord, downWord, leftUpWord, leftDownWord, rightUpWord, rightDownWord }
+enum SlideDirection {
+  leftWord,
+  leftLeftWordForLeft,
+  leftLeftWordForMeddle,
+  leftLeftWordForRight,
+  upWord,
+  rightWord,
+  rightRightWordForRight,
+  rightRightWordForMeddle,
+  rightRightWordForLeft,
+  downWord,
+  leftUpWord,
+  leftDownWord,
+  rightUpWord,
+  rightDownWord
+}
+
 class SlideWidgetBuilder extends StatefulWidget {
   const SlideWidgetBuilder({
     Key? key,
@@ -18,11 +34,12 @@ class SlideWidgetBuilder extends StatefulWidget {
   State<SlideWidgetBuilder> createState() => _SlideWidgetBuilderState();
 }
 
-class _SlideWidgetBuilderState extends State<SlideWidgetBuilder>
-    // with TickerProviderStateMixin {
-    with SingleTickerProviderStateMixin {
-
+class _SlideWidgetBuilderState
+    extends State<SlideWidgetBuilder> // with TickerProviderStateMixin {
+    with
+        SingleTickerProviderStateMixin {
   late final AnimationController _animationController;
+
   @override
   void initState() {
     super.initState();
@@ -31,12 +48,12 @@ class _SlideWidgetBuilderState extends State<SlideWidgetBuilder>
       vsync: this,
     );
   }
+
   @override
   void dispose() {
     _animationController.dispose();
     super.dispose();
   }
-
 
   Tween<Offset> _getTween() {
     final Offset begin;
@@ -48,11 +65,25 @@ class _SlideWidgetBuilderState extends State<SlideWidgetBuilder>
           case SlideDirection.leftWord:
             begin = const Offset(1.0, 0.0);
             break;
+          case SlideDirection.leftLeftWordForLeft:
+            throw Exception('such args no sense');
+          case SlideDirection.leftLeftWordForMeddle:
+            throw Exception('such args no sense');
+          case SlideDirection.leftLeftWordForRight:
+            begin = const Offset(2.0, 0.0);
+            break;
           case SlideDirection.upWord:
             begin = const Offset(0.0, 1.0);
             break;
           case SlideDirection.rightWord:
             begin = const Offset(-1.0, 0.0);
+            break;
+          case SlideDirection.rightRightWordForRight:
+            throw Exception('such args no sense');
+          case SlideDirection.rightRightWordForMeddle:
+            throw Exception('such args no sense');
+          case SlideDirection.rightRightWordForLeft:
+            begin = const Offset(-2.0, 0.0);
             break;
           case SlideDirection.downWord:
             begin = const Offset(0.0, -1.0);
@@ -70,38 +101,65 @@ class _SlideWidgetBuilderState extends State<SlideWidgetBuilder>
             begin = const Offset(-1.0, -1.0);
             break;
           default:
-            begin = Offset.zero;
+            throw Exception('such args no sense');
         }
         break;
       case false:
-        begin = Offset.zero;
         switch (widget.slideDirection) {
           case SlideDirection.leftWord:
+            begin = Offset.zero;
             end = const Offset(-1.0, 0.0);
             break;
+          case SlideDirection.leftLeftWordForLeft:
+            begin = Offset.zero;
+            end = const Offset(-2.0, 0.0);
+            break;
+          case SlideDirection.leftLeftWordForMeddle:
+            begin = const Offset(1.0, 0.0);
+            end = const Offset(-1.0, 0.0);
+            break;
+          case SlideDirection.leftLeftWordForRight:
+            throw Exception('such args no sense');
           case SlideDirection.upWord:
+            begin = Offset.zero;
             end = const Offset(0.0, -1.0);
             break;
           case SlideDirection.rightWord:
+            begin = Offset.zero;
             end = const Offset(1.0, 0.0);
             break;
+          case SlideDirection.rightRightWordForRight:
+            begin = Offset.zero;
+            end = const Offset(2.0, 0.0);
+            break;
+          case SlideDirection.rightRightWordForMeddle:
+            begin = const Offset(-1.0, 0.0);
+            end = const Offset(1.0, 0.0);
+            break;
+          case SlideDirection.rightRightWordForLeft:
+            throw Exception('such args no sense');
           case SlideDirection.downWord:
+            begin = Offset.zero;
             end = const Offset(0.0, 1.0);
             break;
           case SlideDirection.leftUpWord:
+            begin = Offset.zero;
             end = const Offset(-1.0, -1.0);
             break;
           case SlideDirection.leftDownWord:
+            begin = Offset.zero;
             end = const Offset(-1.0, 1.0);
             break;
           case SlideDirection.rightUpWord:
+            begin = Offset.zero;
             end = const Offset(1.0, -1.0);
             break;
           case SlideDirection.rightDownWord:
+            begin = Offset.zero;
             end = const Offset(1.0, 1.0);
             break;
           default:
-            end = Offset.zero;
+            throw Exception('such args no sense');
         }
         break;
       default:

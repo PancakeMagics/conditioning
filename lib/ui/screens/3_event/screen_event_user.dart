@@ -1,8 +1,17 @@
 import 'package:conditioning/service/l10n/util.dart';
+import 'package:conditioning/ui/animations/slide_in_widget.dart';
 import 'package:flutter/material.dart';
 
 class EventUserScreen extends StatefulWidget {
-  const EventUserScreen({Key? key}) : super(key: key);
+  const EventUserScreen({
+    Key? key,
+    required this.isSlideIn,
+    required this.slideDirection,
+    this.curve})
+  : super(key: key);
+  final bool isSlideIn;
+  final SlideDirection slideDirection;
+  final Curve? curve;
 
   @override
   State<EventUserScreen> createState() => _EventUserScreenState();

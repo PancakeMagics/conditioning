@@ -39,138 +39,50 @@ class _ScreensControllerState extends State<ScreensController> {
         log(context.read<ScreensBloc>().state.toString());
 
         if (state is AuthStateAppUserLoginYet) {
-          return const SlideWidgetBuilder(
-            slideDirection: SlideDirection.downWord,
-            isSlideIn: true,
-            child: AppLoginScreen(),
-          );
+          return const AppLoginScreen(isSlideIn: true, slideDirection: SlideDirection.downWord,);
         } else if (state is AuthStateAppUserLogin) {
           if (state is ScreensStateHomeToExplore) {
-            return Stack(
-              children: const [
-                SlideWidgetBuilder(
-                  slideDirection: SlideDirection.leftWord,
-                  isSlideIn: false,
-                  child: HomeScreen(),
-                ),
-                SlideWidgetBuilder(
-                  slideDirection: SlideDirection.leftWord,
-                  isSlideIn: true,
-                  child: ExploreScreen(),
-                ),
-              ],
-            );
+            return Stack(children: const [
+              HomeScreen(isSlideIn: false, slideDirection: SlideDirection.leftWord),
+              ExploreScreen(isSlideIn: true, slideDirection: SlideDirection.leftWord),
+            ]);
           } else if (state is ScreensStateHomeToFriend) {
-            return Stack(
-              children: const [
-                SlideWidgetBuilder(
-                  slideDirection: SlideDirection.rightWord,
-                  isSlideIn: false,
-                  child: HomeScreen(),
-                ),
-                SlideWidgetBuilder(
-                  slideDirection: SlideDirection.rightWord,
-                  isSlideIn: true,
-                  child: FriendsScreen(),
-                ),
-              ],
-            );
+            return Stack(children: const [
+              HomeScreen(isSlideIn: false, slideDirection: SlideDirection.rightWord),
+              FriendsScreen(isSlideIn: true, slideDirection: SlideDirection.rightWord),
+            ]);
           } else if (state is ScreensStateFriendToHome) {
-            return Stack(
-              children: const [
-                SlideWidgetBuilder(
-                  slideDirection: SlideDirection.leftWord,
-                  isSlideIn: false,
-                  child: FriendsScreen(),
-                ),
-                SlideWidgetBuilder(
-                  slideDirection: SlideDirection.leftWord,
-                  isSlideIn: true,
-                  child: HomeScreen(),
-                ),
-              ],
-            );
+            return Stack(children: const [
+              FriendsScreen(isSlideIn: false, slideDirection: SlideDirection.leftWord),
+              HomeScreen(isSlideIn: true, slideDirection: SlideDirection.leftWord),
+            ]);
           } else if (state is ScreensStateFriendToExplore) {
-            return Stack(
-              children: const [
-                SlideWidgetBuilder(
-                  slideDirection: SlideDirection.leftWord,
-                  isSlideIn: false,
-                  child: FriendsScreen(),
-                ),
-                SlideWidgetBuilder(
-                  slideDirection: SlideDirection.leftWord,
-                  isSlideIn: true,
-                  child: ExploreScreen(),
-                ),
-              ],
-            );
+            return Stack(children: const [
+              FriendsScreen(isSlideIn: false, slideDirection: SlideDirection.leftLeftWordForLeft),
+              HomeScreen(isSlideIn: false, slideDirection: SlideDirection.leftLeftWordForMeddle),
+              ExploreScreen(isSlideIn: true, slideDirection: SlideDirection.leftLeftWordForRight),
+            ]);
           } else if (state is ScreensStateExploreToFriend) {
-            return Stack(
-              children: const [
-                SlideWidgetBuilder(
-                  slideDirection: SlideDirection.rightWord,
-                  isSlideIn: false,
-                  child: ExploreScreen(),
-                ),
-                //TODO: combine as a row
-                // SlideWidgetBuilder(
-                //   slideDirection: SlideDirection.rightWord,
-                //   isSlideIn: true,
-                //   child: HomeScreen(),
-                // ),
-                SlideWidgetBuilder(
-                  slideDirection: SlideDirection.rightWord,
-                  isSlideIn: true,
-                  child: FriendsScreen(),
-                ),
-              ],
-            );
+            return Stack(children: const [
+              ExploreScreen(isSlideIn: false, slideDirection: SlideDirection.rightRightWordForRight),
+              HomeScreen(isSlideIn: false, slideDirection: SlideDirection.rightRightWordForMeddle),
+              FriendsScreen(isSlideIn: true, slideDirection: SlideDirection.rightRightWordForLeft),
+            ]);
           } else if (state is ScreensStateExploreToHome) {
-            return Stack(
-              children: const [
-                SlideWidgetBuilder(
-                  slideDirection: SlideDirection.rightWord,
-                  isSlideIn: false,
-                  child: ExploreScreen(),
-                ),
-                SlideWidgetBuilder(
-                  slideDirection: SlideDirection.rightWord,
-                  isSlideIn: true,
-                  child: HomeScreen(),
-                ),
-              ],
-            );
+            return Stack(children: const [
+              ExploreScreen(isSlideIn: false, slideDirection: SlideDirection.rightWord),
+              HomeScreen(isSlideIn: true, slideDirection: SlideDirection.rightWord),
+            ]);
           } else if (state is AppUserStateLogout) {
-            return Stack(
-              children: const [
-                SlideWidgetBuilder(
-                  slideDirection: SlideDirection.upWord,
-                  isSlideIn: false,
-                  child: HomeScreen(),
-                ),
-                SlideWidgetBuilder(
-                  slideDirection: SlideDirection.upWord,
-                  isSlideIn: true,
-                  child: AppLoginScreen(),
-                ),
-              ],
-            );
+            return Stack(children: const [
+              HomeScreen(isSlideIn: false, slideDirection: SlideDirection.upWord),
+              AppLoginScreen(isSlideIn: true, slideDirection: SlideDirection.upWord),
+            ]);
           } else {
-            return Stack(
-              children: const [
-                SlideWidgetBuilder(
-                  slideDirection: SlideDirection.downWord,
-                  isSlideIn: false,
-                  child: AppLoginScreen(),
-                ),
-                SlideWidgetBuilder(
-                  slideDirection: SlideDirection.downWord,
-                  isSlideIn: true,
-                  child: HomeScreen(),
-                ),
-              ],
-            );
+            return Stack(children: const [
+              AppLoginScreen(isSlideIn: false, slideDirection: SlideDirection.downWord),
+              HomeScreen(isSlideIn: true, slideDirection: SlideDirection.downWord),
+            ]);
           }
         } else {
           return const CircularProgressIndicator();

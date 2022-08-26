@@ -5,12 +5,21 @@ import 'package:conditioning/bloc/auth/events/event_app_login.dart';
 import 'package:conditioning/bloc/auth/states/app/state_app_login_yet.dart';
 import 'package:conditioning/service/auth/auth_exception.dart';
 import 'package:conditioning/service/l10n/util.dart';
+import 'package:conditioning/ui/animations/slide_in_widget.dart';
 import 'package:conditioning/ui/elements/buttons/icon_text_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppLoginScreen extends StatefulWidget {
-  const AppLoginScreen({Key? key}) : super(key: key);
+  const AppLoginScreen(
+      {Key? key,
+        required this.isSlideIn,
+        required this.slideDirection,
+        this.curve})
+      : super(key: key);
+  final bool isSlideIn;
+  final SlideDirection slideDirection;
+  final Curve? curve;
 
   @override
   State<AppLoginScreen> createState() => _AppLoginScreenState();
@@ -137,62 +146,67 @@ class _AppLoginScreenState extends State<AppLoginScreen> {
               SnackBar(content: Center(child: Text(snackBarText))));
         }
       },
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: Center(
-          child: SizedBox(
-            height: 520,
-            width: 320,
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 20.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        getIconTextCard(
-                            icon: Icons.app_registration,
-                            text: topButtonText,
-                            onTap: () => setState(() {
-                              _isRegisterView = !_isRegisterView;
-                              _formKey.currentState!.reset();
-                              FocusManager.instance.primaryFocus
-                                  ?.unfocus();
-                            })),
-                      ],
+      child: SlideWidgetBuilder(
+        isSlideIn: widget.isSlideIn,
+        slideDirection: widget.slideDirection,
+        curve: widget.curve,
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          body: Center(
+            child: SizedBox(
+              height: 520,
+              width: 320,
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 20.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          getIconTextCard(
+                              icon: Icons.app_registration,
+                              text: topButtonText,
+                              onTap: () => setState(() {
+                                _isRegisterView = !_isRegisterView;
+                                _formKey.currentState!.reset();
+                                FocusManager.instance.primaryFocus
+                                    ?.unfocus();
+                              })),
+                        ],
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                    child: Column(children: [
-                      Text(screenTitle,
-                          style: Theme.of(context).textTheme.titleLarge),
-                      ..._middleTextField(),
-                    ]),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 30.0),
-                    child: Column(children: <Widget>[
-                      getIconTextCard(
-                          icon: Icons.login,
-                          text: bottomButton1Text,
-                          onTap: () {
-                            if (_formKey.currentState!.validate()) {
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                      child: Column(children: [
+                        Text(screenTitle,
+                            style: Theme.of(context).textTheme.titleLarge),
+                        ..._middleTextField(),
+                      ]),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 30.0),
+                      child: Column(children: <Widget>[
+                        getIconTextCard(
+                            icon: Icons.login,
+                            text: bottomButton1Text,
+                            onTap: () {
+                              if (_formKey.currentState!.validate()) {
+                                _loginWithContext(context);
+                              }
+                            }),
+                        getIconTextCard(
+                            icon: Icons.g_mobiledata_rounded,
+                            text: bottomButton2Text,
+                            onTap: () {
                               _loginWithContext(context);
-                            }
-                          }),
-                      getIconTextCard(
-                          icon: Icons.g_mobiledata_rounded,
-                          text: bottomButton2Text,
-                          onTap: () {
-                            _loginWithContext(context);
-                          }),
-                    ]),
-                  ),
-                ],
+                            }),
+                      ]),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
