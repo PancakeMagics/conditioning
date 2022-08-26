@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/conditioning.iml" filepath="$PROJECT_DIR$/.idea/conditioning.iml" />
+      <module fileurl="file://$PROJECT_DIR$/conditioning.iml" filepath="$PROJECT_DIR$/conditioning.iml" />
     </modules>
   </component>
 </project>
