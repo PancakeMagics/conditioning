@@ -1,12 +1,15 @@
 
 import 'package:conditioning/bloc/auth/blocs/bloc_screens.dart';
 import 'package:conditioning/bloc/auth/events/others/event_screen_to_screen.dart';
+import 'package:conditioning/bloc/store/store_bloc.dart';
 import 'package:conditioning/service/l10n/util.dart';
+import 'package:conditioning/service/store/store_service.dart';
 import 'package:conditioning/ui/animations/slide_in_widget.dart';
+import 'package:conditioning/ui/screens/0_base/views/views_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ExploreScreen extends StatefulWidget {
+class ExploreScreen extends StatelessWidget {
   const ExploreScreen({
     Key? key,
     required this.isSlideIn,
@@ -18,38 +21,18 @@ class ExploreScreen extends StatefulWidget {
   final Curve? curve;
 
   @override
-  State<ExploreScreen> createState() => _ExploreScreenState();
-}
-
-class _ExploreScreenState extends State<ExploreScreen> {
-  @override
   Widget build(BuildContext context) {
     return SlideWidgetBuilder(
-      isSlideIn: widget.isSlideIn,
-      slideDirection: widget.slideDirection,
-      curve: widget.curve,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(context.loc.screenName_explore),
-              IconButton(
-                  onPressed: () {
-                    context.read<ScreensBloc>().add(const ScreensEventExploreToHome());
-                  },
-                  icon: const Icon(Icons.home)
-              ),
-            ],
-          ),
+      isSlideIn: isSlideIn,
+      slideDirection: slideDirection,
+      curve: curve,
+      child: BlocProvider(
+        create: (context) => StoreBloc(storeProvider: StoreService.fromCloudFirebase()),
+        child: Material(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+          clipBehavior: Clip.hardEdge,
+          child: const ViewsController(),
         ),
-        body: Container(),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            context.read<ScreensBloc>().add(const ScreensEventExploreToFriend());
-          },
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       ),
     );
   }

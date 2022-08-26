@@ -10,6 +10,8 @@ class ExploreOrgsScreen extends StatefulWidget {
 }
 
 class _ExploreOrgsScreenState extends State<ExploreOrgsScreen> {
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

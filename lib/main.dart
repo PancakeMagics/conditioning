@@ -1,5 +1,6 @@
 import 'package:conditioning/bloc/auth/blocs/bloc_screens.dart';
 import 'package:conditioning/service/auth/auth_provider_firebase.dart';
+import 'package:conditioning/service/auth/auth_service.dart';
 import 'package:conditioning/ui/screens/screens_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,8 +51,12 @@ class MyApp extends StatelessWidget {
             ),
       ),
       home: BlocProvider(
-        create: (context) => ScreensBloc(authProvider: AuthProviderFirebase()),
-        child: const ScreensController(),
+        create: (context) => ScreensBloc(authProvider: AuthService.fromFirebase()),
+        child: Material(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+          clipBehavior: Clip.hardEdge,
+          child: const ScreensController()
+        ),
       ),
     );
   }

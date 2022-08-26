@@ -28,13 +28,6 @@ class _ScreensControllerState extends State<ScreensController> {
     context.read<ScreensBloc>().add(const AuthEventInitialize());
 
     return BlocConsumer<ScreensBloc, AuthState>(
-      listener: (context, state) {
-        if (state.isLoading) {
-          LoadingView().show(context: context, text: context.loc.loading);
-        } else {
-          LoadingView().hide();
-        }
-      },
       builder: (context, state) {
         log(context.read<ScreensBloc>().state.toString());
 
@@ -86,6 +79,13 @@ class _ScreensControllerState extends State<ScreensController> {
           }
         } else {
           return const CircularProgressIndicator();
+        }
+      },
+      listener: (context, state) {
+        if (state.isLoading) {
+          LoadingView().show(context: context, text: context.loc.loading);
+        } else {
+          LoadingView().hide();
         }
       },
     );
