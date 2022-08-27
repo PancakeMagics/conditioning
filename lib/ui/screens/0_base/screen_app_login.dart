@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../bloc/auth/app/app_bloc.dart';
 import '../../../bloc/auth/auth_state.dart';
-import '../../../bloc/utils/screens_bloc.dart';
+import '../../../bloc/utils/screens/base_bloc.dart';
 
 class AppLoginScreen extends StatefulWidget {
   const AppLoginScreen(
@@ -116,7 +116,7 @@ class _AppLoginScreenState extends State<AppLoginScreen> {
         topButtonText = context.loc.buttonTitle_registerAccount;
         break;
     }
-    return BlocListener<ScreensBloc, AuthState>(
+    return BlocListener<BaseBloc, AuthState>(
       listener: (context, state) {
         if (state is AppUserStateLoginYet && state.exception != null) {
           final e = state.exception;
@@ -215,14 +215,14 @@ class _AppLoginScreenState extends State<AppLoginScreen> {
   void _loginWithContext(BuildContext context) {
     switch (_isRegisterView) {
       case true:
-        context.read<ScreensBloc>().add(AppUserEventRegisterAndLogin(
+        context.read<BaseBloc>().add(AppUserEventRegisterAndLogin(
           userName: _userName.text,
           email: _email.text,
           password: _password.text,
         ));
         break;
       default:
-        context.read<ScreensBloc>().add(AppUserEventLogin(
+        context.read<BaseBloc>().add(AppUserEventLogin(
           email: _email.text,
           password: _password.text,
         ));

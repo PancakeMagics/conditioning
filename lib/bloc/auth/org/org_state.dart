@@ -1,24 +1,6 @@
 part of 'org_bloc.dart';
 
-class OrgUserInitialYet extends AppUserStateLogin {
-  const OrgUserInitialYet({
-    required super.authAppUser,
-    required super.isLoading,
-    super.loadingText,
-    super.exception,
-  });
-}
-
-class OrgUserInitialed extends AppUserStateLogin {
-  const OrgUserInitialed({
-    required super.authAppUser,
-    required super.isLoading,
-    super.loadingText,
-    super.exception,
-  });
-}
-
-class OrgUserStateLoginYet extends OrgUserInitialed {
+class OrgUserStateLoginYet extends AppUserStateLogin {
   const OrgUserStateLoginYet({
     required super.authAppUser,
     required super.isLoading,
@@ -28,9 +10,7 @@ class OrgUserStateLoginYet extends OrgUserInitialed {
 }
 
 class OrgUserStateRegisterYet extends OrgUserStateLoginYet {
-
   const OrgUserStateRegisterYet({
-
     required super.authAppUser,
     required super.isLoading,
     super.loadingText,
@@ -50,7 +30,7 @@ class OrgUserStateForgotPassword extends OrgUserStateLoginYet {
   });
 }
 
-class OrgUserStateLogin extends OrgUserInitialed {
+class OrgUserStateLogin extends AppUserStateLogin {
   final AuthOrgUser? authOrgUser;
   const OrgUserStateLogin({
     required this.authOrgUser,

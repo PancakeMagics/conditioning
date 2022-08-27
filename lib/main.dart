@@ -7,7 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart'
 
 import 'dart:developer' show log;
 
-import 'bloc/utils/screens_bloc.dart';
+import 'bloc/utils/screens/base_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
             ),
       ),
       home: BlocProvider(
-        create: (context) => ScreensBloc(authProvider: AuthService.fromFirebase()),
+        create: (context) => BaseBloc(authProvider: AuthService.fromFirebase()),
         child: Material(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
           clipBehavior: Clip.hardEdge,

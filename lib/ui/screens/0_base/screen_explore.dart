@@ -1,4 +1,3 @@
-
 import 'package:conditioning/bloc/store/store_bloc.dart';
 import 'package:conditioning/service/store/store_service.dart';
 import 'package:conditioning/ui/animations/slide_in_widget.dart';

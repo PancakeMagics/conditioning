@@ -1,24 +1,6 @@
 part of 'event_bloc.dart';
 
-class EventStateInitialYet extends AppUserStateLogin {
-  const EventStateInitialYet({
-    required super.authAppUser,
-    required super.isLoading,
-    super.loadingText,
-    super.exception,
-  });
-}
-
-class EventStateInitialed extends AppUserStateLogin {
-  const EventStateInitialed({
-    required super.authAppUser,
-    required super.isLoading,
-    super.loadingText,
-    super.exception,
-  });
-}
-
-class EventUserStateLoginYet extends EventStateInitialed {
+class EventUserStateLoginYet extends AppUserStateLogin {
   const EventUserStateLoginYet({
     required super.authAppUser,
     required super.isLoading,
@@ -47,7 +29,7 @@ class EventUserStateForgotPassword extends EventUserStateLoginYet {
   });
 }
 
-class EventUserStateLogin extends EventStateInitialed {
+class EventUserStateLogin extends AppUserStateLogin {
   final AuthEventUser? authEventUser;
   const EventUserStateLogin({
     required this.authEventUser,

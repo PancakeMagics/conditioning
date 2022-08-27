@@ -13,7 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart' show BlocConsumer, ReadContext;
 
 import '../../bloc/auth/app/app_bloc.dart';
 import '../../bloc/auth/auth_state.dart';
-import '../../bloc/utils/screens_bloc.dart';
+import '../../bloc/utils/screens/base_bloc.dart';
 
 class ScreensController extends StatefulWidget {
   const ScreensController({Key? key}) : super(key: key);
@@ -25,11 +25,11 @@ class ScreensController extends StatefulWidget {
 class _ScreensControllerState extends State<ScreensController> {
   @override
   Widget build(BuildContext context) {
-    context.read<ScreensBloc>().add(const AuthEventInitialize());
+    context.read<BaseBloc>().add(const AuthEventInitialize());
 
-    return BlocConsumer<ScreensBloc, AuthState>(
+    return BlocConsumer<BaseBloc, AuthState>(
       builder: (context, state) {
-        log(context.read<ScreensBloc>().state.toString());
+        log(context.read<BaseBloc>().state.toString());
 
         if (state is AppUserStateLoginYet) {
           return const AppLoginScreen(isSlideIn: true, slideDirection: SlideDirection.downWord,);

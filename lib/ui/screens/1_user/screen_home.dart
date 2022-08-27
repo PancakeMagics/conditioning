@@ -1,6 +1,6 @@
 import 'package:conditioning/bloc/auth/app/app_bloc.dart';
 
-import '../../../bloc/utils/screens_bloc.dart';
+import '../../../bloc/utils/screens/base_bloc.dart';
 import '../../../bloc/auth/app/others/event_screen_to_screen.dart';
 import 'package:conditioning/service/intl/util.dart';
 import 'package:conditioning/ui/animations/slide_in_widget.dart';
@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   title: Text(context.loc.buttonTitle_logout),
                   onTap: () {
                     Navigator.pop(context);
-                    context.read<ScreensBloc>().add(const AppUserEventLogout());
+                    context.read<BaseBloc>().add(const AppUserEventLogout());
                   },
                 ),
                 ListTile(
@@ -96,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ElevatedButton(
                     onPressed: () {
                       context
-                          .read<ScreensBloc>()
+                          .read<BaseBloc>()
                           .add(const ScreensEventHomeToFriend());
                     },
                     child: Text(context.loc.screenName_friend),
@@ -104,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ElevatedButton(
                     onPressed: () {
                       context
-                          .read<ScreensBloc>()
+                          .read<BaseBloc>()
                           .add(const ScreensEventHomeToExplore());
                     },
                     child: Text(context.loc.screenName_explore),

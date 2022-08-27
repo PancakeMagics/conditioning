@@ -6,7 +6,7 @@ part 'store_event.dart';
 part 'store_state.dart';
 
 class StoreBloc extends Bloc<StoreEvent, StoreState> {
-  StoreBloc({required StoreProvider storeProvider}) : super(StoreInitial()) {
+  StoreBloc({required StoreProvider storeProvider}) : super(const StoreStateInitialYet()) {
     on<StoreEvent>((event, emit) {
       // TODO: implement event handler
     });
