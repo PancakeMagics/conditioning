@@ -2,13 +2,14 @@ part of 'store_bloc.dart';
 
 @immutable
 abstract class StoreState {
-  const StoreState();
+  final Exception? exception;
+  const StoreState({this.exception});
 }
 
 class StoreStateInitialYet extends StoreState {
-  const StoreStateInitialYet();
+  const StoreStateInitialYet({super.exception});
 }
 
 class StoreStateInitialed extends StoreState {
-  const StoreStateInitialed();
+  const StoreStateInitialed({super.exception});
 }

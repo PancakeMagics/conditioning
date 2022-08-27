@@ -18,14 +18,14 @@
       }
     }
   },
-  "screenName_login": "登入",
-  "screenName_home": "首頁",
-  "screenName_friend": "朋友",
-  "screenName_orgUser": "組織",
-  "screenName_orgDocumention": "組織文及",
-  "screenName_eventUser": "活動",
-  "screenName_eventManagement": "活動管理",
-  "screenName_explore": "探索",
+  "screenName_login": "Login",
+  "screenName_home": "Home",
+  "screenName_friend": "Friend",
+  "screenName_orgUser": "Organization",
+  "screenName_orgDocumention": "Documention",
+  "screenName_eventUser": "Event",
+  "screenName_eventManagement": "Event Management",
+  "screenName_explore": "Explore",
 
   "tooltip_toScreen_login": "登出並回到「登入」頁面",
   "tooltip_toScreen_appUser": "前往「首頁」",
@@ -67,6 +67,8 @@
   "errorMessage_emailAlreadyInUse": "該信箱已經註冊過了！",
   "errorMessage_invalidEmail": "信箱格式錯誤",
   "loading": "等一下喔..",
+  "hint_searching": "searching",
+  "hint_searchingOrg": "searching Org",
 
   "title_profile": "個人資訊",
   "title_eventName": "活動名稱"

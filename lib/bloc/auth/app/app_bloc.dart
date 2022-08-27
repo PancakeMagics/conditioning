@@ -14,22 +14,7 @@ part 'app_state.dart';
 typedef AuthFunction = Function();
 
 abstract class AppBloc extends AuthBloc {
-  AuthAppUser? authAppUser;
-
   AppBloc({required AuthProvider authProvider}) : super(authProvider: authProvider) {
-    on<AppUserEventCheckIfLogin>((event, emit) async {
-      try {
-        if (authProvider.currentAuthUser == null) {
-          emit(const AppUserStateLoginYet(isLoading: false));
-        } else {
-          authAppUser = authProvider.currentAuthUser as AuthAppUser;
-          emit(AppUserStateLogin(authAppUser: authAppUser, isLoading: false));
-        }
-      } on Exception catch (e) {
-        emit(AppUserStateLoginYet(exception: e, isLoading: false));
-      }
-    });
-
     on<AppUserEventLogin>((event, emit) async {
       await _appUserLoginTryCatch(emit, () async {
         authAppUser = await authProvider.appLoginAndNotify(

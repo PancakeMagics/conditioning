@@ -1,14 +1,14 @@
 import 'package:conditioning/service/intl/util.dart';
 import 'package:flutter/material.dart';
 
-class ExploreEventsScreen extends StatefulWidget {
-  const ExploreEventsScreen({Key? key}) : super(key: key);
+class ExploreEventsView extends StatefulWidget {
+  const ExploreEventsView({Key? key}) : super(key: key);
 
   @override
-  State<ExploreEventsScreen> createState() => _ExploreEventsScreenState();
+  State<ExploreEventsView> createState() => _ExploreEventsViewState();
 }
 
-class _ExploreEventsScreenState extends State<ExploreEventsScreen> {
+class _ExploreEventsViewState extends State<ExploreEventsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,25 +1,30 @@
+import 'package:flutter/material.dart';
+import 'entities/event.dart';
+import 'entities/org.dart';
+import 'entities/user.dart';
 
-import 'entities/store.dart';
-
+@immutable
 abstract class StoreProvider {
-  final store;
-  const StoreProvider({required this.store});
+  final List<User> userList;
+  final List<Org> orgList;
+  final List<Event> eventList;
+  const StoreProvider({required this.userList, required this.orgList, required this.eventList});
 
-  Future<StoreUser> createOrGetExistUser({required String userId});
-  Future<Iterable<StoreUser>> getPublicUsers();
-  Future<Iterable<StoreUser>> getUserFriends({required String userId});
+  Future<User> createOrGetExistUser({required String userId});
+  Future<Iterable<User>> getPublicUsers();
+  Future<Iterable<User>> getUserFriends({required String userId});
   Future<void> updateUserName({required String userId, required String newName});
   Future<void> deleteUser({required String userId});
 
-  Future<StoreOrg> createOrGetExistOrg({required String orgId});
-  Future<Iterable<StoreOrg>> getPublicOrgs();
-  Future<Iterable<StoreOrg>> getUserOrgs({required String orgId});
+  Future<Org> createOrGetExistOrg({required String orgId});
+  Future<Iterable<Org>> getPublicOrgs();
+  Future<Iterable<Org>> getUserOrgs({required String orgId});
   Future<void> updateOrgName({required String orgId, required String newName});
   Future<void> deleteOrg({required String orgId});
 
-  Future<StoreEvent> createOrGetExistEvent({required String eventId});
-  Future<Iterable<StoreEvent>> getPublicEvents();
-  Future<Iterable<StoreEvent>> getUserEvents({required String eventId});
+  Future<Event> createOrGetExistEvent({required String eventId});
+  Future<Iterable<Event>> getPublicEvents();
+  Future<Iterable<Event>> getUserEvents({required String eventId});
   Future<void> updateEventName({required String eventId, required String newName});
   Future<void> deleteEvent({required String eventId});
 }

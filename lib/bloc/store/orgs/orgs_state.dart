@@ -1,13 +1,19 @@
 part of 'orgs_bloc.dart';
 
-abstract class OrgsStoreState extends StoreState {
-  const OrgsStoreState();
+abstract class OrgStoreState extends StoreState {
+  const OrgStoreState();
 }
 
-class OrgsStoreStateInitialYet extends OrgsStoreState {
-  const OrgsStoreStateInitialYet();
+class OrgStoreStateFilterYet extends OrgStoreState {
+  const OrgStoreStateFilterYet();
 }
 
-class OrgsStoreStateInitialed extends OrgsStoreState {
-  const OrgsStoreStateInitialed();
+class OrgStoreStateFiltered extends OrgStoreState {
+  final List<Org> orgList;
+  const OrgStoreStateFiltered({required this.orgList});
+}
+
+class OrgStoreStateTapped extends OrgStoreState {
+  final Org org;
+  const OrgStoreStateTapped({required this.org});
 }

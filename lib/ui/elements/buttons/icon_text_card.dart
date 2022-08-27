@@ -13,7 +13,13 @@ Widget getIconTextCard({
             padding: const EdgeInsets.all(10.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [Icon(icon), Text(text)],
+              children: [
+                Icon(icon),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Text(text),
+                )
+              ],
             ),
           ),
         ));

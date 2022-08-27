@@ -1,24 +1,24 @@
 
 import 'package:conditioning/service/store/cloud/firebase/cloud_store_org.dart';
-import 'package:conditioning/service/store/entities/store.dart';
+import '../../entities/event.dart';
 
 abstract class CloudStoreEvent extends CloudStoreOrg {//i think inheritance make code readable
-  const CloudStoreEvent({required super.store});
+  const CloudStoreEvent({required super.userList, required super.orgList, required super.eventList,});
   //TODO: implement firebase
 
   @override
-  Future<StoreEvent> createOrGetExistEvent({required String eventId}) {
-    return Future(() => const StoreEvent(id: 'cge id', name: 'cge name'));
+  Future<Event> createOrGetExistEvent({required String eventId}) {
+    return Future(() => const Event(eventId: 'cge id', eventName: 'cge name'));
   }
 
   @override
-  Future<Iterable<StoreEvent>> getPublicEvents() {
-    return Future(() => [const StoreEvent(id: 'gpe id', name: 'gpe name')]);
+  Future<Iterable<Event>> getPublicEvents() {
+    return Future(() => [const Event(eventId: 'gpe id', eventName: 'gpe name')]);
   }
 
   @override
-  Future<Iterable<StoreEvent>> getUserEvents({required String eventId}) {
-    return Future(() => [const StoreEvent(id: 'gue id', name: 'gue name')]);
+  Future<Iterable<Event>> getUserEvents({required String eventId}) {
+    return Future(() => [const Event(eventId: 'gue id', eventName: 'gue name')]);
   }
 
   @override

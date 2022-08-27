@@ -1,13 +1,5 @@
 part of 'app_bloc.dart';
 
-class AppUserStateLoginYet extends AuthState {
-  const AppUserStateLoginYet({
-    required super.isLoading,
-    super.loadingText,
-    super.exception,
-  });
-}
-
 class AppUserStateForgotPassword extends AppUserStateLoginYet {
   final bool hasSentEmail;
   const AppUserStateForgotPassword({

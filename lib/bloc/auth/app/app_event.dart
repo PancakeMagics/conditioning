@@ -1,9 +1,5 @@
 part of 'app_bloc.dart';
 
-class AppUserEventCheckIfLogin extends AuthEvent {
-  const AppUserEventCheckIfLogin();
-}
-
 class AppUserEventLogin extends AuthEvent {
   final String email;
   final String password;

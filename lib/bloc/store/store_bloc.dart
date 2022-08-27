@@ -7,8 +7,8 @@ part 'store_state.dart';
 
 class StoreBloc extends Bloc<StoreEvent, StoreState> {
   StoreBloc({required StoreProvider storeProvider}) : super(const StoreStateInitialYet()) {
-    on<StoreEvent>((event, emit) {
-      // TODO: implement event handler
+    on<StoreEventInitialize>((event, emit) {
+      emit(const StoreStateInitialed());
     });
   }
 }

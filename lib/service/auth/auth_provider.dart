@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
 import 'entities/auth_user.dart';
 
+@immutable
 abstract class AuthProvider {
   Future<void> initialize();
   AuthUser? get currentAuthUser;

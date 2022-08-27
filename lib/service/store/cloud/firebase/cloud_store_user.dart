@@ -1,23 +1,23 @@
 
 import 'package:conditioning/service/store/cloud/cloud_store_provider.dart';
-import 'package:conditioning/service/store/entities/store.dart';
+import '../../entities/user.dart';
 
 abstract class CloudStoreUser extends CloudStoreProvider {//i think inheritance make code readable
-  const CloudStoreUser({required super.store});
+  const CloudStoreUser({required super.userList, required super.orgList, required super.eventList,});
 
   @override
-  Future<StoreUser> createOrGetExistUser({required String userId}) {
-    return Future(() => const StoreUser(id: 'cgu id', name: 'cgu name'));
+  Future<User> createOrGetExistUser({required String userId}) {
+    return Future(() => const User(userId: 'cgu id', userName: 'cgu name'));
   }
 
   @override
-  Future<Iterable<StoreUser>> getPublicUsers() {
-    return Future(() => [const StoreUser(id: 'gpu id', name: 'gpu name')]);
+  Future<Iterable<User>> getPublicUsers() {
+    return Future(() => [const User(userId: 'gpu id', userName: 'gpu name')]);
   }
 
   @override
-  Future<Iterable<StoreUser>> getUserFriends({required String userId}) {
-    return Future(() => [const StoreUser(id: 'guf id', name: 'guf name')]);
+  Future<Iterable<User>> getUserFriends({required String userId}) {
+    return Future(() => [const User(userId: 'guf id', userName: 'guf name')]);
   }
 
   @override

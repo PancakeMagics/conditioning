@@ -68,6 +68,8 @@
   "errorMessage_emailAlreadyInUse": "該信箱已經註冊過了！",
   "errorMessage_invalidEmail": "信箱格式錯誤",
   "loading": "等一下喔..",
+  "hint_searching": "搜尋",
+  "hint_searchingOrg": "搜尋組織",
 
   "title_profile": "個人資訊",
   "title_eventName": "活動名稱"

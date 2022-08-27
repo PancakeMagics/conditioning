@@ -16,8 +16,8 @@ class AuthStateInitialYet extends AuthState {
   });
 }
 
-class AuthStateInitialed extends AuthState {
-  const AuthStateInitialed({
+class AppUserStateLoginYet extends AuthState {
+  const AppUserStateLoginYet({
     required super.isLoading,
     super.loadingText,
     super.exception,

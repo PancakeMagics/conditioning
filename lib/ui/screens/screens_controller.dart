@@ -5,7 +5,7 @@ import 'package:conditioning/service/intl/util.dart';
 import 'package:conditioning/ui/animations/slide_in_widget.dart';
 import 'package:conditioning/ui/elements/view_loading.dart';
 import 'package:conditioning/ui/screens/0_base/screen_app_login.dart';
-import 'package:conditioning/ui/screens/0_base/screen_explore.dart';
+import 'package:conditioning/ui/screens/1_user/screen_explore.dart';
 import 'package:conditioning/ui/screens/1_user/screen_friends.dart';
 import 'package:conditioning/ui/screens/1_user/screen_home.dart';
 import 'package:flutter/material.dart';
@@ -82,11 +82,11 @@ class _ScreensControllerState extends State<ScreensController> {
         }
       },
       listener: (context, state) {
-        if (state.isLoading) {
-          LoadingView().show(context: context, text: context.loc.loading);
-        } else {
-          LoadingView().hide();
-        }
+        // if (state.isLoading) {
+        //   LoadingView().show(context: context, text: context.loc.loading);
+        // } else {
+        //   LoadingView().hide();
+        // }
       },
     );
   }

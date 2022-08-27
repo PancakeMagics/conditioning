@@ -148,7 +148,6 @@ class _AppLoginScreenState extends State<AppLoginScreen> {
         slideDirection: widget.slideDirection,
         curve: widget.curve,
         child: Scaffold(
-          backgroundColor: Colors.white,
           body: Center(
             child: SizedBox(
               height: 520,
