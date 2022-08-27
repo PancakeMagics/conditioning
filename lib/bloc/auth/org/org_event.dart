@@ -1,4 +1,8 @@
-import 'package:conditioning/bloc/auth/auth_bloc.dart';
+part of 'org_bloc.dart';
+
+class OrgUserEventCheckIfLogin extends AuthEvent {
+  const OrgUserEventCheckIfLogin();
+}
 
 class OrgUserEventLogin extends AuthEvent {
   final String email;

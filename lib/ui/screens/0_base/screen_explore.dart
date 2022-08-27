@@ -1,8 +1,5 @@
 
-import 'package:conditioning/bloc/auth/blocs/bloc_screens.dart';
-import 'package:conditioning/bloc/auth/events/others/event_screen_to_screen.dart';
 import 'package:conditioning/bloc/store/store_bloc.dart';
-import 'package:conditioning/service/l10n/util.dart';
 import 'package:conditioning/service/store/store_service.dart';
 import 'package:conditioning/ui/animations/slide_in_widget.dart';
 import 'package:conditioning/ui/screens/0_base/views/views_controller.dart';

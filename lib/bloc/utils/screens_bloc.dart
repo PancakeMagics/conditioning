@@ -1,10 +1,9 @@
+import 'package:conditioning/bloc/auth/app/app_bloc.dart';
+import 'package:conditioning/bloc/auth/app/others/state_screen_to_screen.dart';
 
+import '../auth/app/others/event_screen_to_screen.dart';
 
-import 'package:conditioning/bloc/auth/auth_bloc.dart';
-import 'package:conditioning/bloc/auth/events/others/event_screen_to_screen.dart';
-import 'package:conditioning/bloc/auth/states/state_screen_to_screen.dart';
-
-class ScreensBloc extends AuthBloc {
+class ScreensBloc extends AppBloc {
   ScreensBloc({required super.authProvider}) {
     on<ScreensEventHomeToFriend>((event, emit) async {
       emit(ScreensStateHomeToFriend(authAppUser: authAppUser));

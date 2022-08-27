@@ -1,4 +1,4 @@
-import 'package:conditioning/service/l10n/util.dart';
+import 'package:conditioning/service/intl/util.dart';
 import 'package:conditioning/ui/animations/slide_in_widget.dart';
 import 'package:flutter/material.dart';
 

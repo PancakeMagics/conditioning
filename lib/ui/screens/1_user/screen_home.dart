@@ -1,7 +1,8 @@
-import 'package:conditioning/bloc/auth/blocs/bloc_screens.dart';
-import 'package:conditioning/bloc/auth/events/event_app_login.dart';
-import 'package:conditioning/bloc/auth/events/others/event_screen_to_screen.dart';
-import 'package:conditioning/service/l10n/util.dart';
+import 'package:conditioning/bloc/auth/app/app_bloc.dart';
+
+import '../../../bloc/utils/screens_bloc.dart';
+import '../../../bloc/auth/app/others/event_screen_to_screen.dart';
+import 'package:conditioning/service/intl/util.dart';
 import 'package:conditioning/ui/animations/slide_in_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart' show ReadContext;

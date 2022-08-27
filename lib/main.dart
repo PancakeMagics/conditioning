@@ -1,5 +1,3 @@
-import 'package:conditioning/bloc/auth/blocs/bloc_screens.dart';
-import 'package:conditioning/service/auth/auth_provider_firebase.dart';
 import 'package:conditioning/service/auth/auth_service.dart';
 import 'package:conditioning/ui/screens/screens_controller.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +6,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart'
     show AppLocalizations;
 
 import 'dart:developer' show log;
+
+import 'bloc/utils/screens_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

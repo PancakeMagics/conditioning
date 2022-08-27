@@ -1,4 +1,4 @@
-import 'package:conditioning/service/l10n/util.dart';
+import 'package:conditioning/service/intl/util.dart';
 import 'package:flutter/material.dart';
 
 class ExploreEventsScreen extends StatefulWidget {

@@ -2,11 +2,13 @@
 abstract class AuthException implements Exception {}
 
 //login exceptions
-class UserNotFoundAuthException implements AuthException {}
-class WrongPasswordAuthException implements AuthException {}
-class UserNotLoggedInException implements Exception {}
+class LoginException implements AuthException {}
+class UserNotFoundAuthException implements LoginException {}
+class WrongPasswordAuthException implements LoginException {}
+class UserNotLoggedInException implements LoginException {}
 
 //register exceptions
-class WeakPasswordAuthException implements AuthException {}
-class EmailAlreadyInUseAuthException implements AuthException {}
-class InvalidEmailAuthException implements AuthException {}
+class RegisterException implements AuthException {}
+class WeakPasswordAuthException implements RegisterException {}
+class EmailAlreadyInUseAuthException implements RegisterException {}
+class InvalidEmailAuthException implements RegisterException {}

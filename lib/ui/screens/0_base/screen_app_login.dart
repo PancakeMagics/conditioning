@@ -1,14 +1,13 @@
-
-import 'package:conditioning/bloc/auth/auth_bloc.dart';
-import 'package:conditioning/bloc/auth/blocs/bloc_screens.dart';
-import 'package:conditioning/bloc/auth/events/event_app_login.dart';
-import 'package:conditioning/bloc/auth/states/app/state_app_login_yet.dart';
 import 'package:conditioning/service/auth/auth_exception.dart';
-import 'package:conditioning/service/l10n/util.dart';
+import 'package:conditioning/service/intl/util.dart';
 import 'package:conditioning/ui/animations/slide_in_widget.dart';
 import 'package:conditioning/ui/elements/buttons/icon_text_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../bloc/auth/app/app_bloc.dart';
+import '../../../bloc/auth/auth_state.dart';
+import '../../../bloc/utils/screens_bloc.dart';
 
 class AppLoginScreen extends StatefulWidget {
   const AppLoginScreen(
@@ -119,28 +118,26 @@ class _AppLoginScreenState extends State<AppLoginScreen> {
     }
     return BlocListener<ScreensBloc, AuthState>(
       listener: (context, state) {
-        if (state is AuthStateAppUserLoginYet && state.exception != null) {
+        if (state is AppUserStateLoginYet && state.exception != null) {
           final e = state.exception;
           late final String snackBarText;
 
-          if (state is AuthStateAppUserRegisterYet) {
+          if (e is RegisterException) {
             if (e is WeakPasswordAuthException) {
               snackBarText = context.loc.errorMessage_weakPasswordLessThan6;
             } else if (e is EmailAlreadyInUseAuthException) {
               snackBarText = context.loc.errorMessage_emailAlreadyInUse;
             } else if (e is InvalidEmailAuthException) {
               snackBarText = context.loc.errorMessage_invalidEmail;
-            } else {
-              snackBarText = context.loc.errorMessage_somethingBadHappenedWhileLogin;
             }
-          } else {
+          } else if (e is LoginException) {
             if (e is UserNotFoundAuthException) {
               snackBarText = context.loc.errorMessage_userNotFound;
             } else if (e is WrongPasswordAuthException) {
               snackBarText = context.loc.errorMessage_wrongPassword;
-            } else {
-              snackBarText = context.loc.errorMessage_somethingBadHappenedWhileLogin;
             }
+          } else {
+            snackBarText = "${context.loc.errorMessage_somethingBadHappenedWhileLogin}\n$e";
           }
           ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Center(child: Text(snackBarText))));
@@ -218,15 +215,14 @@ class _AppLoginScreenState extends State<AppLoginScreen> {
   void _loginWithContext(BuildContext context) {
     switch (_isRegisterView) {
       case true:
-        //TODO: test read AuthBloc
-        context.read<ScreensBloc>().add(AuthEventAppUserRegisterAndLogin(
+        context.read<ScreensBloc>().add(AppUserEventRegisterAndLogin(
           userName: _userName.text,
           email: _email.text,
           password: _password.text,
         ));
         break;
       default:
-        context.read<ScreensBloc>().add(AuthEventAppUserLogin(
+        context.read<ScreensBloc>().add(AppUserEventLogin(
           email: _email.text,
           password: _password.text,
         ));

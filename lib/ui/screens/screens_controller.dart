@@ -1,11 +1,7 @@
-
 import 'dart:developer';
-
-import 'package:conditioning/bloc/auth/auth_bloc.dart';
-import 'package:conditioning/bloc/auth/blocs/bloc_screens.dart';
-import 'package:conditioning/bloc/auth/states/app/state_app_login.dart';
-import 'package:conditioning/bloc/auth/states/state_screen_to_screen.dart';
-import 'package:conditioning/service/l10n/util.dart';
+import 'package:conditioning/bloc/auth/auth_event.dart';
+import 'package:conditioning/bloc/auth/app/others/state_screen_to_screen.dart';
+import 'package:conditioning/service/intl/util.dart';
 import 'package:conditioning/ui/animations/slide_in_widget.dart';
 import 'package:conditioning/ui/elements/view_loading.dart';
 import 'package:conditioning/ui/screens/0_base/screen_app_login.dart';
@@ -14,6 +10,10 @@ import 'package:conditioning/ui/screens/1_user/screen_friends.dart';
 import 'package:conditioning/ui/screens/1_user/screen_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart' show BlocConsumer, ReadContext;
+
+import '../../bloc/auth/app/app_bloc.dart';
+import '../../bloc/auth/auth_state.dart';
+import '../../bloc/utils/screens_bloc.dart';
 
 class ScreensController extends StatefulWidget {
   const ScreensController({Key? key}) : super(key: key);
@@ -31,9 +31,9 @@ class _ScreensControllerState extends State<ScreensController> {
       builder: (context, state) {
         log(context.read<ScreensBloc>().state.toString());
 
-        if (state is AuthStateAppUserLoginYet) {
+        if (state is AppUserStateLoginYet) {
           return const AppLoginScreen(isSlideIn: true, slideDirection: SlideDirection.downWord,);
-        } else if (state is AuthStateAppUserLogin) {
+        } else if (state is AppUserStateLogin) {
           if (state is ScreensStateHomeToExplore) {
             return Stack(children: const [
               HomeScreen(isSlideIn: false, slideDirection: SlideDirection.leftWord),

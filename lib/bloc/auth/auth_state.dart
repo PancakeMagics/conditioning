@@ -1,4 +1,4 @@
-part of 'auth_bloc.dart';
+import 'package:flutter/material.dart';
 
 @immutable
 abstract class AuthState {
@@ -8,66 +8,16 @@ abstract class AuthState {
   const AuthState({required this.isLoading, this.loadingText, this.exception});
 }
 
-class AuthStateAppUserInitialYet extends AuthState {
-  const AuthStateAppUserInitialYet({
+class AuthStateInitialYet extends AuthState {
+  const AuthStateInitialYet({
     required super.isLoading,
     super.loadingText,
     super.exception,
   });
 }
 
-class AuthStateAppUserLoginYet extends AuthState {
-  const AuthStateAppUserLoginYet({
-    required super.isLoading,
-    super.loadingText,
-    super.exception,
-  });
-}
-
-class AuthStateAppUserLogin extends AuthState {
-  final AuthAppUser? authAppUser;
-  const AuthStateAppUserLogin({
-    required this.authAppUser,
-    required super.isLoading,
-    super.loadingText,
-    super.exception,
-  });
-}
-
-class AppUserStateEventUserLoginYet extends AuthStateAppUserLogin {
-  const AppUserStateEventUserLoginYet({
-    required super.authAppUser,
-    required super.isLoading,
-    super.loadingText,
-    super.exception,
-  });
-}
-
-class AppUserStateEventUserLogin extends AuthStateAppUserLogin {
-  final AuthEventUser? authEventUser;
-  const AppUserStateEventUserLogin({
-    required super.authAppUser,
-    required this.authEventUser,
-    required super.isLoading,
-    super.loadingText,
-    super.exception,
-  });
-}
-
-class AppUserStateOrgLoginYet extends AuthStateAppUserLogin {
-  const AppUserStateOrgLoginYet({
-    required super.authAppUser,
-    required super.isLoading,
-    super.loadingText,
-    super.exception,
-  });
-}
-
-class AppUserStateOrgLogin extends AuthStateAppUserLogin {
-  final AuthOrgUser? authOrgUser;
-  const AppUserStateOrgLogin({
-    required super.authAppUser,
-    required this.authOrgUser,
+class AuthStateInitialed extends AuthState {
+  const AuthStateInitialed({
     required super.isLoading,
     super.loadingText,
     super.exception,
