@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ui';
 import 'package:conditioning/service/extensions/offset.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,6 @@ class _PesPenState extends State<PesPen> with SingleTickerProviderStateMixin {
   late final double _windowHeight;
   late final Offset _maxWindowOffset;
   late final GlobalKey _stickyKey;
-  late final GlobalKey _pesItemKey;
   late final AnimationController _controller;
   late final Animation _animation;
   late final Tween _tween;
@@ -52,9 +52,10 @@ class _PesPenState extends State<PesPen> with SingleTickerProviderStateMixin {
     _windowHeight = windowSize.height;
     _maxWindowOffset = Offset(windowSize.width, windowSize.height);
     _stickyKey = GlobalKey();
-    _pesItemKey = GlobalKey();
     _controller = AnimationController(
-        duration: const Duration(milliseconds: 100), vsync: this);
+      duration: const Duration(milliseconds: 500),
+      vsync: this,
+    );
     _tween = Tween(begin: 0.0, end: 1.0);
     _animation = _tween
         .animate(CurvedAnimation(parent: _controller, curve: Curves.ease))
@@ -73,6 +74,8 @@ class _PesPenState extends State<PesPen> with SingleTickerProviderStateMixin {
   void didUpdateWidget(covariant PesPen oldWidget) {
     _pesState = PesState.inPosition;
     if (widget.pesItem != null) {
+      _controller.forward();
+
       _item = widget.pesItem!;
       _itemCornerAOffset = _item!.itemZeroOffset;
       _itemCornerBOffset = _itemCornerAOffset.toCornerBOffset(_item!.itemSize);
@@ -81,7 +84,6 @@ class _PesPenState extends State<PesPen> with SingleTickerProviderStateMixin {
 
       _itemWidth = _item!.itemSize.width;
       _itemHeight = _item!.itemSize.height;
-      _controller.forward();
     }
 
     super.didUpdateWidget(oldWidget);
@@ -103,21 +105,22 @@ class _PesPenState extends State<PesPen> with SingleTickerProviderStateMixin {
           ignoring:
               _pesState == PesState.inPosition || _pesState == PesState.inPool,
           child: AnimatedOpacity(
-              curve: Curves.easeOut,
-              opacity: _pesState == PesState.expand ? 1.0 : 0.0,
-              duration: const Duration(milliseconds: 1000),
-              child: Stack(
-                children: [
-                  _getPenetrationWidget(),
-                  _getPesWidget(),
-                ],
-              )),
+            curve: Curves.easeOut,
+            opacity: _pesState == PesState.expand ? 1.0 : 0.0,
+            duration: const Duration(milliseconds: 1000),
+            child: Stack(
+              children: [
+                _getPen(),
+                _getPes(),
+              ],
+            ),
+          ),
         ),
       ],
     );
   }
 
-  Widget _getPenetrationWidget() => GestureDetector(
+  Widget _getPen() => GestureDetector(
         child: ClipPath(
           clipper: RRectClipper(
             /// from itemCenter to windowSize
@@ -131,13 +134,10 @@ class _PesPenState extends State<PesPen> with SingleTickerProviderStateMixin {
           ),
           child: Container(color: const Color.fromRGBO(0, 0, 0, 0.6)),
         ),
-        onTap: () => setState(() {
-          _controller.reverse();
-          _pesState = PesState.shrink;
-        }),
+        onTap: () => _shrink(),
       );
 
-  Widget _getPesWidget() => AnimatedPositioned(
+  Widget _getPes() => AnimatedPositioned(
         curve: Curves.easeInQuart,
         left: _pesTargetPosition('left'),
         top: _pesTargetPosition('top'),
@@ -146,16 +146,25 @@ class _PesPenState extends State<PesPen> with SingleTickerProviderStateMixin {
         duration: _pesTargetDuration(_pesState),
         child: Material(
           borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-          child: InkWell(
-            key: _pesItemKey,
-            child: Card(
-              borderOnForeground: false,
-              elevation: 50.0,
-              child: AnimatedOpacity(
-                curve: Curves.easeOut,
-                opacity: _expandOver ? 1.0 : 0.0,
-                duration: const Duration(milliseconds: 500),
-                child: widget.pesView,
+          child: Card(
+            borderOnForeground: false,
+            elevation: 50.0,
+            child: AnimatedOpacity(
+              curve: Curves.easeOut,
+              opacity: _expandOver ? 1.0 : 0.0,
+              duration: _expandOver
+                  ? const Duration(milliseconds: 500)
+                  : const Duration(milliseconds: 100),
+              child: Stack(
+                children: [
+                  widget.pesView,
+                  Positioned(
+                    child: IconButton(
+                      onPressed: () => _shrink(),
+                      icon: const Icon(Icons.cancel_sharp),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -172,15 +181,13 @@ class _PesPenState extends State<PesPen> with SingleTickerProviderStateMixin {
               setState(() => _pesState = PesState.inPool);
               break;
             case PesState.inPool:
-              setState(() => _expandOver = false);
               break;
           }
         },
       );
-
   double _pesTargetPosition(String what) {
     double value = 0.0;
-    if (widget.pesItem != null) {
+    if (_item != null) {
       switch (_pesState) {
         case PesState.inPosition:
         case PesState.shrink:
@@ -223,7 +230,6 @@ class _PesPenState extends State<PesPen> with SingleTickerProviderStateMixin {
     }
     return value;
   }
-
   Duration _pesTargetDuration(PesState state) {
     switch (state) {
       case PesState.inPosition:
@@ -235,5 +241,12 @@ class _PesPenState extends State<PesPen> with SingleTickerProviderStateMixin {
       case PesState.inPool:
         return const Duration(microseconds: 10);
     }
+  }
+  void _shrink() {
+    setState(() {
+      _expandOver = false;
+      _controller.reverse();
+      _pesState = PesState.shrink;
+    });
   }
 }

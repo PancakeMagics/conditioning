@@ -1,6 +1,6 @@
 import 'package:conditioning/service/auth/auth_exception.dart';
 import 'package:conditioning/service/intl/util.dart';
-import 'package:conditioning/ui/animations/slide_in_widget.dart';
+import 'package:conditioning/ui/animations/navigation/navigation_builder.dart';
 import 'package:conditioning/ui/elements/buttons/icon_text_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,12 +12,12 @@ import '../../../bloc/utils/screens/base_bloc.dart';
 class AppLoginScreen extends StatefulWidget {
   const AppLoginScreen(
       {Key? key,
-        required this.isSlideIn,
+        required this.isNavIn,
         required this.slideDirection,
         this.curve})
       : super(key: key);
-  final bool isSlideIn;
-  final SlideDirection slideDirection;
+  final bool isNavIn;
+  final NavDirection slideDirection;
   final Curve? curve;
 
   @override
@@ -143,9 +143,9 @@ class _AppLoginScreenState extends State<AppLoginScreen> {
               SnackBar(content: Center(child: Text(snackBarText))));
         }
       },
-      child: SlideWidgetBuilder(
-        isSlideIn: widget.isSlideIn,
-        slideDirection: widget.slideDirection,
+      child: NavigationBuilder(
+        isNavIn: widget.isNavIn,
+        navDirection: widget.slideDirection,
         curve: widget.curve,
         child: Scaffold(
           body: Center(

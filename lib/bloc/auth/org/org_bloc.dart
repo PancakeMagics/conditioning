@@ -1,10 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:conditioning/bloc/auth/app/app_bloc.dart';
-import 'package:conditioning/bloc/auth/auth_bloc.dart';
 import 'package:conditioning/bloc/auth/auth_event.dart';
 import 'package:conditioning/service/auth/auth_provider.dart';
 import 'package:conditioning/service/auth/entities/auth_user.dart';
-import 'package:meta/meta.dart';
 
 import '../auth_state.dart';
 

@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'package:conditioning/bloc/auth/auth_event.dart';
 import 'package:conditioning/bloc/auth/app/others/state_screen_to_screen.dart';
 import 'package:conditioning/service/intl/util.dart';
-import 'package:conditioning/ui/animations/slide_in_widget.dart';
+import 'package:conditioning/ui/animations/navigation/navigation_builder.dart';
 import 'package:conditioning/ui/elements/view_loading.dart';
 import 'package:conditioning/ui/screens/0_base/screen_app_login.dart';
 import 'package:conditioning/ui/screens/1_user/screen_explore.dart';
@@ -32,62 +32,80 @@ class _ScreensControllerState extends State<ScreensController> {
         log(context.read<BaseBloc>().state.toString());
 
         if (state is AppUserStateLoginYet) {
-          return const AppLoginScreen(isSlideIn: true, slideDirection: SlideDirection.downWord,);
+          return const AppLoginScreen(isNavIn: true, slideDirection: NavDirection.downWord);
         } else if (state is AppUserStateLogin) {
           if (state is ScreensStateHomeToExplore) {
             return Stack(children: const [
-              HomeScreen(isSlideIn: false, slideDirection: SlideDirection.leftWord),
-              ExploreScreen(isSlideIn: true, slideDirection: SlideDirection.leftWord),
+              HomeScreen(isNavIn: false, slideDirection: NavDirection.leftWord),
+              ExploreScreen(isNavIn: true, slideDirection: NavDirection.leftWord),
             ]);
           } else if (state is ScreensStateHomeToFriend) {
             return Stack(children: const [
-              HomeScreen(isSlideIn: false, slideDirection: SlideDirection.rightWord),
-              FriendsScreen(isSlideIn: true, slideDirection: SlideDirection.rightWord),
+              HomeScreen(isNavIn: false, slideDirection: NavDirection.rightWord),
+              FriendsScreen(isNavIn: true, slideDirection: NavDirection.rightWord),
             ]);
           } else if (state is ScreensStateFriendToHome) {
             return Stack(children: const [
-              FriendsScreen(isSlideIn: false, slideDirection: SlideDirection.leftWord),
-              HomeScreen(isSlideIn: true, slideDirection: SlideDirection.leftWord),
+              FriendsScreen(isNavIn: false, slideDirection: NavDirection.leftWord),
+              HomeScreen(isNavIn: true, slideDirection: NavDirection.leftWord),
             ]);
           } else if (state is ScreensStateFriendToExplore) {
             return Stack(children: const [
-              FriendsScreen(isSlideIn: false, slideDirection: SlideDirection.leftLeftWordForLeft),
-              HomeScreen(isSlideIn: false, slideDirection: SlideDirection.leftLeftWordForMeddle),
-              ExploreScreen(isSlideIn: true, slideDirection: SlideDirection.leftLeftWordForRight),
+              FriendsScreen(isNavIn: false, slideDirection: NavDirection.leftLeftWordForLeft),
+              HomeScreen(isNavIn: false, slideDirection: NavDirection.leftLeftWordForMeddle),
+              ExploreScreen(isNavIn: true, slideDirection: NavDirection.leftLeftWordForRight),
             ]);
           } else if (state is ScreensStateExploreToFriend) {
             return Stack(children: const [
-              ExploreScreen(isSlideIn: false, slideDirection: SlideDirection.rightRightWordForRight),
-              HomeScreen(isSlideIn: false, slideDirection: SlideDirection.rightRightWordForMeddle),
-              FriendsScreen(isSlideIn: true, slideDirection: SlideDirection.rightRightWordForLeft),
+              ExploreScreen(isNavIn: false, slideDirection: NavDirection.rightRightWordForRight),
+              HomeScreen(isNavIn: false, slideDirection: NavDirection.rightRightWordForMeddle),
+              FriendsScreen(isNavIn: true, slideDirection: NavDirection.rightRightWordForLeft),
             ]);
           } else if (state is ScreensStateExploreToHome) {
             return Stack(children: const [
-              ExploreScreen(isSlideIn: false, slideDirection: SlideDirection.rightWord),
-              HomeScreen(isSlideIn: true, slideDirection: SlideDirection.rightWord),
+              ExploreScreen(isNavIn: false, slideDirection: NavDirection.rightWord),
+              HomeScreen(isNavIn: true, slideDirection: NavDirection.rightWord),
             ]);
           } else if (state is AppUserStateLogout) {
             return Stack(children: const [
-              HomeScreen(isSlideIn: false, slideDirection: SlideDirection.upWord),
-              AppLoginScreen(isSlideIn: true, slideDirection: SlideDirection.upWord),
+              HomeScreen(isNavIn: false, slideDirection: NavDirection.upWord),
+              AppLoginScreen(isNavIn: true, slideDirection: NavDirection.upWord),
             ]);
           } else {
             return Stack(children: const [
-              AppLoginScreen(isSlideIn: false, slideDirection: SlideDirection.downWord),
-              HomeScreen(isSlideIn: true, slideDirection: SlideDirection.downWord),
+              AppLoginScreen(isNavIn: false, slideDirection: NavDirection.downWord),
+              HomeScreen(isNavIn: true, slideDirection: NavDirection.downWord),
             ]);
           }
         } else {
           return const CircularProgressIndicator();
         }
       },
-      listener: (context, state) {
-        // if (state.isLoading) {
-        //   LoadingView().show(context: context, text: context.loc.loading);
-        // } else {
-        //   LoadingView().hide();
-        // }
+      listener: (context, state) async {
+        if (state.isLoading) {
+          final loc = context.loc;
+
+          if (state is AppUserStateLoginYet) {
+            LoadingView().show(context: context, text: loc.loading);
+            _waitAndShow(text: loc.loading_chat_weather);
+            _waitAndShow(text: loc.loading_chat_weather_a);
+            _waitAndShow(text: loc.loading_chat_food);
+            _waitAndShow(text: loc.loading_chat_food_a);
+            _waitAndShow(text: loc.loading_chat_rest);
+            _waitAndShow(text: loc.loading_chat_phone);
+            _waitAndShow(text: loc.loading_end);
+
+          } else {
+            LoadingView().show(context: context, text: loc.loading);
+          }
+        } else {
+          LoadingView().hide();
+        }
       },
     );
+  }
+  void _waitAndShow({required String text}) async {
+    await Future.delayed(const Duration(seconds: 3));
+    LoadingView().update(text: text);
   }
 }

@@ -10,8 +10,8 @@ class StoreProviderFirebase extends CloudStoreEvent {
   factory StoreProviderFirebase() => _shared;
   static final StoreProviderFirebase _shared = StoreProviderFirebase._sharedInstance(
     //TODO
-    userList: List<User>.generate(10, (index) => User(userId: '$index', userName: 'userName of $index')),
-    orgList: List<Org>.generate(50, (index) => Org(orgId: '$index', orgName: 'orgName of $index')),
-    eventList: List<Event>.generate(10, (index) => Event(eventId: '$index', eventName: 'eventName of $index')),
+    userList: List<User>.generate(10, (index) => User(id: '$index', name: 'userName of $index')),
+    orgList: List<Org>.generate(50, (index) => Org(id: '$index', name: 'orgName of $index')),
+    eventList: List<Event>.generate(10, (index) => Event(id: '$index', name: 'eventName of $index')),
   );
 }

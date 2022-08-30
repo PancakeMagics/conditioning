@@ -26,7 +26,7 @@ class AuthProviderFirebase extends AuthProvider {
   @override
   Future<void> appLogout() {
     // TODO: implement logout
-    return Future.delayed(const Duration(seconds: 1));
+    return Future.delayed(const Duration(seconds: 0));
   }
 
   @override
@@ -38,7 +38,7 @@ class AuthProviderFirebase extends AuthProvider {
   @override
   Future<void> eventLogout() {
     // TODO: implement eventLogout
-    return Future.delayed(const Duration(seconds: 1));
+    return Future.delayed(const Duration(seconds: 0));
   }
   @override
   Future<AuthUser> eventRegisterAndLoginAndNotify({required String email, required String password}) {
@@ -54,7 +54,7 @@ class AuthProviderFirebase extends AuthProvider {
   @override
   Future<void> orgLogout() {
     // TODO: implement orgLogout
-    return Future.delayed(const Duration(seconds: 1));
+    return Future.delayed(const Duration(seconds: 0));
   }
   @override
   Future<AuthUser> orgRegisterAndLoginAndNotify({required String email, required String password}) {
@@ -66,12 +66,12 @@ class AuthProviderFirebase extends AuthProvider {
   @override
   Future<void> sendEmailVerification() {
     // TODO: implement sendEmailVerification
-    return Future.delayed(const Duration(seconds: 1));
+    return Future.delayed(const Duration(seconds: 0));
   }
 
   @override
   Future<void> sendPasswordReset({required String toEmail}) {
     // TODO: implement sendPasswordReset
-    return Future.delayed(const Duration(seconds: 1));
+    return Future.delayed(const Duration(seconds: 0));
   }
 }

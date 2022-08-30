@@ -8,17 +8,17 @@ abstract class CloudStoreEvent extends CloudStoreOrg {//i think inheritance make
 
   @override
   Future<Event> createOrGetExistEvent({required String eventId}) {
-    return Future(() => const Event(eventId: 'cge id', eventName: 'cge name'));
+    return Future(() => const Event(id: 'cge id', name: 'cge name'));
   }
 
   @override
   Future<Iterable<Event>> getPublicEvents() {
-    return Future(() => [const Event(eventId: 'gpe id', eventName: 'gpe name')]);
+    return Future(() => [const Event(id: 'gpe id', name: 'gpe name')]);
   }
 
   @override
   Future<Iterable<Event>> getUserEvents({required String eventId}) {
-    return Future(() => [const Event(eventId: 'gue id', eventName: 'gue name')]);
+    return Future(() => [const Event(id: 'gue id', name: 'gue name')]);
   }
 
   @override

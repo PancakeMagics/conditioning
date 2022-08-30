@@ -3,19 +3,19 @@ import 'package:conditioning/bloc/auth/app/app_bloc.dart';
 import '../../../bloc/utils/screens/base_bloc.dart';
 import '../../../bloc/auth/app/others/event_screen_to_screen.dart';
 import 'package:conditioning/service/intl/util.dart';
-import 'package:conditioning/ui/animations/slide_in_widget.dart';
+import 'package:conditioning/ui/animations/navigation/navigation_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart' show ReadContext;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen(
       {Key? key,
-      required this.isSlideIn,
+      required this.isNavIn,
       required this.slideDirection,
       this.curve})
       : super(key: key);
-  final bool isSlideIn;
-  final SlideDirection slideDirection;
+  final bool isNavIn;
+  final NavDirection slideDirection;
   final Curve? curve;
 
   @override
@@ -25,9 +25,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return SlideWidgetBuilder(
-      isSlideIn: widget.isSlideIn,
-      slideDirection: widget.slideDirection,
+    return NavigationBuilder(
+      isNavIn: widget.isNavIn,
+      navDirection: widget.slideDirection,
       curve: widget.curve,
       child: Scaffold(
         appBar: AppBar(
@@ -51,7 +51,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                      image: Image.network('https://picsum.photos/400').image,
+                      image: FadeInImage.assetNetwork(
+                        placeholder: 'assets/conditioning.png',//TODO: make a gif
+                        image: 'https://picsum.photos/400',
+                      ).image,
                     ), //Profile
                   ),
                   child: Container(),

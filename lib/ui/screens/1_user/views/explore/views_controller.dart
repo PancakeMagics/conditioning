@@ -7,7 +7,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../bloc/store/orgs/orgs_bloc.dart';
 
 class ViewsController extends StatefulWidget {
-  const ViewsController({Key? key}) : super(key: key);
+  const ViewsController({Key? key,
+    required this.isNavIn,
+  }) : super(key: key);
+  final bool isNavIn;
 
   @override
   State<ViewsController> createState() => _ViewsControllerState();
@@ -18,15 +21,9 @@ class _ViewsControllerState extends State<ViewsController> {
   Widget build(BuildContext context) {
     context.read<ExploreBloc>().add(const StoreEventInitialize());
 
-    return BlocConsumer<ExploreBloc, StoreState>(
+    return BlocBuilder<ExploreBloc, StoreState>(
       builder: (context, state) {
-        return ExploreOrgView();
-      },
-      listener: (context, state) {
-        if (state is OrgStoreStateTapped) {
-          final currentOrg = state.org;
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Center(child: Text(currentOrg.orgName))));
-        }
+        return ExploreOrgView(isNavIn: widget.isNavIn);
       },
     );
   }

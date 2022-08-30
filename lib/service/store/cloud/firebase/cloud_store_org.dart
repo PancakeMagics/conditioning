@@ -7,17 +7,17 @@ abstract class CloudStoreOrg extends CloudStoreUser {//i think inheritance make 
 
   @override
   Future<Org> createOrGetExistOrg({required String orgId}) {
-    return Future(() => const Org(orgId: 'cgo id', orgName: 'cgo name'));
+    return Future(() => const Org(id: 'cgo id', name: 'cgo name'));
   }
 
   @override
   Future<Iterable<Org>> getPublicOrgs() {
-    return Future(() => const [Org(orgId: 'gpo id', orgName: 'gpo name')]);
+    return Future(() => const [Org(id: 'gpo id', name: 'gpo name')]);
   }
 
   @override
   Future<Iterable<Org>> getUserOrgs({required String orgId}) {
-    return Future(() => const [Org(orgId: 'guo id', orgName: 'guo name')]);
+    return Future(() => const [Org(id: 'guo id', name: 'guo name')]);
   }
 
   @override

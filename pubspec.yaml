@@ -38,6 +38,8 @@ dependencies:
   intl: ^0.17.0
   flutter_bloc: ^8.0.1
   flutter_launcher_icons: ^0.10.0
+  transparent_image: ^2.0.0
+  url_launcher: ^6.1.5
 #  google_fonts: ^3.0.1
 
 dev_dependencies:
@@ -68,6 +70,10 @@ flutter:
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
+
+  assets:
+    - assets/icon/conditioning_logo.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

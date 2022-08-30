@@ -13,7 +13,7 @@ class OrgsBloc extends StoreBloc {
     });
     on<OrgStoreEventTapOrg>((event, emit) async {
       //TODO: get org in firebase by orgId
-      emit(OrgStoreStateTapped(org: Org(orgId: 'tapped ${event.orgId}', orgName: 'tapped orgName')));
+      emit(OrgStoreStateTapped(org: Org(id: 'tapped ${event.orgId}', name: 'tapped orgName')));
     });
   }
 }
