@@ -1,6 +1,6 @@
 import 'package:conditioning/bloc/store/store_bloc.dart';
 import 'package:conditioning/bloc/utils/views/explore_bloc.dart';
-import 'package:conditioning/ui/screens/1_user/views/explore/view_explore_orgs.dart';
+import 'package:conditioning/ui/screens/1_user/views/explore/view_explore_org.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,7 +20,7 @@ class _ViewsControllerState extends State<ViewsController> {
 
     return BlocConsumer<ExploreBloc, StoreState>(
       builder: (context, state) {
-        return const ExploreOrgView();
+        return ExploreOrgView();
       },
       listener: (context, state) {
         if (state is OrgStoreStateTapped) {

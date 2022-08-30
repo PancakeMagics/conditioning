@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 Widget getIconTextCard({
+  Key? key,
   required IconData icon,
   required String text,
   required void Function() onTap,
 }) =>
     Card(
+      key: key,
         elevation: 5,
         child: InkWell(
           onTap: onTap,

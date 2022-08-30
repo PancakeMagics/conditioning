@@ -6,7 +6,7 @@ class AuthProviderFirebase extends AuthProvider {
   @override
   Future<void> initialize() async {
     // TODO: implement initialize
-    return Future.delayed(const Duration(seconds: 2));
+    return Future.delayed(const Duration(milliseconds: 0));
   }
 
   @override

@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
         create: (context) => BaseBloc(authProvider: AuthService.fromFirebase()),
         child: Material(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-          clipBehavior: Clip.hardEdge,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
           child: const ScreensController()
         ),
       ),
