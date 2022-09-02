@@ -6,6 +6,7 @@ class AuthAppUser extends AuthUser {
     required super.id,
     required super.email,
     required super.registerNotVerified,
+    super.name,
 });
   // factory AuthUser.fromFirebase(User)
 }

@@ -7,9 +7,13 @@ import 'entities/user.dart';
 
 class StoreService implements StoreProvider {
   final StoreProvider _storeProvider;
+
   const StoreService(this._storeProvider);
-  factory StoreService.fromFirebase() =>
-      StoreService(StoreProviderFirebase());
+
+  factory StoreService.fromFirebase() => StoreService(StoreProviderFirebase());
+
+  @override
+  Future<void> initialize() => _storeProvider.initialize();
 
   @override
   List<Event> get eventList => _storeProvider.eventList;
@@ -45,15 +49,13 @@ class StoreService implements StoreProvider {
       _storeProvider.deleteUser(userId: userId);
 
   @override
-  Future<Iterable<Event>> getPublicEvents() =>
-      _storeProvider.getPublicEvents();
+  Future<Iterable<Event>> getPublicEvents() => _storeProvider.getPublicEvents();
 
   @override
   Future<Iterable<Org>> getPublicOrgs() => _storeProvider.getPublicOrgs();
 
   @override
-  Future<Iterable<User>> getPublicUsers() =>
-      _storeProvider.getPublicUsers();
+  Future<Iterable<User>> getPublicUsers() => _storeProvider.getPublicUsers();
 
   @override
   Future<Iterable<Event>> getUserEvents({required String eventId}) =>

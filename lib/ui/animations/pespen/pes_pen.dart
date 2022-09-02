@@ -1,6 +1,5 @@
-import 'dart:developer';
 import 'dart:ui';
-import 'package:conditioning/service/extensions/offset.dart';
+import 'package:conditioning/service/utils/extensions/offset.dart';
 import 'package:flutter/material.dart';
 
 import 'clipper/clipper_rect.dart';

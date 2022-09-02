@@ -9,6 +9,11 @@ class AuthService implements AuthProvider {
   factory AuthService.fromFirebase() => AuthService(AuthProviderFirebase());
 
   @override
+  AuthAppUser? get authAppUser => _authProvider.authAppUser;
+  @override
+  List<AuthUser> get authUserList => _authProvider.authUserList;
+
+  @override
   Future<AuthUser> appLoginAndNotify({required String email, required String password,}) => _authProvider.appLoginAndNotify(email: email, password: password,);
 
   @override
@@ -16,9 +21,6 @@ class AuthService implements AuthProvider {
 
   @override
   Future<AuthUser> appRegisterAndLoginAndNotify({required String email, required String password}) => _authProvider.appRegisterAndLoginAndNotify(email: email, password: password,);
-
-  @override
-  AuthUser? get currentAuthUser => _authProvider.currentAuthUser;
 
   @override
   Future<AuthUser> eventLoginAndNotify({required String email, required String password}) => _authProvider.eventLoginAndNotify(email: email, password: password,);

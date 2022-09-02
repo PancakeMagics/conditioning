@@ -1,3 +1,4 @@
+import 'package:conditioning/service/settings/settings.dart';
 import 'package:flutter/material.dart';
 
 part 'auth_app_user.dart';
@@ -9,5 +10,6 @@ abstract class AuthUser {
   final String id;
   final String email;
   final bool registerNotVerified;
-  const AuthUser({required this.id, required this.email, required this.registerNotVerified});
+  final String? name;
+  const AuthUser({required this.id, required this.email, required this.registerNotVerified, this.name});
 }

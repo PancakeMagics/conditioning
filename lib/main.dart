@@ -1,21 +1,14 @@
-import 'package:conditioning/bloc/auth/org/org_bloc.dart';
-import 'package:conditioning/service/auth/auth_service.dart';
-import 'package:conditioning/ui/animations/navigation/navigation_builder.dart';
-import 'package:conditioning/ui/screens/0_base/screen_app_login.dart';
-import 'package:conditioning/ui/screens/2_org/screen_org_user.dart';
-import 'package:conditioning/ui/screens/3_event/screen_event_user.dart';
-import 'package:conditioning/ui/screens/screens_controller.dart';
+import 'dart:developer';
+
+import 'package:conditioning/bloc/login_option.dart';
+import 'package:conditioning/bloc/ui/_login/login_bloc.dart';
+import 'package:conditioning/ui/screens/_login/setup/login_screens_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart' show BlocProvider;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart'
     show AppLocalizations;
 
-import 'dart:developer' show log;
-
-import 'bloc/auth/event/event_bloc.dart';
-import 'bloc/utils/screens/base_bloc.dart';
-
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
@@ -30,7 +23,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
-      title: 'Hello',
+      title: 'Conditioning',
       theme: ThemeData(
         primaryColor: primaryBrown,
         primarySwatch: Colors.brown,
@@ -56,38 +49,23 @@ class MyApp extends StatelessWidget {
             // bodySmall, Medium, Large, 1-3:
             ),
       ),
-      home: BlocProvider(
-        create: (context) => BaseBloc(authProvider: AuthService.fromFirebase()),
-        child: Material(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0)),
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            child: const ScreensController()),
+      // home: BlocProvider(
+      //   create: (context) => AppBloc(authProvider: AuthService.fromFirebase(), storeProvider: StoreService.fromFirebase()),
+      //   child: Material(
+      //       shape: RoundedRectangleBorder(
+      //           borderRadius: BorderRadius.circular(30.0)),
+      //       clipBehavior: Clip.antiAliasWithSaveLayer,
+      //       child: const ScreensController()),
+      // ),
+      home: Material(
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        child: BlocProvider<LoginBloc>(
+          create: (context) => LoginBloc(),
+          child: const LoginScreensController(enableLoginScreensNavigation: true, loginOption: LoginOption.app),
+        ),
       ),
-      routes: {
-        '/explore-app': (context) => BlocProvider(
-              create: (context) =>
-                  BaseBloc(authProvider: AuthService.fromFirebase()),
-              child: const AppLoginScreen(
-                  isNavIn: true, slideDirection: NavDirection.leftWord),
-            ),
-        '/explore-org': (context) => BlocProvider(
-              create: (context) =>
-                  OrgBloc(authProvider: AuthService.fromFirebase()),
-              child: const OrgScreen(
-                isNavIn: true,
-                slideDirection: NavDirection.leftWord,
-              ),
-            ),
-        '/explore-event': (context) => BlocProvider(
-              create: (context) =>
-                  EventBloc(authProvider: AuthService.fromFirebase()),
-              child: const EventScreen(
-                isNavIn: true,
-                slideDirection: NavDirection.leftWord,
-              ),
-            ),
-      },
     );
   }
 }

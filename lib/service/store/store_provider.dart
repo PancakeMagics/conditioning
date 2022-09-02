@@ -5,6 +5,8 @@ import 'entities/user.dart';
 
 @immutable
 abstract class StoreProvider {
+  Future<void> initialize();
+
   final List<User> userList;
   final List<Org> orgList;
   final List<Event> eventList;

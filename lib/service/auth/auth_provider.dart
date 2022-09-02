@@ -4,7 +4,8 @@ import 'entities/auth_user.dart';
 @immutable
 abstract class AuthProvider {
   Future<void> initialize();
-  AuthUser? get currentAuthUser;
+  AuthAppUser? get authAppUser;
+  List<AuthUser> get authUserList;
 
   //app
   Future<AuthUser> appLoginAndNotify({

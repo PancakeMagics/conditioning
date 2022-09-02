@@ -1,23 +1,26 @@
-import 'package:conditioning/service/intl/util.dart';
+import 'package:conditioning/service/utils/intl/util.dart';
 import 'package:flutter/material.dart';
 
-import '../../../service/extensions/pair.dart';
-
-class AppBarSearching extends AppBar {
-  AppBarSearching({Key? key,
+class SearchingAppBar extends AppBar {
+  SearchingAppBar({
+    Key? key,
     required this.actionSearching,
+    this.actionLeftIcon,
     this.actionLeft,
+    this.actionRightIcon,
     this.actionRight,
   }) : super(key: key);
   final VoidCallback actionSearching;
-  final Pair<IconData, VoidCallback>? actionLeft;
-  final Pair<IconData, VoidCallback>? actionRight;
+  final IconData? actionLeftIcon;
+  final VoidCallback? actionLeft;
+  final IconData? actionRightIcon;
+  final VoidCallback? actionRight;
 
   @override
   State<AppBar> createState() => _AppBarSearching();
 }
 
-class _AppBarSearching extends State<AppBarSearching> {
+class _AppBarSearching extends State<SearchingAppBar> {
   final _textController = TextEditingController();
 
   @override
@@ -63,11 +66,12 @@ class _AppBarSearching extends State<AppBarSearching> {
 
   Widget _getActionLeft() {
     final actionLeft = widget.actionLeft;
-    if (actionLeft != null) {
+    final actionLeftIcon = widget.actionLeftIcon;
+    if (actionLeft != null || actionLeftIcon != null) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          IconButton(onPressed: actionLeft.b, icon: Icon(actionLeft.a))
+          IconButton(onPressed: actionLeft, icon: Icon(actionLeftIcon))
         ],
       );
     } else {
@@ -77,14 +81,16 @@ class _AppBarSearching extends State<AppBarSearching> {
 
   Widget _getActionRight() {
     final actionRight = widget.actionRight;
-    if (actionRight != null) {
+    final actionRightIcon = widget.actionRightIcon;
+    if (actionRight != null || actionRightIcon != null) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.end,
-        children: [IconButton(onPressed: actionRight.b, icon: Icon(actionRight.a))],
+        children: [
+          IconButton(onPressed: actionRight, icon: Icon(actionRightIcon))
+        ],
       );
     } else {
       return Container();
     }
   }
 }
-

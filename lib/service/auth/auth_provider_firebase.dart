@@ -9,9 +9,11 @@ class AuthProviderFirebase extends AuthProvider {
     return Future.delayed(const Duration(milliseconds: 0));
   }
 
-  @override
   // TODO: implement currentUser
-  AuthUser? get currentAuthUser => null;
+  @override
+  AuthAppUser? get authAppUser => null;
+  @override
+  List<AuthUser> get authUserList => [];
 
   @override
   Future<AuthUser> appLoginAndNotify({required String email, required String password}) {

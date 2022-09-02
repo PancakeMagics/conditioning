@@ -7,17 +7,17 @@ abstract class CloudStoreUser extends CloudStoreProvider {//i think inheritance 
 
   @override
   Future<User> createOrGetExistUser({required String userId}) {
-    return Future(() => const User(id: 'cgu id', name: 'cgu name'));
+    return Future(() => const User(id: 'cgu id', name: 'cgu name', email: '', registerNotVerified: false));
   }
 
   @override
   Future<Iterable<User>> getPublicUsers() {
-    return Future(() => [const User(id: 'gpu id', name: 'gpu name')]);
+    return Future(() => [const User(id: 'gpu id', name: 'gpu name', email: '', registerNotVerified: false)]);
   }
 
   @override
   Future<Iterable<User>> getUserFriends({required String userId}) {
-    return Future(() => [const User(id: 'guf id', name: 'guf name')]);
+    return Future(() => [const User(id: 'guf id', name: 'guf name', email: '', registerNotVerified: false)]);
   }
 
   @override
