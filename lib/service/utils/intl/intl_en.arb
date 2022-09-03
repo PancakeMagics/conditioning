@@ -79,8 +79,11 @@
   "loading_chat_rest": "偶爾要好好休息..",
   "loading_chat_phone": "手機別用太久喔..",
   "loading_end": "再等一下喔..",
+
   "hint_searching": "searching",
   "hint_searchingOrg": "searching Org",
+  "hint_searchingUser": "searching user",
+  "hint_searchingEvent": "searching event",
 
   "title_profile": "個人資訊",
   "title_eventName": "活動名稱"

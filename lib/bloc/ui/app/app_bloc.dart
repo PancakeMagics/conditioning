@@ -17,7 +17,21 @@ class AppBloc<S extends AppState> extends StoreUsersBloc<S> {
     required AuthProvider authProvider,
     required StoreProvider storeProvider,
   }) : super(authProvider: authProvider, storeProvider: storeProvider) {
-    on<AppUserEventStoreData>((event, emit) async {
+    on<AppUserEventStoreHomeScreenData>((event, emit) async {
+      //TODO: handle store data, update ui
+      // emit(const AppStateDataStoring(isLoading: true));
+      try {
+        // reality:
+        // user = await storeProvider.createOrGetExistUser(userId: authAppUser!.id);
+
+        // tempt:
+        user = await storeProvider.createOrGetExistUser(userId: 'hi');
+        emit(AppStateDataStore(user: user, isLoading: false));
+      } on Exception catch(e) {
+        // emit(const AppStateDataStoring(exception: e, isLoading: false));
+      }
+    });
+    on<AppUserEventStoreFriendScreenData>((event, emit) async {
       //TODO: handle store data, update ui
       // emit(const AppStateDataStoring(isLoading: true));
       try {
@@ -32,24 +46,24 @@ class AppBloc<S extends AppState> extends StoreUsersBloc<S> {
       }
     });
 
-    on<AppUserEventHomeToFriend>((event, emit) async {
+    on<AppEventHomeToFriend>((event, emit) async {
       emit(AppNavigationStateHomeToFriend(isLoading: false, user: user) as S);
     });
-    on<AppUserEventHomeToExplore>((event, emit) async {
+    on<AppEventHomeToExplore>((event, emit) async {
       final option = user.appSetting.exploreViewOption;
       emit(AppNavigationStateHomeToExplore(option: option, isLoading: false, user: user) as S);
     });
-    on<AppUserEventFriendToExplore>((event, emit) async {
+    on<AppEventFriendToExplore>((event, emit) async {
       final option = user.appSetting.exploreViewOption;
       emit(AppNavigationStateFriendToExplore(option: option, isLoading: false, user: user) as S);
     });
-    on<AppUserEventExploreToFriend>((event, emit) async {
+    on<AppEventExploreToFriend>((event, emit) async {
       emit(AppNavigationStateExploreToFriend(isLoading: false, user: user) as S);
     });
-    on<AppUserEventExploreToHome>((event, emit) async {
+    on<AppEventExploreToHome>((event, emit) async {
       emit(AppNavigationStateExploreToHome(isLoading: false, user: user) as S);
     });
-    on<AppUserEventFriendToHome>((event, emit) async {
+    on<AppEventFriendToHome>((event, emit) async {
       emit(AppNavigationStateFriendToHome(isLoading: false, user: user) as S);
     });
   }

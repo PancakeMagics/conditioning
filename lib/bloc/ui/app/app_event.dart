@@ -5,8 +5,12 @@ abstract class AppUserEvent extends StoreUsersEvent {
   const AppUserEvent();
 }
 
-class AppUserEventStoreData extends AppUserEvent {
-  const AppUserEventStoreData();
+class AppUserEventStoreHomeScreenData extends AppUserEvent {
+  const AppUserEventStoreHomeScreenData();
+}
+
+class AppUserEventStoreFriendScreenData extends AppUserEvent {
+  const AppUserEventStoreFriendScreenData();
 }
 
 // navigation events
@@ -14,26 +18,26 @@ abstract class NavigationEvent extends AppUserEvent {
   const NavigationEvent();
 }
 
-class AppUserEventHomeToExplore extends NavigationEvent {
-  const AppUserEventHomeToExplore();
+class AppEventHomeToExplore extends NavigationEvent {
+  const AppEventHomeToExplore();
 }
 
-class AppUserEventHomeToFriend extends NavigationEvent {
-  const AppUserEventHomeToFriend();
+class AppEventHomeToFriend extends NavigationEvent {
+  const AppEventHomeToFriend();
 }
 
-class AppUserEventFriendToExplore extends NavigationEvent {
-  const AppUserEventFriendToExplore();
+class AppEventFriendToExplore extends NavigationEvent {
+  const AppEventFriendToExplore();
 }
 
-class AppUserEventFriendToHome extends NavigationEvent {
-  const AppUserEventFriendToHome();
+class AppEventFriendToHome extends NavigationEvent {
+  const AppEventFriendToHome();
 }
 
-class AppUserEventExploreToFriend extends NavigationEvent {
-  const AppUserEventExploreToFriend();
+class AppEventExploreToFriend extends NavigationEvent {
+  const AppEventExploreToFriend();
 }
 
-class AppUserEventExploreToHome extends NavigationEvent {
-  const AppUserEventExploreToHome();
+class AppEventExploreToHome extends NavigationEvent {
+  const AppEventExploreToHome();
 }

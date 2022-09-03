@@ -5,17 +5,15 @@ abstract class LoginState {
   const LoginState();
 }
 
-class LoginStateInitialYet extends LoginState {
-  const LoginStateInitialYet();
+class LoginStateNavigateIn extends LoginState {
+  const LoginStateNavigateIn();
 }
 
-class LoginStateInitial extends LoginState {
-  final LoginOption initialLoginOption;
-  const LoginStateInitial({required this.initialLoginOption});
-}
-
-class LoginStateNavigation extends LoginState {
+class LoginStateNavigating extends LoginState {
   final LoginOption currentOption;
   final LoginOption toWordOption;
-  const LoginStateNavigation({required this.currentOption, required this.toWordOption});
+
+  const LoginStateNavigating(
+      {required this.currentOption, required this.toWordOption,
+      });
 }

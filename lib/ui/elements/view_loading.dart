@@ -1,13 +1,8 @@
 import 'dart:async';
 
-import 'package:conditioning/service/utils/intl/util.dart';
+import 'package:conditioning/bloc/services/auth/auth_state.dart';
+import 'package:conditioning/service/utils/extensions/buildcontext.dart';
 import 'package:flutter/material.dart';
-
-class LoadingViewController {
-  final void Function(String text) update;
-  final void Function() close;
-  const LoadingViewController({required this.close, required this.update});
-}
 
 // TODO: LoadingView with animation
 // class LoadingView extends StatefulWidget {
@@ -31,6 +26,21 @@ class LoadingViewController {
 //     return Container();
 //   }
 // }
+
+void loadingListener(BuildContext context, AuthState state) {
+  if (state.isLoading) {
+    LoadingView().showOverlay(context: context);
+  } else {
+    LoadingView().hideOverlay();
+  }
+}
+
+
+class LoadingViewController {
+  final void Function(String text) update;
+  final void Function() close;
+  const LoadingViewController({required this.close, required this.update});
+}
 
 class LoadingView {
   LoadingView._sharedInstance();

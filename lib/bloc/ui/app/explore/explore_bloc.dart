@@ -45,3 +45,14 @@ class ExploreEventsBloc extends StoreEventsBloc {
     });
   }
 }
+
+class ExploreTopicsBloc extends StoreEventsBloc {
+  ExploreTopicsBloc({
+    required AuthProvider authProvider,
+    required StoreProvider storeProvider,
+  }) : super(authProvider: authProvider, storeProvider: storeProvider) {
+    on<ExploreEventEventOnTap>((event, emit) async {
+      emit(ExploreStateEventDetail(event: event.eventItem, isLoading: false));
+    });
+  }
+}

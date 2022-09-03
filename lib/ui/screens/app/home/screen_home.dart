@@ -1,20 +1,13 @@
 import 'package:conditioning/bloc/services/auth/app/auth_app_bloc.dart';
 import 'package:conditioning/bloc/services/auth/auth_state.dart';
 import 'package:conditioning/bloc/ui/app/app_bloc.dart';
-import 'package:conditioning/service/utils/intl/util.dart';
-import 'package:conditioning/ui/animations/navigation/navigation_builder.dart';
+import 'package:conditioning/service/utils/extensions/buildcontext.dart';
 import 'package:conditioning/ui/elements/not_yet_complete_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart' show BlocBuilder, ReadContext;
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({
-    Key? key,
-    required this.isNavIn,
-    required this.slideDirection,
-  }) : super(key: key);
-  final bool isNavIn;
-  final NavDirection slideDirection;
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -23,48 +16,40 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    if (widget.isNavIn) {
-      context.read<AppBloc>().add(const AppUserEventStoreData());
-    }
-
-    return NavigationBuilder(
-      isNavIn: widget.isNavIn,
-      navDirection: widget.slideDirection,
-      child: Scaffold(
-        appBar: AppBar(title: Text(context.loc.screenName_home)),
-        drawer: _drawer(),
-        body: Padding(
-          padding: const EdgeInsets.all(10),
-          child: BlocBuilder<AppBloc, AuthState>(builder: (context, state) {
-            //TODO
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        context
-                            .read<AppBloc>()
-                            .add(const AppUserEventHomeToFriend());
-                      },
-                      child: Text(context.loc.screenName_friend),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        context
-                            .read<AppBloc>()
-                            .add(const AppUserEventHomeToExplore());
-                      },
-                      child: Text(context.loc.screenName_explore),
-                    ),
-                  ],
-                ),
-              ],
-            );
-          }),
-        ),
+    return Scaffold(
+      appBar: AppBar(title: Text(context.loc.screenName_home)),
+      drawer: _drawer(),
+      body: Padding(
+        padding: const EdgeInsets.all(10),
+        child: BlocBuilder<AppBloc, AuthState>(builder: (context, state) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      context
+                          .read<AppBloc>()
+                          .add(const AppEventHomeToFriend());
+                    },
+                    child: Text(context.loc.screenName_friend),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      //TODO: user can select exploreViewOption before HomeToExplore
+                      context
+                          .read<AppBloc>()
+                          .add(const AppEventHomeToExplore());
+                    },
+                    child: Text(context.loc.screenName_explore),
+                  ),
+                ],
+              ),
+            ],
+          );
+        }),
       ),
     );
   }
@@ -102,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   //TODO: logout with animation
 
                   Navigator.pop(context);
-                  context.read<AppBloc>().add(const AuthAppUserEventLogout());
+                  context.read<AuthAppBloc>().add(const AuthAppUserEventLogout());
                 },
               ),
               ListTile(

@@ -1,10 +1,6 @@
-import 'dart:developer';
-
 import 'package:conditioning/bloc/login_option.dart';
-import 'package:conditioning/bloc/ui/_login/login_bloc.dart';
-import 'package:conditioning/ui/screens/_login/setup/login_screens_controller.dart';
+import 'package:conditioning/ui/screens/_login/_setup/login_screens_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart' show BlocProvider;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart'
     show AppLocalizations;
 
@@ -49,21 +45,14 @@ class MyApp extends StatelessWidget {
             // bodySmall, Medium, Large, 1-3:
             ),
       ),
-      // home: BlocProvider(
-      //   create: (context) => AppBloc(authProvider: AuthService.fromFirebase(), storeProvider: StoreService.fromFirebase()),
-      //   child: Material(
-      //       shape: RoundedRectangleBorder(
-      //           borderRadius: BorderRadius.circular(30.0)),
-      //       clipBehavior: Clip.antiAliasWithSaveLayer,
-      //       child: const ScreensController()),
-      // ),
       home: Material(
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
         clipBehavior: Clip.antiAliasWithSaveLayer,
-        child: BlocProvider<LoginBloc>(
-          create: (context) => LoginBloc(),
-          child: const LoginScreensController(enableLoginScreensNavigation: true, loginOption: LoginOption.app),
+        child: const LoginScreensProvider(
+          loginOption: LoginOption.app,
+          enableLoginScreensNavigation: true,
+          navigationSetUpFinished: false,
         ),
       ),
     );

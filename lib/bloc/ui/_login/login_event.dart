@@ -5,9 +5,8 @@ abstract class LoginEvent {
   const LoginEvent();
 }
 
-class LoginEventInitialize extends LoginEvent {
-  final LoginOption initLoginOption;
-  const LoginEventInitialize({required this.initLoginOption});
+class LoginEventShowCurrentScreen extends LoginEvent {
+  const LoginEventShowCurrentScreen();
 }
 
 class LoginEventAppToOrg extends LoginEvent {

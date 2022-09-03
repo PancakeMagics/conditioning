@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 
 const longLongDuration = Duration(milliseconds: 2000);
 const longDuration = Duration(milliseconds: 1000);
-const mediumDuration = Duration(microseconds: 500);
+const mediumDuration = Duration(milliseconds: 600);
+const mediumShortDuration = Duration(milliseconds: 500);
+const shortMediumDuration = Duration(milliseconds: 400);
 const shortDuration = Duration(milliseconds: 300);
 const shortShortDuration = Duration(milliseconds: 100);
 const miniDuration = Duration(microseconds: 10);

@@ -59,18 +59,21 @@
   "textFieldErrorMessage_thisFieldCannotBeEmpty": "此欄不可空白",
   "textFieldErrorMessage_pleaseEnterCorrectEmailFormat": "請輸入正確的信箱格式",
   "title_register": "註冊",
+
   "buttonTitle_registerAccount": "我要註冊帳號",
   "buttonTitle_backToLoginScreen": "我註冊過了",
   "buttonTitle_registerAndLogin": "註冊並登入",
   "buttonTitle_loginWithGoogleAccount": "使用Google帳號登入",
   "buttonTitle_registerAndLoginWithGoogleAccount": "使用Google帳號註冊並登入",
   "buttonTitle_loginAsVisitor": "訪客登入",
+
   "errorMessage_userNotFound": "尚未註冊",
   "errorMessage_wrongPassword": "密碼錯誤",
   "errorMessage_somethingBadHappenedWhileLogin": "剛剛發生了一些意外，所以你沒登入成功！",
   "errorMessage_weakPasswordLessThan6": "密碼不可以少於六個字！",
   "errorMessage_emailAlreadyInUse": "該信箱已經註冊過了！",
   "errorMessage_invalidEmail": "信箱格式錯誤",
+
   "loading": "等一下喔..",
   "loading_chat_weather": "今天天氣好嗎..",
   "loading_chat_weather_a": "至少你心情要好喔..",
@@ -79,8 +82,11 @@
   "loading_chat_rest": "偶爾要記得好好休息！..",
   "loading_chat_phone": "手機別用太久..",
   "loading_end": "請再等一下..",
+
   "hint_searching": "搜尋",
+  "hint_searchingUser": "搜尋使用者",
   "hint_searchingOrg": "搜尋組織",
+  "hint_searchingEvent": "搜尋活動",
 
   "title_profile": "個人資訊",
   "title_eventName": "活動名稱"

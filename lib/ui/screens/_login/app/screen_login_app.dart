@@ -1,30 +1,25 @@
 import 'package:conditioning/bloc/services/auth/app/auth_app_bloc.dart';
 import 'package:conditioning/bloc/services/auth/auth_state.dart';
-import 'package:conditioning/bloc/services/auth/event/auth_event_bloc.dart';
 import 'package:conditioning/bloc/ui/_login/login_bloc.dart';
-import 'package:conditioning/bloc/ui/app/app_bloc.dart';
 import 'package:conditioning/service/auth/auth_exception.dart';
-import 'package:conditioning/service/utils/intl/util.dart';
-import 'package:conditioning/ui/animations/navigation/navigation_builder.dart';
+import 'package:conditioning/service/utils/extensions/buildcontext.dart';
 import 'package:conditioning/ui/elements/arrow/arrow_login_screens.dart';
 import 'package:conditioning/ui/elements/buttons/icon_text_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginEventScreen extends StatefulWidget {
-  const LoginEventScreen({
+class LoginAppScreen extends StatefulWidget {
+  const LoginAppScreen({
     Key? key,
-    required this.isNavIn,
-    required this.slideDirection,
+    required this.enableLoginScreensNavigation,
   }) : super(key: key);
-  final bool isNavIn;
-  final NavDirection slideDirection;
+  final bool enableLoginScreensNavigation;
 
   @override
-  State<LoginEventScreen> createState() => _LoginEventScreenState();
+  State<LoginAppScreen> createState() => _LoginAppScreenState();
 }
 
-class _LoginEventScreenState extends State<LoginEventScreen> {
+class _LoginAppScreenState extends State<LoginAppScreen> {
   final _formKey = GlobalKey<FormState>();
   final _userName = TextEditingController();
   final _email = TextEditingController();
@@ -55,74 +50,82 @@ class _LoginEventScreenState extends State<LoginEventScreen> {
         topButtonText = context.loc.buttonTitle_backToLoginScreen;
         break;
       case true:
-        screenTitle = context.loc.screenName_loginEvent;
+        screenTitle = context.loc.screenName_loginApp;
         bottomButton1Text = screenTitle;
         bottomButton2Text = context.loc.buttonTitle_loginWithGoogleAccount;
         topButtonText = context.loc.buttonTitle_registerAccount;
         break;
     }
-    return BlocListener<AuthEventBloc, AuthState>(
-      child: NavigationBuilder(
-        isNavIn: widget.isNavIn,
-        navDirection: widget.slideDirection,
-        child: Scaffold(
-          body: Stack(
+    return BlocListener<AuthAppBloc, AuthState>(
+      child: Stack(
+        children: [
+          //TODO: move arrow to controller
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.max,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  SizedBox(
-                    width: 40,
-                    child: Column(children: [
-                      Expanded(
-                          child: ArrowLoginScreens(
-                            isLeft: true,
-                            onTap: () => context
-                                .read<LoginBloc>()
-                                .add(const LoginEventEventToApp()),
-                          ))
-                    ]),
-                  ),
-                  Expanded(child: Container()),
-                ],
+              SizedBox(
+                width: 40,
+                child: Column(children: [
+                  Expanded(
+                      child: ArrowLoginScreens(
+                        isLeft: true,
+                        onTap: () => context
+                            .read<LoginBloc>()
+                            .add(const LoginEventAppToOrg()),
+                      ))
+                ]),
               ),
-              Center(
-                child: SizedBox(
-                  height: 520,
-                  width: 320,
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 20.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: _topButtons(),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                          child: Column(children: [
-                            Text(screenTitle,
-                                style: Theme.of(context).textTheme.titleLarge),
-                            ..._middleTextField(),
-                          ]),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 30.0),
-                          child: Column(children: _bottomButtons()),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+              Expanded(child: Container()),
+              SizedBox(
+                width: 40,
+                child: Column(children: [
+                  Expanded(
+                      child: ArrowLoginScreens(
+                        isLeft: false,
+                        onTap: () => context
+                            .read<LoginBloc>()
+                            .add(const LoginEventAppToEvent()),
+                      ))
+                ]),
               ),
             ],
           ),
-        ),
+          Center(
+            child: SizedBox(
+              height: 520,
+              width: 320,
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding:
+                      const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 20.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: _topButtons(),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                      child: Column(children: [
+                        Text(screenTitle,
+                            style: Theme.of(context).textTheme.titleLarge),
+                        ..._middleTextField(),
+                      ]),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 30.0),
+                      child: Column(children: _bottomButtons()),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
       listener: (context, state) {
         if (state.exception != null) {
@@ -244,21 +247,19 @@ class _LoginEventScreenState extends State<LoginEventScreen> {
       ];
 
   void _login(BuildContext context) {
-    if (widget.isNavIn) {
-      switch (_isLoginView) {
-        case true:
-          context.read<AuthEventBloc>().add(AuthEventUserEventRegisterAndLogin(
-                userName: _userName.text,
-                email: _email.text,
-                password: _password.text,
-              ));
-          break;
-        default:
-          context.read<AuthEventBloc>().add(AuthEventUserEventLogin(
-                email: _email.text,
-                password: _password.text,
-              ));
-      }
+    switch (_isLoginView) {
+      case true:
+        context.read<AuthAppBloc>().add(AuthAppUserEventRegisterAndLogin(
+          userName: _userName.text,
+          email: _email.text,
+          password: _password.text,
+        ));
+        break;
+      default:
+        context.read<AuthAppBloc>().add(AuthAppUserEventLogin(
+          email: _email.text,
+          password: _password.text,
+        ));
     }
   }
 }

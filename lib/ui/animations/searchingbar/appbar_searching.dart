@@ -1,20 +1,20 @@
-import 'package:conditioning/service/utils/intl/util.dart';
+import 'package:conditioning/service/utils/extensions/buildcontext.dart';
 import 'package:flutter/material.dart';
+
+//TODO: like gmail
 
 class SearchingAppBar extends AppBar {
   SearchingAppBar({
     Key? key,
-    required this.actionSearching,
-    this.actionLeftIcon,
-    this.actionLeft,
-    this.actionRightIcon,
-    this.actionRight,
+    required this.searchingHint,
+    required this.searchingAction,
+    this.actionIcon,
+    this.action,
   }) : super(key: key);
-  final VoidCallback actionSearching;
-  final IconData? actionLeftIcon;
-  final VoidCallback? actionLeft;
-  final IconData? actionRightIcon;
-  final VoidCallback? actionRight;
+  final String searchingHint;
+  final VoidCallback searchingAction;
+  final IconData? actionIcon;
+  final VoidCallback? action;
 
   @override
   State<AppBar> createState() => _AppBarSearching();
@@ -25,6 +25,8 @@ class _AppBarSearching extends State<SearchingAppBar> {
 
   @override
   Widget build(BuildContext context) {
+    //TODO: make a searching textField like gmail
+
     return AppBar(
       title: Stack(
         children: [
@@ -42,14 +44,14 @@ class _AppBarSearching extends State<SearchingAppBar> {
                           controller: _textController,
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: context.loc.hint_searching,
+                            hintText: widget.searchingHint,
                             contentPadding: const EdgeInsets.only(left: 8.0),
                           ),
                         ),
                       ),
                       OutlinedButton(
                         child: const Icon(Icons.search_rounded),
-                        onPressed: () => widget.actionSearching,
+                        onPressed: () => widget.searchingAction,
                       ),
                     ],
                   ),
@@ -57,36 +59,20 @@ class _AppBarSearching extends State<SearchingAppBar> {
               ),
             ],
           ),
-          _getActionLeft(),
-          _getActionRight(),
+          _getActionIcon(isLeft: true),
         ],
       ),
     );
   }
 
-  Widget _getActionLeft() {
-    final actionLeft = widget.actionLeft;
-    final actionLeftIcon = widget.actionLeftIcon;
-    if (actionLeft != null || actionLeftIcon != null) {
+  Widget _getActionIcon({required bool isLeft}) {
+    final action = widget.action;
+    final actionIcon = widget.actionIcon;
+    if (action != null || actionIcon != null) {
       return Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: isLeft ? MainAxisAlignment.start : MainAxisAlignment.end,
         children: [
-          IconButton(onPressed: actionLeft, icon: Icon(actionLeftIcon))
-        ],
-      );
-    } else {
-      return Container();
-    }
-  }
-
-  Widget _getActionRight() {
-    final actionRight = widget.actionRight;
-    final actionRightIcon = widget.actionRightIcon;
-    if (actionRight != null || actionRightIcon != null) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          IconButton(onPressed: actionRight, icon: Icon(actionRightIcon))
+          IconButton(onPressed: action, icon: Icon(actionIcon))
         ],
       );
     } else {

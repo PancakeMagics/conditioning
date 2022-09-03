@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:conditioning/service/utils/intl/util.dart';
+import 'package:conditioning/service/utils/extensions/buildcontext.dart';
 import 'package:conditioning/service/store/entities/event.dart';
 import 'package:conditioning/service/store/entities/org.dart';
 import 'package:conditioning/service/store/entities/topic.dart';
@@ -44,7 +44,7 @@ class _ExploreTopicDetailState extends State<ExploreTopicDetail> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(widget.topic?.name ?? '', style: textTheme.titleLarge),
+                Text(widget.topic.name, style: textTheme.titleLarge),
                 Container(
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,

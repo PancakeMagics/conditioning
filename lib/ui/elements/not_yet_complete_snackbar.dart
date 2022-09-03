@@ -1,6 +1,6 @@
 
 import 'package:conditioning/service/settings/animation_durations.dart';
-import 'package:conditioning/service/utils/intl/util.dart';
+import 'package:conditioning/service/utils/extensions/buildcontext.dart';
 import 'package:flutter/material.dart';
 
 extension NotYetComplete on BuildContext {

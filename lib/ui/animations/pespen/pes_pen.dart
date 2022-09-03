@@ -12,13 +12,13 @@ part 'pes_state.dart';
 class PesPen extends StatefulWidget {
   const PesPen({
     Key? key,
-    required this.child,
     required this.pesView,
     required this.pesItem,
+    required this.child,
   }) : super(key: key);
-  final Widget child;
   final Widget pesView;
   final PesItem? pesItem;
+  final Widget child;
 
   @override
   State<PesPen> createState() => _PesPenState();

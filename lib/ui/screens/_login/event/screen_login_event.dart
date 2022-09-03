@@ -1,28 +1,22 @@
 import 'package:conditioning/bloc/services/auth/auth_state.dart';
-import 'package:conditioning/bloc/services/auth/org/auth_org_bloc.dart';
+import 'package:conditioning/bloc/services/auth/event/auth_event_bloc.dart';
 import 'package:conditioning/bloc/ui/_login/login_bloc.dart';
 import 'package:conditioning/service/auth/auth_exception.dart';
-import 'package:conditioning/service/utils/intl/util.dart';
-import 'package:conditioning/ui/animations/navigation/navigation_builder.dart';
+import 'package:conditioning/service/utils/extensions/buildcontext.dart';
 import 'package:conditioning/ui/elements/arrow/arrow_login_screens.dart';
 import 'package:conditioning/ui/elements/buttons/icon_text_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginOrgScreen extends StatefulWidget {
-  const LoginOrgScreen({
-    Key? key,
-    required this.isNavIn,
-    required this.slideDirection,
-  }) : super(key: key);
-  final bool isNavIn;
-  final NavDirection slideDirection;
+class LoginEventScreen extends StatefulWidget {
+  const LoginEventScreen({Key? key, required this.enableLoginScreensNavigation}) : super(key: key);
+  final bool enableLoginScreensNavigation;
 
   @override
-  State<LoginOrgScreen> createState() => _LoginOrgScreenState();
+  State<LoginEventScreen> createState() => _LoginEventScreenState();
 }
 
-class _LoginOrgScreenState extends State<LoginOrgScreen> {
+class _LoginEventScreenState extends State<LoginEventScreen> {
   final _formKey = GlobalKey<FormState>();
   final _userName = TextEditingController();
   final _email = TextEditingController();
@@ -53,74 +47,68 @@ class _LoginOrgScreenState extends State<LoginOrgScreen> {
         topButtonText = context.loc.buttonTitle_backToLoginScreen;
         break;
       case true:
-        screenTitle = context.loc.screenName_loginOrg;
+        screenTitle = context.loc.screenName_loginEvent;
         bottomButton1Text = screenTitle;
         bottomButton2Text = context.loc.buttonTitle_loginWithGoogleAccount;
         topButtonText = context.loc.buttonTitle_registerAccount;
         break;
     }
-    return BlocListener<AuthOrgBloc, AuthState>(
-      child: NavigationBuilder(
-        isNavIn: widget.isNavIn,
-        navDirection: widget.slideDirection,
-        child: Scaffold(
-          body: Stack(
+    return BlocListener<AuthEventBloc, AuthState>(
+      child: Stack(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.max,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Expanded(child: Container()),
-                  SizedBox(
-                    width: 40,
-                    child: Column(children: [
-                      Expanded(
-                          child: ArrowLoginScreens(
-                            isLeft: false,
-                            onTap: () => context
-                                .read<LoginBloc>()
-                                .add(const LoginEventOrgToApp()),
-                          ))
-                    ]),
-                  ),
-                ],
+              SizedBox(
+                width: 40,
+                child: Column(children: [
+                  Expanded(
+                      child: ArrowLoginScreens(
+                        isLeft: true,
+                        onTap: () => context
+                            .read<LoginBloc>()
+                            .add(const LoginEventEventToApp()),
+                      ))
+                ]),
               ),
-              Center(
-                child: SizedBox(
-                  height: 520,
-                  width: 320,
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 20.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: _topButtons(),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                          child: Column(children: [
-                            Text(screenTitle,
-                                style: Theme.of(context).textTheme.titleLarge),
-                            ..._middleTextField(),
-                          ]),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 30.0),
-                          child: Column(children: _bottomButtons()),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+              Expanded(child: Container()),
             ],
           ),
-        ),
+          Center(
+            child: SizedBox(
+              height: 520,
+              width: 320,
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 20.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: _topButtons(),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                      child: Column(children: [
+                        Text(screenTitle,
+                            style: Theme.of(context).textTheme.titleLarge),
+                        ..._middleTextField(),
+                      ]),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 30.0),
+                      child: Column(children: _bottomButtons()),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
       listener: (context, state) {
         if (state.exception != null) {
@@ -242,21 +230,19 @@ class _LoginOrgScreenState extends State<LoginOrgScreen> {
       ];
 
   void _login(BuildContext context) {
-    if (widget.isNavIn) {
-      switch (_isLoginView) {
-        case true:
-          context.read<AuthOrgBloc>().add(AuthOrgUserEventRegisterAndLogin(
-                userName: _userName.text,
-                email: _email.text,
-                password: _password.text,
-              ));
-          break;
-        default:
-          context.read<AuthOrgBloc>().add(AuthOrgUserEventLogin(
-                email: _email.text,
-                password: _password.text,
-              ));
-      }
+    switch (_isLoginView) {
+      case true:
+        context.read<AuthEventBloc>().add(AuthEventUserEventRegisterAndLogin(
+          userName: _userName.text,
+          email: _email.text,
+          password: _password.text,
+        ));
+        break;
+      default:
+        context.read<AuthEventBloc>().add(AuthEventUserEventLogin(
+          email: _email.text,
+          password: _password.text,
+        ));
     }
   }
 }
