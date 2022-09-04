@@ -3,7 +3,7 @@ import 'package:conditioning/service/store/cloud/firebase/cloud_store_org.dart';
 import '../../entities/event.dart';
 
 abstract class CloudStoreEvent extends CloudStoreOrg {//i think inheritance make code readable
-  const CloudStoreEvent({required super.userList, required super.orgList, required super.eventList,});
+  const CloudStoreEvent({required super.userList, required super.orgList, required super.eventList, required super.topicList});
   //TODO: implement firebase
 
   @override

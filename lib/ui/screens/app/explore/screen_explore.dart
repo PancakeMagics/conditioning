@@ -2,42 +2,55 @@ import 'package:conditioning/bloc/ui/app/app_bloc.dart';
 import 'package:conditioning/bloc/ui/app/explore/explore_bloc.dart';
 import 'package:conditioning/service/auth/auth_service.dart';
 import 'package:conditioning/service/store/store_service.dart';
-import 'package:conditioning/ui/animations/navigation/my_animated_slide.dart';
-import 'package:conditioning/ui/animations/pespen/pes_pen.dart';
-import 'package:conditioning/ui/animations/searchingbar/appbar_searching.dart';
-import 'package:conditioning/ui/animations/searchingbar/searching_bar.dart';
-import 'package:conditioning/ui/screens/app/explore/explore_views_controller.dart';
+import 'package:conditioning/ui/screens/app/explore/views/view_explore_event.dart';
+import 'package:conditioning/ui/screens/app/explore/views/view_explore_org.dart';
+import 'package:conditioning/ui/screens/app/explore/views/view_explore_topic.dart';
+import 'package:conditioning/ui/screens/app/explore/views/view_explore_user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ExploreScreen extends StatelessWidget {
-  const ExploreScreen({Key? key, required this.viewOption}) : super(key: key);
+class AppExploreScreen extends StatelessWidget {
+  const AppExploreScreen({Key? key, required this.viewOption}) : super(key: key);
   final ExploreViewOption viewOption;
 
   @override
   Widget build(BuildContext context) {
-    return SearchingBar(
-      backgroundColor: Colors.grey,
-      child: Stack(
-        children: [
-          Scaffold(
-            appBar: AppBar(),
-            body: const Center(child: Text('hello')),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 20.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.home_outlined),
-                  onPressed: () => context.read<AppBloc>().add(const AppEventExploreToHome()),
-                )
-              ],
-            ),
-          ),
-        ],
-      ),
+    return Stack(
+      children: [
+        _getViewWithProvider(),
+      ],
     );
+  }
+
+  Widget _getViewWithProvider() {
+    final authProvider = AuthService.fromFirebase();
+    final storeProvider = StoreService.fromFirebase();
+
+    switch (viewOption) {
+      case ExploreViewOption.user:
+        return BlocProvider<AppExploreUsersBloc>(
+          create: (context) => AppExploreUsersBloc(
+              authProvider: authProvider, storeProvider: storeProvider),
+          child: ExploreUserView(userList: storeProvider.userList),
+        );
+      case ExploreViewOption.org:
+        return BlocProvider<AppExploreOrgsBloc>(
+          create: (context) => AppExploreOrgsBloc(
+              authProvider: authProvider, storeProvider: storeProvider),
+          child: ExploreOrgView(orgList: storeProvider.orgList),
+        );
+      case ExploreViewOption.event:
+        return BlocProvider<AppExploreEventsBloc>(
+          create: (context) => AppExploreEventsBloc(
+              authProvider: authProvider, storeProvider: storeProvider),
+          child: ExploreEventView(eventList: storeProvider.eventList),
+        );
+      case ExploreViewOption.topic:
+        return BlocProvider<AppExploreTopicsBloc>(
+          create: (context) => AppExploreTopicsBloc(
+              authProvider: authProvider, storeProvider: storeProvider),
+          child: ExploreTopicView(topicList: storeProvider.topicList),
+        );
+    }
   }
 }

@@ -1,4 +1,3 @@
-
 import 'package:conditioning/bloc/services/auth/auth_state.dart';
 import 'package:conditioning/bloc/ui/app/app_bloc.dart';
 import 'package:conditioning/bloc/ui/app/explore/explore_bloc.dart';
@@ -35,9 +34,9 @@ class _AppScreensControllerState extends State<AppScreensController> {
   @override
   Widget build(BuildContext context) {
     if (_homeOffset == Offset.zero) {
-      context.read<AppBloc>().add(const AppUserEventStoreHomeScreenData());
-    } else if (_friendOffset == Offset.zero){
-      context.read<AppBloc>().add(const AppUserEventStoreFriendScreenData());
+      context.read<AppBloc>().add(const AppEventStoreHomeScreenData());
+    } else if (_friendOffset == Offset.zero) {
+      context.read<AppBloc>().add(const AppEventStoreFriendScreenData());
     }
 
     return BlocListener<AppBloc, AuthState>(
@@ -81,17 +80,17 @@ class _AppScreensControllerState extends State<AppScreensController> {
           AnimatedSlide(
             offset: _friendOffset,
             duration: shortDuration,
-            child: const FriendsScreen(),
+            child: const AppFriendsScreen(),
           ),
           AnimatedSlide(
             offset: _homeOffset,
             duration: shortDuration,
-            child: const HomeScreen(),
+            child: const AppHomeScreen(),
           ),
           AnimatedSlide(
             offset: _exploreOffset,
             duration: shortDuration,
-            child: ExploreScreen(viewOption: _exploreViewOption),
+            child: AppExploreScreen(viewOption: _exploreViewOption),
           ),
         ],
       ),

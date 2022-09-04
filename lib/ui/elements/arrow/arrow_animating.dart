@@ -1,34 +1,34 @@
 import 'package:conditioning/ui/animations/sin_curve.dart';
+import 'package:conditioning/ui/elements/arrow/arrow_direction.dart';
 import 'package:flutter/material.dart';
 
-class ArrowLoginScreens extends StatefulWidget {
-  const ArrowLoginScreens({Key? key,
-    required this.isLeft,
+class AnimatingArrow extends StatefulWidget {
+  const AnimatingArrow({
+    Key? key,
     required this.onTap,
+    required this.direction,
   }) : super(key: key);
-  final bool isLeft;
   final Function onTap;
+  final ArrowDirection direction;
 
   @override
-  State<ArrowLoginScreens> createState() => _ArrowLoginScreensState();
+  State<AnimatingArrow> createState() => _AnimatingArrowState();
 }
 
-class _ArrowLoginScreensState extends State<ArrowLoginScreens> with SingleTickerProviderStateMixin {
+class _AnimatingArrowState extends State<AnimatingArrow>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _animationController;
   late final Tween<Offset> _tween;
   late final Animation<Offset> _animation;
-  late bool _isLeft;
 
   @override
   void initState() {
-    _isLeft = widget.isLeft;
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 900),
       vsync: this,
     )..repeat();
 
-    _tween =
-        Tween(begin: const Offset(0.0, 0.0), end: const Offset(0.5, 0.0));
+    _tween = Tween(begin: const Offset(0.0, 0.0), end: const Offset(0.5, 0.0));
     _animation = _tween
         .chain(CurveTween(curve: const SineCurve(count: 3)))
         .animate(_animationController);
@@ -45,12 +45,13 @@ class _ArrowLoginScreensState extends State<ArrowLoginScreens> with SingleTicker
   @override
   Widget build(BuildContext context) {
     return RotatedBox(
-      quarterTurns: _isLeft ? 0 : 2,
+      quarterTurns: widget.direction.index,
       child: InkWell(
         onTap: () => widget.onTap(),
         child: SlideTransition(
           position: _animation,
-          child: const Center(child: FlutterLogo(size: 20)),
+          // child: const Center(child: FlutterLogo(size: 20)),
+          child: const Icon(Icons.arrow_back_outlined),
         ),
       ),
     );

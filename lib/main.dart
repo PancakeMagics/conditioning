@@ -53,6 +53,7 @@ class MyApp extends StatelessWidget {
           loginOption: LoginOption.app,
           enableLoginScreensNavigation: true,
           navigationSetUpFinished: false,
+          enableBackButton: false,
         ),
       ),
     );

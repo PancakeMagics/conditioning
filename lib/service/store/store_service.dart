@@ -3,6 +3,7 @@ import 'package:conditioning/service/store/store_provider.dart';
 
 import 'entities/event.dart';
 import 'entities/org.dart';
+import 'entities/topic.dart';
 import 'entities/user.dart';
 
 class StoreService implements StoreProvider {
@@ -23,6 +24,9 @@ class StoreService implements StoreProvider {
 
   @override
   List<User> get userList => _storeProvider.userList;
+
+  @override
+  List<Topic> get topicList => _storeProvider.topicList;
 
   @override
   Future<Event> createOrGetExistEvent({required String eventId}) =>

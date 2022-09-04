@@ -1,16 +1,11 @@
+import 'package:conditioning/bloc/ui/app/explore/explore_bloc.dart';
 import 'package:conditioning/service/store/entities/topic.dart';
-import 'package:conditioning/service/utils/extensions/globalkey.dart';
 import 'package:conditioning/ui/elements/buttons/icon_text_card.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart' show ReadContext;
+import 'package:flutter_bloc/flutter_bloc.dart' show ReadContext;
 
 class ExploreTopicView extends StatefulWidget {
-  const ExploreTopicView({
-    Key? key,
-    required this.isNavIn,
-    required this.topicList,
-  }) : super(key: key);
-  final bool isNavIn;
+  const ExploreTopicView({Key? key, required this.topicList}) : super(key: key);
   final List<Topic> topicList;
 
   @override
@@ -41,10 +36,11 @@ class _ExploreTopicViewState extends State<ExploreTopicView> {
 
   @override
   Widget build(BuildContext context) {
+    context.read<AppExploreTopicsBloc>().add(const ExploreTopicEventStoreTopicsData());
+
     return Padding(
       padding: const EdgeInsets.all(36.0),
-      child: widget.isNavIn
-          ? ListView.builder(
+      child: ListView.builder(
         itemCount: _topicList.length,
         itemBuilder: (context, index) {
           final topic = _topicList[index];
@@ -56,8 +52,7 @@ class _ExploreTopicViewState extends State<ExploreTopicView> {
             onTap: () => setState(() => _itemOnTap(topic, key)),
           );
         },
-      )
-          : Container(),
+      ),
     );
   }
 }

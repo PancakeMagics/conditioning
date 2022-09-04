@@ -1,17 +1,16 @@
 import 'package:conditioning/bloc/ui/app/app_bloc.dart';
 import 'package:conditioning/service/utils/extensions/buildcontext.dart';
-import 'package:conditioning/ui/animations/navigation/my_animated_slide.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class FriendsScreen extends StatefulWidget {
-  const FriendsScreen({Key? key}) : super(key: key);
+class AppFriendsScreen extends StatefulWidget {
+  const AppFriendsScreen({Key? key}) : super(key: key);
 
   @override
-  State<FriendsScreen> createState() => _FriendsScreenState();
+  State<AppFriendsScreen> createState() => _AppFriendsScreenState();
 }
 
-class _FriendsScreenState extends State<FriendsScreen> {
+class _AppFriendsScreenState extends State<AppFriendsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

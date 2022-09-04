@@ -7,8 +7,11 @@ enum ExploreViewOption {
   topic,
 }
 
-class ExploreStateUser extends StoreUsersState {
-  const ExploreStateUser({
+/// explore user
+
+@immutable
+abstract class ExploreUserState extends StoreUsersState {
+  const ExploreUserState({
     required super.userList,
     required super.isLoading,
     super.loadingText,
@@ -16,28 +19,10 @@ class ExploreStateUser extends StoreUsersState {
   });
 }
 
-class ExploreStateOrg extends StoreOrgsState {
-  const ExploreStateOrg({
-    required super.orgList,
-    required super.isLoading,
-    super.loadingText,
-    super.exception,
-  });
-}
+class ExploreUserStateAddFriend extends ExploreUserState {
+  final User user;
 
-class ExploreStateEvent extends StoreEventsState {
-  const ExploreStateEvent({
-    required super.eventList,
-    required super.isLoading,
-    super.loadingText,
-    super.exception,
-  });
-}
-
-class ExploreStateUserDetail extends ExploreStateUser {
-  final PesItem<User> user;
-
-  const ExploreStateUserDetail(
+  const ExploreUserStateAddFriend(
       {required this.user,
       required super.isLoading,
       super.loadingText,
@@ -45,10 +30,21 @@ class ExploreStateUserDetail extends ExploreStateUser {
       : super(userList: null);
 }
 
-class ExploreStateOrgDetail extends ExploreStateOrg {
-  final PesItem<Org> org;
+/// explore org
+@immutable
+abstract class ExploreOrgStateOrg extends StoreOrgsState {
+  const ExploreOrgStateOrg({
+    required super.orgList,
+    required super.isLoading,
+    super.loadingText,
+    super.exception,
+  });
+}
 
-  const ExploreStateOrgDetail({
+class ExploreOrgStateLogin extends ExploreOrgStateOrg {
+  final Org org;
+
+  const ExploreOrgStateLogin({
     required this.org,
     required super.isLoading,
     super.loadingText,
@@ -56,10 +52,30 @@ class ExploreStateOrgDetail extends ExploreStateOrg {
   }) : super(orgList: null);
 }
 
-class ExploreStateEventDetail extends ExploreStateEvent {
-  final PesItem<Event> event;
+class ExploreOrgStateLoginCancel extends ExploreOrgStateOrg {
+  const ExploreOrgStateLoginCancel({
+    required super.isLoading,
+    super.loadingText,
+    super.exception,
+  }) : super(orgList: null);
+}
 
-  const ExploreStateEventDetail({
+
+/// explore event
+@immutable
+class ExploreEventState extends StoreEventsState {
+  const ExploreEventState({
+    required super.eventList,
+    required super.isLoading,
+    super.loadingText,
+    super.exception,
+  });
+}
+
+class ExploreEventStateLogin extends ExploreEventState {
+  final Event event;
+
+  const ExploreEventStateLogin({
     required this.event,
     required super.isLoading,
     super.loadingText,
@@ -67,13 +83,13 @@ class ExploreStateEventDetail extends ExploreStateEvent {
   }) : super(eventList: null);
 }
 
-
-// TODO:
-// class ExploreStateTopic extends StoreState {
-//   const ExploreStateTopic({
-//     required super.eventList,
-//     required super.isLoading,
-//     super.loadingText,
-//     super.exception,
-//   });
-// }
+/// explore topic
+@immutable
+abstract class ExploreStateTopic extends StoreTopicsState {
+  const ExploreStateTopic({
+    required super.topicList,
+    required super.isLoading,
+    super.loadingText,
+    super.exception,
+  });
+}

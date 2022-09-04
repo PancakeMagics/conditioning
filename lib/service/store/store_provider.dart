@@ -1,3 +1,4 @@
+import 'package:conditioning/service/store/entities/topic.dart';
 import 'package:flutter/material.dart';
 import 'entities/event.dart';
 import 'entities/org.dart';
@@ -10,7 +11,8 @@ abstract class StoreProvider {
   final List<User> userList;
   final List<Org> orgList;
   final List<Event> eventList;
-  const StoreProvider({required this.userList, required this.orgList, required this.eventList});
+  final List<Topic> topicList; //TODO
+  const StoreProvider({required this.userList, required this.orgList, required this.eventList, required this.topicList});
 
   Future<User> createOrGetExistUser({required String userId});
   Future<Iterable<User>> getPublicUsers();

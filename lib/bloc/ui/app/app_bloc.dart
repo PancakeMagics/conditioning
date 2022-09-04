@@ -17,7 +17,7 @@ class AppBloc<S extends AppState> extends StoreUsersBloc<S> {
     required AuthProvider authProvider,
     required StoreProvider storeProvider,
   }) : super(authProvider: authProvider, storeProvider: storeProvider) {
-    on<AppUserEventStoreHomeScreenData>((event, emit) async {
+    on<AppEventStoreHomeScreenData>((event, emit) async {
       //TODO: handle store data, update ui
       // emit(const AppStateDataStoring(isLoading: true));
       try {
@@ -31,13 +31,8 @@ class AppBloc<S extends AppState> extends StoreUsersBloc<S> {
         // emit(const AppStateDataStoring(exception: e, isLoading: false));
       }
     });
-    on<AppUserEventStoreFriendScreenData>((event, emit) async {
-      //TODO: handle store data, update ui
-      // emit(const AppStateDataStoring(isLoading: true));
+    on<AppEventStoreFriendScreenData>((event, emit) async {
       try {
-        // reality:
-        // user = await storeProvider.createOrGetExistUser(userId: authAppUser!.id);
-
         // tempt:
         user = await storeProvider.createOrGetExistUser(userId: 'hi');
         emit(AppStateDataStore(user: user, isLoading: false));

@@ -16,10 +16,12 @@ class LoginScreensProvider extends StatelessWidget {
     required this.loginOption,
     required this.enableLoginScreensNavigation,
     required this.navigationSetUpFinished,
+    required this.enableBackButton,
   }) : super(key: key);
   final LoginOption loginOption;
   final bool enableLoginScreensNavigation;
   final bool navigationSetUpFinished;
+  final bool enableBackButton;
 
   @override
   Widget build(BuildContext context) {
@@ -29,23 +31,22 @@ class LoginScreensProvider extends StatelessWidget {
         child: LoginScreensController(initialOption: loginOption),
       );
     } else {
-      final enable = enableLoginScreensNavigation;
       final authProvider = AuthService.fromFirebase();
       switch (loginOption) {
         case LoginOption.app:
           return BlocProvider<AuthAppBloc<AuthAppUserState>>(
             create: (context) => AuthAppBloc(authProvider: authProvider),
-            child: LoginAppScreensController(enableLoginScreensNavigation: enable),
+            child: LoginAppScreensController(enableLoginScreensNavigation: enableLoginScreensNavigation),
           );
         case LoginOption.org:
           return BlocProvider<AuthOrgBloc<AuthOrgUserState>>(
             create: (context) => AuthOrgBloc(authProvider: authProvider),
-            child: LoginOrgScreensController(enableLoginScreensNavigation: enable),
+            child: LoginOrgScreensController(enableLoginScreensNavigation: enableLoginScreensNavigation, enableBackToExploreScreenButton: enableBackButton),
           );
         case LoginOption.event:
           return BlocProvider<AuthEventBloc<AuthEventUserState>>(
             create: (context) => AuthEventBloc(authProvider: authProvider),
-            child: LoginEventScreensController(enableLoginScreensNavigation: enable),
+            child: LoginEventScreensController(enableLoginScreensNavigation: enableLoginScreensNavigation, enableBackToExploreScreenButton: enableBackButton),
           );
       }
     }

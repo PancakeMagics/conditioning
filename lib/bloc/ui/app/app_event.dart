@@ -1,20 +1,20 @@
 part of 'app_bloc.dart';
 
 @immutable
-abstract class AppUserEvent extends StoreUsersEvent {
-  const AppUserEvent();
+abstract class AppEvent extends StoreUsersEvent {
+  const AppEvent();
 }
 
-class AppUserEventStoreHomeScreenData extends AppUserEvent {
-  const AppUserEventStoreHomeScreenData();
+class AppEventStoreHomeScreenData extends AppEvent {
+  const AppEventStoreHomeScreenData();
 }
 
-class AppUserEventStoreFriendScreenData extends AppUserEvent {
-  const AppUserEventStoreFriendScreenData();
+class AppEventStoreFriendScreenData extends AppEvent {
+  const AppEventStoreFriendScreenData();
 }
 
 // navigation events
-abstract class NavigationEvent extends AppUserEvent {
+abstract class NavigationEvent extends AppEvent {
   const NavigationEvent();
 }
 

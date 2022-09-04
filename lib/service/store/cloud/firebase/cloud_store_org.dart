@@ -3,7 +3,7 @@ import 'package:conditioning/service/store/cloud/firebase/cloud_store_user.dart'
 import '../../entities/org.dart';
 
 abstract class CloudStoreOrg extends CloudStoreUser {//i think inheritance make code readable
-  const CloudStoreOrg({required super.userList, required super.orgList, required super.eventList,});
+  const CloudStoreOrg({required super.userList, required super.orgList, required super.eventList, required super.topicList,});
 
   @override
   Future<Org> createOrGetExistOrg({required String orgId}) {

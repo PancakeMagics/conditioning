@@ -3,14 +3,21 @@ import 'package:conditioning/bloc/services/auth/event/auth_event_bloc.dart';
 import 'package:conditioning/bloc/ui/_login/login_bloc.dart';
 import 'package:conditioning/service/auth/auth_exception.dart';
 import 'package:conditioning/service/utils/extensions/buildcontext.dart';
-import 'package:conditioning/ui/elements/arrow/arrow_login_screens.dart';
+import 'package:conditioning/ui/elements/arrow/arrow_animating.dart';
+import 'package:conditioning/ui/elements/arrow/arrow_direction.dart';
+import 'package:conditioning/ui/elements/arrow/arrow_getter.dart';
 import 'package:conditioning/ui/elements/buttons/icon_text_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginEventScreen extends StatefulWidget {
-  const LoginEventScreen({Key? key, required this.enableLoginScreensNavigation}) : super(key: key);
+  const LoginEventScreen({
+    Key? key,
+    required this.enableLoginScreensNavigation,
+    required this.enableBackToExploreScreenButton,
+  }) : super(key: key);
   final bool enableLoginScreensNavigation;
+  final bool enableBackToExploreScreenButton;
 
   @override
   State<LoginEventScreen> createState() => _LoginEventScreenState();
@@ -56,25 +63,14 @@ class _LoginEventScreenState extends State<LoginEventScreen> {
     return BlocListener<AuthEventBloc, AuthState>(
       child: Stack(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              SizedBox(
-                width: 40,
-                child: Column(children: [
-                  Expanded(
-                      child: ArrowLoginScreens(
-                        isLeft: true,
-                        onTap: () => context
-                            .read<LoginBloc>()
-                            .add(const LoginEventEventToApp()),
-                      ))
-                ]),
-              ),
-              Expanded(child: Container()),
-            ],
-          ),
+          widget.enableLoginScreensNavigation
+              ? getArrow(
+                  arrowDirection: ArrowDirection.left,
+                  onTap: () => context
+                      .read<LoginBloc>()
+                      .add(const LoginEventEventToApp()),
+                )
+              : Container(),
           Center(
             child: SizedBox(
               height: 520,
@@ -233,16 +229,16 @@ class _LoginEventScreenState extends State<LoginEventScreen> {
     switch (_isLoginView) {
       case true:
         context.read<AuthEventBloc>().add(AuthEventUserEventRegisterAndLogin(
-          userName: _userName.text,
-          email: _email.text,
-          password: _password.text,
-        ));
+              userName: _userName.text,
+              email: _email.text,
+              password: _password.text,
+            ));
         break;
       default:
         context.read<AuthEventBloc>().add(AuthEventUserEventLogin(
-          email: _email.text,
-          password: _password.text,
-        ));
+              email: _email.text,
+              password: _password.text,
+            ));
     }
   }
 }

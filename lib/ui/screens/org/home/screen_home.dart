@@ -1,27 +1,32 @@
 import 'package:conditioning/bloc/services/auth/app/auth_app_bloc.dart';
 import 'package:conditioning/bloc/services/auth/auth_state.dart';
+import 'package:conditioning/bloc/services/auth/org/auth_org_bloc.dart';
 import 'package:conditioning/bloc/ui/app/app_bloc.dart';
+import 'package:conditioning/bloc/ui/org/org_bloc.dart';
 import 'package:conditioning/service/utils/extensions/buildcontext.dart';
 import 'package:conditioning/ui/elements/not_yet_complete_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart' show BlocBuilder, ReadContext;
 
-class AppHomeScreen extends StatefulWidget {
-  const AppHomeScreen({Key? key}) : super(key: key);
+class OrgHomeScreen extends StatefulWidget {
+  const OrgHomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<AppHomeScreen> createState() => _AppHomeScreenState();
+  State<OrgHomeScreen> createState() => _OrgHomeScreenState();
 }
 
-class _AppHomeScreenState extends State<AppHomeScreen> {
+class _OrgHomeScreenState extends State<OrgHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(context.loc.screenName_home)),
+      appBar: AppBar(
+          backgroundColor: Colors.blueGrey,
+          title: Text(context.loc.screenName_home),
+      ),
       drawer: _drawer(),
       body: Padding(
         padding: const EdgeInsets.all(10),
-        child: BlocBuilder<AppBloc, AuthState>(builder: (context, state) {
+        child: BlocBuilder<OrgBloc, AuthState>(builder: (context, state) {
           return Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -31,19 +36,18 @@ class _AppHomeScreenState extends State<AppHomeScreen> {
                   ElevatedButton(
                     onPressed: () {
                       context
-                          .read<AppBloc>()
-                          .add(const AppEventHomeToFriend());
+                          .read<OrgBloc>()
+                          .add(const OrgEventHomeToTeam());
                     },
-                    child: Text(context.loc.screenName_friend),
+                    child: Text(context.loc.screenName_orgDocumention),
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      //TODO: user can select exploreViewOption before HomeToExplore
                       context
-                          .read<AppBloc>()
-                          .add(const AppEventHomeToExplore());
+                          .read<OrgBloc>()
+                          .add(const OrgEventHomeToDocumention());
                     },
-                    child: Text(context.loc.screenName_explore),
+                    child: Text(context.loc.screenName_orgDocumention),
                   ),
                 ],
               ),
@@ -85,7 +89,7 @@ class _AppHomeScreenState extends State<AppHomeScreen> {
                 title: Text(context.loc.buttonTitle_logout),
                 onTap: () {
                   Navigator.pop(context);
-                  context.read<AuthAppBloc>().add(const AuthAppUserEventLogout());
+                  context.read<AuthOrgBloc>().add(const AuthOrgUserEventLogout());
                 },
               ),
               ListTile(

@@ -7,12 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart' show ReadContext;
 
 class ExploreUserView extends StatefulWidget {
-  const ExploreUserView({
-    Key? key,
-    required this.isNavIn,
-    required this.userList,
-  }) : super(key: key);
-  final bool isNavIn;
+  const ExploreUserView({Key? key, required this.userList}) : super(key: key);
   final List<User> userList;
 
   @override
@@ -32,34 +27,27 @@ class _ExploreUserViewState extends State<ExploreUserView> {
 
   void _itemOnTap(User user, GlobalKey key) {
     final renderBox = key.renderBox;
-    context.read<ExploreUsersBloc>().add(ExploreEventUserOnTap(
-      userItem: PesItem<User>(
-        itemZeroOffset: renderBox.localToGlobal(Offset.zero),
-        itemSize: renderBox.size,
-        item: user,
-      ),
-    ));
   }
 
   @override
   Widget build(BuildContext context) {
+    context.read<AppExploreUsersBloc>().add(const ExploreUserEventStoreUsersData());
+
     return Padding(
       padding: const EdgeInsets.all(36.0),
-      child: widget.isNavIn
-          ? ListView.builder(
-        itemCount: _userList.length,
-        itemBuilder: (context, index) {
-          final user = _userList[index];
-          final key = _itemKeyMap[index]!;
-          return IconTextCard(
-            key: key,
-            icon: Icons.school,
-            text: user.name,
-            onTap: () => setState(() => _itemOnTap(user, key)),
-          );
-        },
-      )
-          : Container(),
+      child: ListView.builder(
+          itemCount: _userList.length,
+          itemBuilder: (context, index) {
+            final user = _userList[index];
+            final key = _itemKeyMap[index]!;
+            return IconTextCard(
+              key: key,
+              icon: Icons.school,
+              text: user.name,
+              onTap: () => setState(() => _itemOnTap(user, key)),
+            );
+          },
+      ),
     );
   }
 }

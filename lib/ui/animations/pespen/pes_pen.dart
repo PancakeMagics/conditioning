@@ -1,5 +1,7 @@
+import 'dart:developer';
 import 'dart:ui';
 import 'package:conditioning/service/utils/extensions/offset.dart';
+import 'package:conditioning/ui/elements/radius/radius_border.dart';
 import 'package:flutter/material.dart';
 
 import 'clipper/clipper_rect.dart';
@@ -60,7 +62,8 @@ class _PesPenState extends State<PesPen> with SingleTickerProviderStateMixin {
         .animate(CurvedAnimation(parent: _controller, curve: Curves.ease))
       ..addListener(() => setState(() => _fraction = _animation.value));
 
-    _pesState = PesState.inPosition;
+
+    _pesState = PesState.inPool;
     _expandOver = false;
     _fraction = 0.0;
     _item = null;
@@ -70,11 +73,16 @@ class _PesPenState extends State<PesPen> with SingleTickerProviderStateMixin {
   }
 
   @override
-  void didUpdateWidget(covariant PesPen oldWidget) {
-    _pesState = PesState.inPosition;
-    if (widget.pesItem != null) {
-      _controller.forward();
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
+  @override
+  void didUpdateWidget(covariant PesPen oldWidget) {
+    if (widget.pesItem != oldWidget.pesItem) {
+      _pesState = PesState.inPosition;
+      _controller.forward();
       _item = widget.pesItem!;
       _itemCornerAOffset = _item!.itemZeroOffset;
       _itemCornerBOffset = _itemCornerAOffset.toCornerBOffset(_item!.itemSize);
@@ -86,12 +94,6 @@ class _PesPenState extends State<PesPen> with SingleTickerProviderStateMixin {
     }
 
     super.didUpdateWidget(oldWidget);
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 
   @override
@@ -144,7 +146,7 @@ class _PesPenState extends State<PesPen> with SingleTickerProviderStateMixin {
         height: _pesTargetPosition('height'),
         duration: _pesTargetDuration(_pesState),
         child: Material(
-          borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+          borderRadius: borderRadius10,
           child: Card(
             borderOnForeground: false,
             elevation: 50.0,

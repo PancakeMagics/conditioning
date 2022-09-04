@@ -4,23 +4,26 @@ import 'package:conditioning/bloc/services/auth/event/auth_event_bloc.dart';
 import 'package:conditioning/service/settings/animation_durations.dart';
 import 'package:conditioning/ui/screens/_login/event/screen_login_event.dart';
 import 'package:conditioning/ui/screens/event/event_screens_controller.dart';
+import 'package:conditioning/ui/screens/event/event_screens_controller_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart'
-    show BlocListener, ReadContext;
+import 'package:flutter_bloc/flutter_bloc.dart' show BlocListener, ReadContext;
 
 class LoginEventScreensController extends StatefulWidget {
   const LoginEventScreensController({
     Key? key,
     required this.enableLoginScreensNavigation,
+    required this.enableBackToExploreScreenButton,
   }) : super(key: key);
   final bool enableLoginScreensNavigation;
+  final bool enableBackToExploreScreenButton;
 
   @override
   State<LoginEventScreensController> createState() =>
       _LoginEventScreensControllerState();
 }
 
-class _LoginEventScreensControllerState extends State<LoginEventScreensController> {
+class _LoginEventScreensControllerState
+    extends State<LoginEventScreensController> {
   bool _initYet = true;
   late Offset _loginScreenOffset;
   late Offset _homeScreenOffset;
@@ -36,9 +39,7 @@ class _LoginEventScreensControllerState extends State<LoginEventScreensControlle
   Widget build(BuildContext context) {
     if (_initYet) {
       _initYet = false;
-      context
-          .read<AuthEventBloc>()
-          .add(const AuthEventInitialize());
+      context.read<AuthEventBloc>().add(const AuthEventInitialize());
     }
 
     return BlocListener<AuthEventBloc<AuthEventUserState>, AuthState>(
@@ -64,12 +65,15 @@ class _LoginEventScreensControllerState extends State<LoginEventScreensControlle
           AnimatedSlide(
             offset: _loginScreenOffset,
             duration: shortDuration,
-            child: LoginEventScreen(enableLoginScreensNavigation: widget.enableLoginScreensNavigation),
+            child: LoginEventScreen(
+              enableLoginScreensNavigation: widget.enableLoginScreensNavigation,
+              enableBackToExploreScreenButton: widget.enableBackToExploreScreenButton,
+            ),
           ),
           AnimatedSlide(
             offset: _homeScreenOffset,
             duration: shortDuration,
-            child: const EventScreensController(),
+            child: const EventScreensControllerProvider(),
           ),
         ],
       ),

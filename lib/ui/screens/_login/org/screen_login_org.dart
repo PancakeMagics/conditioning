@@ -1,17 +1,23 @@
 import 'package:conditioning/bloc/services/auth/auth_state.dart';
 import 'package:conditioning/bloc/services/auth/org/auth_org_bloc.dart';
 import 'package:conditioning/bloc/ui/_login/login_bloc.dart';
+import 'package:conditioning/bloc/ui/app/explore/explore_bloc.dart';
 import 'package:conditioning/service/auth/auth_exception.dart';
 import 'package:conditioning/service/utils/extensions/buildcontext.dart';
-import 'package:conditioning/ui/elements/arrow/arrow_login_screens.dart';
+import 'package:conditioning/ui/elements/arrow/arrow_direction.dart';
+import 'package:conditioning/ui/elements/arrow/arrow_getter.dart';
 import 'package:conditioning/ui/elements/buttons/icon_text_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginOrgScreen extends StatefulWidget {
-  const LoginOrgScreen({Key? key, required this.enableLoginScreensNavigation})
-      : super(key: key);
+  const LoginOrgScreen({
+    Key? key,
+    required this.enableLoginScreensNavigation,
+    required this.enableBackToExploreScreenButton,
+  }) : super(key: key);
   final bool enableLoginScreensNavigation;
+  final bool enableBackToExploreScreenButton;
 
   @override
   State<LoginOrgScreen> createState() => _LoginOrgScreenState();
@@ -57,25 +63,13 @@ class _LoginOrgScreenState extends State<LoginOrgScreen> {
     return BlocListener<AuthOrgBloc, AuthState>(
       child: Stack(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Expanded(child: Container()),
-              SizedBox(
-                width: 40,
-                child: Column(children: [
-                  Expanded(
-                      child: ArrowLoginScreens(
-                    isLeft: false,
-                    onTap: () => context
-                        .read<LoginBloc>()
-                        .add(const LoginEventOrgToApp()),
-                  ))
-                ]),
-              ),
-            ],
-          ),
+          widget.enableLoginScreensNavigation
+              ? getArrow(
+                  arrowDirection: ArrowDirection.right,
+                  onTap: () =>
+                      context.read<LoginBloc>().add(const LoginEventOrgToApp()),
+                )
+              : Container(),
           Center(
             child: SizedBox(
               height: 520,
@@ -87,16 +81,14 @@ class _LoginOrgScreenState extends State<LoginOrgScreen> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 20.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      child: Stack(
                         children: _topButtons(),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30.0),
                       child: Column(children: [
-                        Text(screenTitle,
-                            style: Theme.of(context).textTheme.titleLarge),
+                        Text(screenTitle, style: context.textTheme.titleLarge),
                         ..._middleTextField(),
                       ]),
                     ),
@@ -109,6 +101,14 @@ class _LoginOrgScreenState extends State<LoginOrgScreen> {
               ),
             ),
           ),
+          widget.enableBackToExploreScreenButton
+              ? getArrow(
+                  arrowDirection: ArrowDirection.bottom,
+                  onTap: () => context
+                      .read<AppExploreOrgsBloc>()
+                      .add(const ExploreOrgEventLoginCancel()),
+                )
+              : Container(),
         ],
       ),
       listener: (context, state) {
@@ -142,11 +142,6 @@ class _LoginOrgScreenState extends State<LoginOrgScreen> {
   }
 
   List<Widget> _topButtons() => <Widget>[
-        IconTextCard(
-          icon: Icons.login,
-          text: context.loc.buttonTitle_loginAsVisitor,
-          onTap: () => _login(context),
-        ),
         IconTextCard(
           icon: Icons.app_registration,
           text: topButtonText,
@@ -220,27 +215,25 @@ class _LoginOrgScreenState extends State<LoginOrgScreen> {
             icon: Icons.login,
             text: bottomButton1Text,
             onTap: () {
-              if (_formKey.currentState!.validate()) {
-                _login(context);
-              }
+              // TODO
+              // if (_formKey.currentState!.validate()) {
+              //   _login(context);
+              // }
+              setState(() => _login(context));
             }),
-        IconTextCard(
-            icon: Icons.g_mobiledata_rounded,
-            text: bottomButton2Text,
-            onTap: () {}),
       ];
 
   void _login(BuildContext context) {
     switch (_isLoginView) {
       case true:
-        context.read<AuthOrgBloc>().add(AuthOrgUserEventRegisterAndLogin(
-          userName: _userName.text,
+        context.read<AuthOrgBloc>().add(AuthOrgUserEventLogin(
           email: _email.text,
           password: _password.text,
         ));
         break;
       default:
-        context.read<AuthOrgBloc>().add(AuthOrgUserEventLogin(
+        context.read<AuthOrgBloc>().add(AuthOrgUserEventRegisterAndLogin(
+          userName: _userName.text,
           email: _email.text,
           password: _password.text,
         ));

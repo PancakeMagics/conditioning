@@ -66,6 +66,7 @@ abstract class AuthBloc<S extends AuthState> extends Bloc<AuthEvent, AuthState> 
           }
         }
       } on NoSuchBlocStateException catch (e) {
+
         emit(AuthStateInitialYet(isLoading: false, exception: e));
       }
     });
