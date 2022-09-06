@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:conditioning/service/utils/extensions/buildcontext.dart';
-import 'package:conditioning/service/store/entities/event.dart';
+import 'package:conditioning/service/store/entities/store_event.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -10,7 +10,7 @@ class ExploreEventDetail extends StatefulWidget {
     Key? key,
     required this.event,
   }) : super(key: key);
-  final Event? event;
+  final StoreEvent? event;
 
   @override
   State<ExploreEventDetail> createState() => _ExploreEventDetailState();

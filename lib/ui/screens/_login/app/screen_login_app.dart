@@ -3,10 +3,10 @@ import 'package:conditioning/bloc/services/auth/auth_state.dart';
 import 'package:conditioning/bloc/ui/_login/login_bloc.dart';
 import 'package:conditioning/service/auth/auth_exception.dart';
 import 'package:conditioning/service/utils/extensions/buildcontext.dart';
-import 'package:conditioning/ui/elements/arrow/arrow_animating.dart';
-import 'package:conditioning/ui/elements/arrow/arrow_direction.dart';
-import 'package:conditioning/ui/elements/arrow/arrow_getter.dart';
-import 'package:conditioning/ui/elements/buttons/icon_text_card.dart';
+import 'package:conditioning/ui/elements/_login/arrow/arrow_animating.dart';
+import 'package:conditioning/ui/elements/_login/arrow/arrow_direction.dart';
+import 'package:conditioning/ui/elements/_login/arrow/arrow_getter.dart';
+import 'package:conditioning/ui/elements/_generics/buttons/button_icon_text_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -176,7 +176,7 @@ class _LoginAppScreenState extends State<LoginAppScreen> {
                       border: const OutlineInputBorder(),
                       label: Row(children: [
                         const Icon(Icons.account_box),
-                        Text(context.loc.textFieldTitle_userName)
+                        Text(context.loc.textFieldTitle_name)
                       ])),
                   style: const TextStyle(fontFamily: 'Roboto'),
                 ),

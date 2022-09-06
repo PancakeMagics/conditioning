@@ -1,90 +1,41 @@
-import 'package:conditioning/service/store/cloud/firebase/store_provider_firebase.dart';
-import 'package:conditioning/service/store/store_provider.dart';
+import 'package:conditioning/service/store/entities/providers/cloud/firebase/firestore_event.dart';
+import 'package:conditioning/service/store/entities/providers/cloud/firebase/firestore_field.dart';
+import 'package:conditioning/service/store/entities/providers/cloud/firebase/firestore_note.dart';
+import 'package:conditioning/service/store/entities/providers/cloud/firebase/firestore_org.dart';
+import 'package:conditioning/service/store/entities/providers/cloud/firebase/firestore_topic.dart';
+import 'package:conditioning/service/store/entities/providers/cloud/firebase/firestore_user.dart';
+import 'package:conditioning/service/store/entities/providers/provider.dart';
+import 'package:conditioning/service/utils/constants/option_store.dart';
+import 'package:conditioning/service/utils/constants/option_store_service.dart';
 
-import 'entities/event.dart';
-import 'entities/org.dart';
-import 'entities/topic.dart';
-import 'entities/user.dart';
 
 class StoreService implements StoreProvider {
   final StoreProvider _storeProvider;
-
   const StoreService(this._storeProvider);
-
-  factory StoreService.fromFirebase() => StoreService(StoreProviderFirebase());
+  factory StoreService.getService({required StoreOption storeOption, required StoreServiceOption serviceOption}) {
+    switch (serviceOption) {
+      case StoreServiceOption.firebase:
+        return StoreService.getFromFirebase(storeOption: storeOption);
+    }
+  }
+  factory StoreService.getFromFirebase({required StoreOption storeOption}) {
+    switch (storeOption) {
+      case StoreOption.user:
+        return StoreService(StoreUserProviderFirestore());
+      case StoreOption.note:
+        return StoreService(StoreNoteProviderFirestore());
+      case StoreOption.org:
+        return StoreService(StoreOrgProviderFirestore());
+      case StoreOption.event:
+        return StoreService(StoreEventProviderFirestore());
+      case StoreOption.topic:
+        return StoreService(StoreTopicProviderFirestore());
+      case StoreOption.field:
+        return StoreService(StoreNoteProviderFirestore());
+    }
+  }
 
   @override
   Future<void> initialize() => _storeProvider.initialize();
 
-  @override
-  List<Event> get eventList => _storeProvider.eventList;
-
-  @override
-  List<Org> get orgList => _storeProvider.orgList;
-
-  @override
-  List<User> get userList => _storeProvider.userList;
-
-  @override
-  List<Topic> get topicList => _storeProvider.topicList;
-
-  @override
-  Future<Event> createOrGetExistEvent({required String eventId}) =>
-      _storeProvider.createOrGetExistEvent(eventId: eventId);
-
-  @override
-  Future<Org> createOrGetExistOrg({required String orgId}) =>
-      _storeProvider.createOrGetExistOrg(orgId: orgId);
-
-  @override
-  Future<User> createOrGetExistUser({required String userId}) =>
-      _storeProvider.createOrGetExistUser(userId: userId);
-
-  @override
-  Future<void> deleteEvent({required String eventId}) =>
-      _storeProvider.deleteEvent(eventId: eventId);
-
-  @override
-  Future<void> deleteOrg({required String orgId}) =>
-      _storeProvider.deleteOrg(orgId: orgId);
-
-  @override
-  Future<void> deleteUser({required String userId}) =>
-      _storeProvider.deleteUser(userId: userId);
-
-  @override
-  Future<Iterable<Event>> getPublicEvents() => _storeProvider.getPublicEvents();
-
-  @override
-  Future<Iterable<Org>> getPublicOrgs() => _storeProvider.getPublicOrgs();
-
-  @override
-  Future<Iterable<User>> getPublicUsers() => _storeProvider.getPublicUsers();
-
-  @override
-  Future<Iterable<Event>> getUserEvents({required String eventId}) =>
-      _storeProvider.getUserEvents(eventId: eventId);
-
-  @override
-  Future<Iterable<User>> getUserFriends({required String userId}) =>
-      _storeProvider.getUserFriends(userId: userId);
-
-  @override
-  Future<Iterable<Org>> getUserOrgs({required String orgId}) =>
-      _storeProvider.getUserOrgs(orgId: orgId);
-
-  @override
-  Future<void> updateEventName(
-          {required String eventId, required String newName}) =>
-      _storeProvider.updateEventName(eventId: eventId, newName: newName);
-
-  @override
-  Future<void> updateOrgName(
-          {required String orgId, required String newName}) =>
-      _storeProvider.updateOrgName(orgId: orgId, newName: newName);
-
-  @override
-  Future<void> updateUserName(
-          {required String userId, required String newName}) =>
-      _storeProvider.updateUserName(userId: userId, newName: newName);
 }

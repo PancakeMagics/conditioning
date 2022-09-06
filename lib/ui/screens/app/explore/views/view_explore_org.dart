@@ -1,30 +1,30 @@
-import 'dart:developer';
-import 'package:conditioning/bloc/login_option.dart';
+import 'package:conditioning/service/utils/constants/option_login.dart';
 import 'package:conditioning/bloc/services/auth/auth_state.dart';
 import 'package:conditioning/bloc/ui/app/app_bloc.dart';
 import 'package:conditioning/bloc/ui/app/explore/explore_bloc.dart';
-import 'package:conditioning/service/settings/animation_durations.dart';
-import 'package:conditioning/service/store/entities/org.dart';
+import 'package:conditioning/service/store/utils/animation_durations.dart';
+import 'package:conditioning/service/store/entities/store_org.dart';
 import 'package:conditioning/service/utils/extensions/globalkey.dart';
-import 'package:conditioning/ui/animations/pespen/pes_pen.dart';
-import 'package:conditioning/ui/animations/searchingbar/searching_bar.dart';
-import 'package:conditioning/ui/elements/buttons/icon_text_card.dart';
+import 'package:conditioning/ui/elements/app/pespen/pes_pen.dart';
+import 'package:conditioning/ui/elements/_generics/searching_bar.dart';
+import 'package:conditioning/ui/elements/_generics/buttons/button_icon_text_card.dart';
 import 'package:conditioning/ui/screens/_login/_setup/login_screens_provider.dart';
 import 'package:conditioning/ui/screens/app/explore/views/details//view_org_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart' show BlocListener, ReadContext;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ExploreOrgView extends StatefulWidget {
   const ExploreOrgView({Key? key, required this.orgList}) : super(key: key);
-  final List<Org> orgList;
+  final List<StoreOrg> orgList;
 
   @override
   State<ExploreOrgView> createState() => _ExploreOrgViewState();
 }
 
 class _ExploreOrgViewState extends State<ExploreOrgView> {
-  late final List<Org> _orgList;
-  late PesItem<Org>? _pesItem;
+  late final List<StoreOrg> _orgList;
+  late PesItem<StoreOrg>? _pesItem;
   late bool _userWantLoginOrg;
   Offset _exploreScreenOffset = Offset.zero;
   Offset _loginOrgScreenOffset = const Offset(0.0, -1.0);
@@ -37,9 +37,9 @@ class _ExploreOrgViewState extends State<ExploreOrgView> {
     super.initState();
   }
 
-  void _itemOnTap(BuildContext context, Org org, GlobalKey key) {
+  void _itemOnTap(BuildContext context, StoreOrg org, GlobalKey key) {
     final renderBox = key.renderBox;
-    _pesItem = PesItem<Org>(
+    _pesItem = PesItem<StoreOrg>(
       itemZeroOffset: renderBox.localToGlobal(Offset.zero),
       itemSize: renderBox.size,
       item: org,
@@ -48,9 +48,9 @@ class _ExploreOrgViewState extends State<ExploreOrgView> {
 
   @override
   Widget build(BuildContext context) {
-    context.read<AppExploreOrgsBloc>().add(const ExploreOrgEventStoreOrgsData());
+    context.read<AppExploreOrgBloc>().add(const ExploreOrgEventStoreOrgsData());
 
-    return BlocListener<AppExploreOrgsBloc, AuthState>(
+    return BlocListener<AppExploreOrgBloc, AuthState>(
       listener: (context, state) {
         setState(() {
           if (state is ExploreOrgStateLogin) {

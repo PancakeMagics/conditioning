@@ -38,8 +38,23 @@ dependencies:
   intl: ^0.17.0
   flutter_bloc: ^8.0.1
   flutter_launcher_icons: ^0.10.0
-  transparent_image: ^2.0.0
+  firebase_core: ^1.21.1
+  firebase_auth: ^3.7.0
+  cloud_firestore: ^3.4.6
+  firebase_storage: ^10.3.7
+  shared_preferences: ^2.0.15
+  equatable: ^2.0.5
+
+# more relative to ui dependencies
   url_launcher: ^6.1.5
+  image_picker: ^0.8.5+3
+  photo_view: ^0.14.0
+  fluttertoast: ^8.0.9
+  country_calling_code_picker: ^2.0.1
+
+
+
+#  transparent_image: ^2.0.0
 #  google_fonts: ^3.0.1
 
 dev_dependencies:

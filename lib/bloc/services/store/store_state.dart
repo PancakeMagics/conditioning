@@ -1,16 +1,16 @@
 part of 'store_bloc.dart';
 
 @immutable
-abstract class StoreState extends AuthAppUserState {
-  const StoreState({
+abstract class StoreBlocState extends AuthAppUserState {
+  const StoreBlocState({
     required super.isLoading,
     super.loadingText,
     super.exception,
   });
 }
 
-class StoreStateInitialYet extends StoreState {
-  const StoreStateInitialYet({
+class StoreBlocStateInitialYet extends StoreBlocState {
+  const StoreBlocStateInitialYet({
     required super.isLoading,
     super.loadingText,
     super.exception,

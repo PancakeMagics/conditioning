@@ -1,8 +1,8 @@
 part of 'store_events_bloc.dart';
 
 @immutable
-abstract class StoreEventsState extends StoreState {
-  final List<Event>? eventList;
+abstract class StoreEventsState extends StoreBlocState {
+  final List<StoreBlocEvent>? eventList;
   const StoreEventsState({
     required this.eventList,
     required super.isLoading,

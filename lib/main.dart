@@ -1,11 +1,22 @@
-import 'package:conditioning/bloc/login_option.dart';
-import 'package:conditioning/ui/screens/_login/_setup/login_screens_provider.dart';
+import 'package:conditioning/service/store/entities/providers/local/preferences/shared_preference_utils.dart';
+import 'package:conditioning/todo/ui/page_home.dart';
+import 'package:conditioning/ui/screens/app/home/views/view_profile.dart';
+import 'package:conditioning/ui/screens/org/org_screens_controller_provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart'
     show AppLocalizations;
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+import 'firebase_options.dart';
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferenceUtils().preferences = await SharedPreferences.getInstance();
+
+  // TODO: tempt initialization
+  final app = await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   runApp(const MyApp());
 }
 
@@ -49,12 +60,14 @@ class MyApp extends StatelessWidget {
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
         clipBehavior: Clip.antiAliasWithSaveLayer,
-        child: const LoginScreensProvider(
-          loginOption: LoginOption.app,
-          enableLoginScreensNavigation: true,
-          navigationSetUpFinished: false,
-          enableBackButton: false,
-        ),
+        // child: const LoginScreensProvider(
+        //   loginOption: LoginOption.app,
+        //   enableLoginScreensNavigation: true,
+        //   navigationSetUpFinished: false,
+        //   enableBackButton: false,
+        // ),
+        // child: const OrgScreensControllerProvider(),
+        child: const HomePage(), // TODO:
       ),
     );
   }

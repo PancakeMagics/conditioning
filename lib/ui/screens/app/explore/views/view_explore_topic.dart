@@ -1,19 +1,19 @@
 import 'package:conditioning/bloc/ui/app/explore/explore_bloc.dart';
-import 'package:conditioning/service/store/entities/topic.dart';
-import 'package:conditioning/ui/elements/buttons/icon_text_card.dart';
+import 'package:conditioning/service/store/entities/store_topic.dart';
+import 'package:conditioning/ui/elements/_generics/buttons/button_icon_text_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart' show ReadContext;
 
 class ExploreTopicView extends StatefulWidget {
   const ExploreTopicView({Key? key, required this.topicList}) : super(key: key);
-  final List<Topic> topicList;
+  final List<StoreTopic> topicList;
 
   @override
   State<ExploreTopicView> createState() => _ExploreTopicViewState();
 }
 
 class _ExploreTopicViewState extends State<ExploreTopicView> {
-  late final List<Topic> _topicList;
+  late final List<StoreTopic> _topicList;
   final _itemKeyMap = <int, GlobalKey>{};
 
   @override
@@ -23,7 +23,7 @@ class _ExploreTopicViewState extends State<ExploreTopicView> {
     super.initState();
   }
 
-  void _itemOnTap(Topic topic, GlobalKey key) {
+  void _itemOnTap(StoreTopic topic, GlobalKey key) {
     // final renderBox = key.renderBox;
     // context.read<ExploreTopicsBloc>().add(ExploreEventTopicOnTap(
     //   topicItem: PesItem<Topic>(

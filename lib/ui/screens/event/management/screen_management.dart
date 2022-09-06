@@ -1,5 +1,5 @@
 import 'package:conditioning/service/utils/extensions/buildcontext.dart';
-import 'package:conditioning/ui/animations/navigation/my_animated_slide.dart';
+import 'package:conditioning/ui/elements/_generics/my_animated_slide.dart';
 import 'package:flutter/material.dart';
 
 class ManagementScreen extends StatefulWidget {

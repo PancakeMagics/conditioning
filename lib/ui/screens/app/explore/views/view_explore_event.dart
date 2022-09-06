@@ -1,21 +1,21 @@
 import 'package:conditioning/bloc/ui/app/explore/explore_bloc.dart';
-import 'package:conditioning/service/store/entities/event.dart';
+import 'package:conditioning/service/store/entities/store_event.dart';
 import 'package:conditioning/service/utils/extensions/globalkey.dart';
-import 'package:conditioning/ui/animations/pespen/pes_pen.dart';
-import 'package:conditioning/ui/elements/buttons/icon_text_card.dart';
+import 'package:conditioning/ui/elements/app/pespen/pes_pen.dart';
+import 'package:conditioning/ui/elements/_generics/buttons/button_icon_text_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart' show ReadContext;
 
 class ExploreEventView extends StatefulWidget {
   const ExploreEventView({Key? key, required this.eventList}) : super(key: key);
-  final List<Event> eventList;
+  final List<StoreEvent> eventList;
 
   @override
   State<ExploreEventView> createState() => _ExploreEventViewState();
 }
 
 class _ExploreEventViewState extends State<ExploreEventView> {
-  late final List<Event> _eventList;
+  late final List<StoreEvent> _eventList;
   final _itemKeyMap = <int, GlobalKey>{};
 
   @override
@@ -25,7 +25,7 @@ class _ExploreEventViewState extends State<ExploreEventView> {
     super.initState();
   }
 
-  void _itemOnTap(Event event, GlobalKey key) {
+  void _itemOnTap(StoreEvent event, GlobalKey key) {
     final renderBox = key.renderBox;
   }
 

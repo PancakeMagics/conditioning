@@ -1,21 +1,21 @@
 
 import 'package:conditioning/bloc/ui/app/explore/explore_bloc.dart';
 import 'package:conditioning/service/utils/extensions/buildcontext.dart';
-import 'package:conditioning/service/store/entities/org.dart';
+import 'package:conditioning/service/store/entities/store_org.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ExploreOrgDetail extends StatefulWidget {
   const ExploreOrgDetail({Key? key, required this.org}) : super(key: key);
-  final Org? org;
+  final StoreOrg? org;
 
   @override
   State<ExploreOrgDetail> createState() => _ExploreOrgDetailState();
 }
 
 class _ExploreOrgDetailState extends State<ExploreOrgDetail> {
-  Org? _currentOrg;
+  StoreOrg? _currentOrg;
 
   @override
   void didUpdateWidget(covariant ExploreOrgDetail oldWidget) {
@@ -73,7 +73,7 @@ class _ExploreOrgDetailState extends State<ExploreOrgDetail> {
                       child: Text(context.loc.buttonTitle_website)),
                   ElevatedButton(
                       onPressed: () =>
-                          setState(() => context.read<AppExploreOrgsBloc>().add(ExploreOrgEventLogin(org: _currentOrg!))),
+                          setState(() => context.read<AppExploreOrgBloc>().add(ExploreOrgEventLogin(org: _currentOrg!))),
                       child: Text(context.loc.buttonTitle_login)),
                 ],
               )

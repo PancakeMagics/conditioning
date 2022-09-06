@@ -1,10 +1,10 @@
 part of 'store_bloc.dart';
 
 @immutable
-abstract class StoreEvent extends AuthEvent {
-  const StoreEvent();
+abstract class StoreBlocEvent extends AuthEvent {
+  const StoreBlocEvent();
 }
 
-class StoreEventInitialize extends StoreEvent {
-  const StoreEventInitialize();
+class StoreBlocEventInitialize extends StoreBlocEvent {
+  const StoreBlocEventInitialize();
 }

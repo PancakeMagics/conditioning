@@ -1,13 +1,13 @@
-import 'dart:developer';
-
 import 'package:conditioning/bloc/bloc_exception.dart';
 import 'package:conditioning/bloc/services/auth/auth_event.dart';
 import 'package:conditioning/bloc/services/auth/auth_state.dart';
 import 'package:conditioning/bloc/services/auth/event/auth_event_bloc.dart';
 import 'package:conditioning/bloc/services/auth/org/auth_org_bloc.dart';
-import 'package:conditioning/service/auth/auth_provider.dart';
+import 'package:conditioning/service/auth/entities/providers/auth_user_provider.dart';
 import 'package:conditioning/service/auth/entities/auth_user.dart';
+import 'package:conditioning/service/store/utils/store_path.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'app/auth_app_bloc.dart';
 
 abstract class AuthBloc<S extends AuthState> extends Bloc<AuthEvent, AuthState> {
@@ -15,10 +15,20 @@ abstract class AuthBloc<S extends AuthState> extends Bloc<AuthEvent, AuthState> 
   final List<AuthOrgUser> authOrgUserList = [];
   final List<AuthEventUser> authEventUserList = [];
 
-  AuthBloc({required AuthProvider authProvider}) : super(const AuthStateInitialYet(isLoading: true)) {
+  AuthBloc({required SharedPreferences prefs, required AuthProvider authProvider}) : super(const AuthStateInitialYet(isLoading: true)) {
     on<AuthEventInitialize>((event, emit) async {
       try {
         await authProvider.initialize();
+
+        // TODO: check if user prefer autoFill or authLogin
+        final String? userId = prefs.getString(StorePath.userIdApp);
+        if (userId?.isNotEmpty == true) {
+          // TODO: login firebase
+
+
+        } else {
+
+        }
 
         /// if logged, login as appUser
         if (S == AuthAppUserState) {
@@ -35,7 +45,7 @@ abstract class AuthBloc<S extends AuthState> extends Bloc<AuthEvent, AuthState> 
                    );
           }
 
-          /// if logged, choose to login as orgUser or eventUser
+        /// if logged, choose to login as orgUser or eventUser
         } else {
           final providerAuthUserList = authProvider.authUserList;
           if (providerAuthUserList.isNotEmpty) {
@@ -52,7 +62,7 @@ abstract class AuthBloc<S extends AuthState> extends Bloc<AuthEvent, AuthState> 
               throw NoSuchBlocStateException(state: state);
             }
 
-            /// user not logged
+          /// user not logged
           } else {
             if (S == AuthOrgUserState) {
               emit(const AuthOrgUserStateLogin(

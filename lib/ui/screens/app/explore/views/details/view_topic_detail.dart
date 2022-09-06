@@ -1,10 +1,10 @@
 import 'dart:developer';
 
 import 'package:conditioning/service/utils/extensions/buildcontext.dart';
-import 'package:conditioning/service/store/entities/event.dart';
-import 'package:conditioning/service/store/entities/org.dart';
-import 'package:conditioning/service/store/entities/topic.dart';
-import 'package:conditioning/service/store/entities/user.dart';
+import 'package:conditioning/service/store/entities/store_event.dart';
+import 'package:conditioning/service/store/entities/store_org.dart';
+import 'package:conditioning/service/store/entities/store_topic.dart';
+import 'package:conditioning/service/store/entities/store_user.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -13,22 +13,22 @@ class ExploreTopicDetail extends StatefulWidget {
     Key? key,
     required this.topic,
   }) : super(key: key);
-  final Topic topic;
+  final StoreTopic topic;
 
   @override
   State<ExploreTopicDetail> createState() => _ExploreTopicDetailState();
 }
 
 class _ExploreTopicDetailState extends State<ExploreTopicDetail> {
-  late final List<User> _userList;
-  late final List<Org> _orgList;
-  late final List<Event> _eventList;
+  late final List<StoreUser> _userList;
+  late final List<StoreOrg> _orgList;
+  late final List<StoreEvent> _eventList;
 
   @override
   void initState() {
-    _userList = widget.topic.userList;
-    _orgList = widget.topic.orgList;
-    _eventList = widget.topic.eventList;
+    // _userList = widget.topic.userList;
+    // _orgList = widget.topic.orgList;
+    // _eventList = widget.topic.eventList;
     super.initState();
   }
 

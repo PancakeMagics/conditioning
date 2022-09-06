@@ -1,7 +1,7 @@
 part of 'explore_bloc.dart';
 
 @immutable
-abstract class ExploreEvent extends StoreEvent {
+abstract class ExploreEvent extends StoreBlocEvent {
   const ExploreEvent();
 }
 
@@ -15,7 +15,7 @@ class ExploreUserEventStoreUsersData extends ExploreUserEvent {
 }
 
 class ExploreUserEventAddFriend extends ExploreUserEvent {
-  final User user;
+  final StoreUser user;
   const ExploreUserEventAddFriend({required this.user});
 }
 
@@ -29,10 +29,10 @@ class ExploreOrgEventStoreOrgsData extends ExploreOrgEvent {
   const ExploreOrgEventStoreOrgsData();
 }
 class ExploreOrgEventLogin extends ExploreOrgEvent {
-  final Org org;
+  final StoreOrg org;
   const ExploreOrgEventLogin({required this.org});
 }
-class ExploreOrgEventLoginCancel extends StoreEvent {
+class ExploreOrgEventLoginCancel extends StoreBlocEvent {
   const ExploreOrgEventLoginCancel();
 }
 
@@ -46,7 +46,7 @@ class ExploreEventEventStoreEventsData extends ExploreEventEvent {
   const ExploreEventEventStoreEventsData();
 }
 class ExploreEventEventLogin extends ExploreEventEvent {
-  final Event event;
+  final StoreEvent event;
   const ExploreEventEventLogin({required this.event});
 }
 class ExploreEventEventLoginCancel extends ExploreEventEvent {

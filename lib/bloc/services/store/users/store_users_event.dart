@@ -1,19 +1,19 @@
 part of 'store_users_bloc.dart';
 
 @immutable
-abstract class StoreUsersEvent extends StoreEvent {
+abstract class StoreUsersEvent extends StoreBlocEvent {
   const StoreUsersEvent();
 }
 
-class UsersStoreEventFilterByLocation extends StoreEvent {
+class UsersStoreEventFilterByLocation extends StoreBlocEvent {
   const UsersStoreEventFilterByLocation();
 }
 
-class UsersStoreEventFilterByText extends StoreEvent {
+class UsersStoreEventFilterByText extends StoreBlocEvent {
   final String searchingText;
   const UsersStoreEventFilterByText({required this.searchingText,});
 }
 
-class UsersStoreEventRestore extends StoreEvent {
+class UsersStoreEventRestore extends StoreBlocEvent {
   const UsersStoreEventRestore();
 }

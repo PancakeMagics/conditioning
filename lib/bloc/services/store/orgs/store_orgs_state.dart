@@ -1,8 +1,8 @@
 part of 'store_orgs_bloc.dart';
 
 @immutable
-abstract class StoreOrgsState extends StoreState {
-  final List<Org>? orgList;
+abstract class StoreOrgsState extends StoreBlocState {
+  final List<StoreOrg>? orgList;
   const StoreOrgsState({
     required this.orgList,
     required super.isLoading,

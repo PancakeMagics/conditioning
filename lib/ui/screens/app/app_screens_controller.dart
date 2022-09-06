@@ -1,8 +1,9 @@
 import 'package:conditioning/bloc/services/auth/auth_state.dart';
 import 'package:conditioning/bloc/ui/app/app_bloc.dart';
 import 'package:conditioning/bloc/ui/app/explore/explore_bloc.dart';
-import 'package:conditioning/service/settings/animation_durations.dart';
-import 'package:conditioning/ui/elements/view_loading.dart';
+import 'package:conditioning/service/store/utils/animation_durations.dart';
+import 'package:conditioning/service/utils/constants/option_explore_view.dart';
+import 'package:conditioning/ui/elements/_generics/loading/loading_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

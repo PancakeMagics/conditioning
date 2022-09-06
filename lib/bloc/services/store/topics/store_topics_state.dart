@@ -1,8 +1,8 @@
 part of 'store_topics_bloc.dart';
 
 @immutable
-abstract class StoreTopicsState extends StoreState {
-  final List<Topic> topicList;
+abstract class StoreTopicsState extends StoreBlocState {
+  final List<StoreTopic> topicList;
   const StoreTopicsState({
     required this.topicList,
     required super.isLoading,

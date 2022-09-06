@@ -9,8 +9,8 @@ class OrgEventStoreHomeScreenData extends OrgEvent {
   const OrgEventStoreHomeScreenData();
 }
 
-class OrgEventStoreTeamScreenData extends OrgEvent {
-  const OrgEventStoreTeamScreenData();
+class OrgEventStoreGroupScreenData extends OrgEvent {
+  const OrgEventStoreGroupScreenData();
 }
 
 class OrgEventStoreDocumentionScreenData extends OrgEvent {
@@ -27,20 +27,20 @@ class OrgEventHomeToDocumention extends NavigationEvent {
   const OrgEventHomeToDocumention();
 }
 
-class OrgEventHomeToTeam extends NavigationEvent {
-  const OrgEventHomeToTeam();
+class OrgEventHomeToGroup extends NavigationEvent {
+  const OrgEventHomeToGroup();
 }
 
-class OrgEventTeamToDocumention extends NavigationEvent {
-  const OrgEventTeamToDocumention();
+class OrgEventGroupToDocumention extends NavigationEvent {
+  const OrgEventGroupToDocumention();
 }
 
-class OrgEventTeamToHome extends NavigationEvent {
-  const OrgEventTeamToHome();
+class OrgEventGroupToHome extends NavigationEvent {
+  const OrgEventGroupToHome();
 }
 
-class OrgEventDocumentionToTeam extends NavigationEvent {
-  const OrgEventDocumentionToTeam();
+class OrgEventDocumentionToGroup extends NavigationEvent {
+  const OrgEventDocumentionToGroup();
 }
 
 class OrgEventDocumentionToHome extends NavigationEvent {

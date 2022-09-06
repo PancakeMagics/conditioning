@@ -2,7 +2,7 @@ part of 'app_bloc.dart';
 
 @immutable
 abstract class AppState extends StoreUsersState {
-  final User user;
+  final StoreUser? user;
 
   const AppState({
     required this.user,

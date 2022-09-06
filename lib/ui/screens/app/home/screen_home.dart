@@ -2,7 +2,7 @@ import 'package:conditioning/bloc/services/auth/app/auth_app_bloc.dart';
 import 'package:conditioning/bloc/services/auth/auth_state.dart';
 import 'package:conditioning/bloc/ui/app/app_bloc.dart';
 import 'package:conditioning/service/utils/extensions/buildcontext.dart';
-import 'package:conditioning/ui/elements/not_yet_complete_snackbar.dart';
+import 'package:conditioning/ui/elements/_generics/snackbar_not_yet_complete.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart' show BlocBuilder, ReadContext;
 

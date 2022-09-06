@@ -1,19 +1,21 @@
 import 'package:conditioning/bloc/services/store/orgs/store_orgs_bloc.dart';
-import 'package:conditioning/service/auth/auth_provider.dart';
-import 'package:conditioning/service/store/entities/org.dart';
-import 'package:conditioning/service/store/store_provider.dart';
+import 'package:conditioning/service/auth/entities/providers/auth_user_provider.dart';
+import 'package:conditioning/service/store/entities/providers/store_org_provider.dart';
+import 'package:conditioning/service/store/entities/store_org.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'org_event.dart';
 part 'org_state.dart';
 
-class OrgBloc<S extends OrgState> extends StoreOrgsBloc<S> {
-  late Org org;
+class OrgBloc<S extends OrgState> extends StoreOrgBloc<S> {
+  late StoreOrg org;
 
   OrgBloc({
+    required SharedPreferences prefs,
     required AuthProvider authProvider,
-    required StoreProvider storeProvider,
-  }) : super(authProvider: authProvider, storeProvider: storeProvider) {
+    required StoreOrgProvider storeProvider,
+  }) : super(prefs: prefs, authProvider: authProvider, storeProvider: storeProvider) {
     on<OrgEventStoreHomeScreenData>((event, emit) async {
       //TODO: handle store data, update ui
       try {
@@ -24,7 +26,7 @@ class OrgBloc<S extends OrgState> extends StoreOrgsBloc<S> {
         // emit(const OrgStateDataStoring(exception: e, isLoading: false));
       }
     });
-    on<OrgEventStoreTeamScreenData>((event, emit) async {
+    on<OrgEventStoreGroupScreenData>((event, emit) async {
       //TODO: handle store data, update ui
       try {
         // tempt:
@@ -46,23 +48,23 @@ class OrgBloc<S extends OrgState> extends StoreOrgsBloc<S> {
     });
 
     // navigation
-    on<OrgEventHomeToTeam>((event, emit) async {
-      emit(OrgNavigationStateHomeToTeam(isLoading: false, org: org) as S);
+    on<OrgEventHomeToGroup>((event, emit) async {
+      emit(OrgNavigationStateHomeToGroup(isLoading: false, org: org) as S);
     });
     on<OrgEventHomeToDocumention>((event, emit) async {
       emit(OrgNavigationStateHomeToDocumention(isLoading: false, org: org) as S);
     });
-    on<OrgEventTeamToDocumention>((event, emit) async {
-      emit(OrgNavigationStateTeamToDocumention(isLoading: false, org: org) as S);
+    on<OrgEventGroupToDocumention>((event, emit) async {
+      emit(OrgNavigationStateGroupToDocumention(isLoading: false, org: org) as S);
     });
-    on<OrgEventDocumentionToTeam>((event, emit) async {
-      emit(OrgNavigationStateDocumentionToTeam(isLoading: false, org: org) as S);
+    on<OrgEventDocumentionToGroup>((event, emit) async {
+      emit(OrgNavigationStateDocumentionToGroup(isLoading: false, org: org) as S);
     });
     on<OrgEventDocumentionToHome>((event, emit) async {
       emit(OrgNavigationStateDocumentionToHome(isLoading: false, org: org) as S);
     });
-    on<OrgEventTeamToHome>((event, emit) async {
-      emit(OrgNavigationStateTeamToHome(isLoading: false, org: org) as S);
+    on<OrgEventGroupToHome>((event, emit) async {
+      emit(OrgNavigationStateGroupToHome(isLoading: false, org: org) as S);
     });
   }
 }

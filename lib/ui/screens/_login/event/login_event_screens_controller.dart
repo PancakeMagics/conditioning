@@ -1,7 +1,7 @@
 import 'package:conditioning/bloc/services/auth/auth_event.dart';
 import 'package:conditioning/bloc/services/auth/auth_state.dart';
 import 'package:conditioning/bloc/services/auth/event/auth_event_bloc.dart';
-import 'package:conditioning/service/settings/animation_durations.dart';
+import 'package:conditioning/service/store/utils/animation_durations.dart';
 import 'package:conditioning/ui/screens/_login/event/screen_login_event.dart';
 import 'package:conditioning/ui/screens/event/event_screens_controller.dart';
 import 'package:conditioning/ui/screens/event/event_screens_controller_provider.dart';

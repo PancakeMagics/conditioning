@@ -1,7 +1,7 @@
-import 'package:conditioning/service/auth/auth_provider.dart';
-import 'package:conditioning/service/store/entities/event.dart';
-import 'package:conditioning/service/store/store_provider.dart';
+import 'package:conditioning/service/auth/entities/providers/auth_user_provider.dart';
+import 'package:conditioning/service/store/entities/providers/provider.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../store_bloc.dart';
 
@@ -9,26 +9,27 @@ part 'store_events_event.dart';
 part 'store_events_state.dart';
 
 abstract class StoreEventsBloc<S extends StoreEventsState> extends StoreBloc<S> {
-  final Set<Event> eventSet = <Event>{};
+  final Set<StoreBlocEvent> eventSet = <StoreBlocEvent>{};
 
   StoreEventsBloc({
+    required SharedPreferences prefs,
     required AuthProvider authProvider,
     required StoreProvider storeProvider,
-  }) : super(authProvider: authProvider, storeProvider: storeProvider) {
-    on<StoreEventsEventFilterByLocation>((event, emit) async {
+  }) : super(prefs: prefs, authProvider: authProvider, storeProvider: storeProvider) {
+    on<StoreEventsBlocEventFilterByLocation>((event, emit) async {
       // TODO: implement
 
       emit(StoreEventsStateRelativeStore(isLoading: false, eventList: eventSet.toList()) as S);
     });
-    on<StoreEventsEventFilterByText>((event, emit) async {
+    on<StoreEventsBlocEventFilterByText>((event, emit) async {
       // TODO: implement
       emit(StoreEventsStateRelativeStore(isLoading: false, eventList: eventSet.toList()) as S);
     });
 
-    on<StoreEventsEventRestore>((event, emit) async {
+    on<StoreEventsBlocEventRestore>((event, emit) async {
       // TODO: implement if user have some groupEvents
 
-      eventSet.addAll(await storeProvider.getPublicEvents());
+      // eventSet.addAll(await storeProvider.getPublicEvents());
       emit(StoreEventsStateRelativeStore(isLoading: false, eventList: eventSet.toList()) as S);
     });
   }

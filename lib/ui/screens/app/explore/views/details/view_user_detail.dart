@@ -1,8 +1,8 @@
 import 'dart:developer';
 
 import 'package:conditioning/service/utils/extensions/buildcontext.dart';
-import 'package:conditioning/service/store/entities/org.dart';
-import 'package:conditioning/service/store/entities/user.dart';
+import 'package:conditioning/service/store/entities/store_org.dart';
+import 'package:conditioning/service/store/entities/store_user.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -11,7 +11,7 @@ class ExploreUserDetail extends StatefulWidget {
     Key? key,
     required this.user,
   }) : super(key: key);
-  final User? user;
+  final StoreUser? user;
 
   @override
   State<ExploreUserDetail> createState() => _ExploreUserDetailState();

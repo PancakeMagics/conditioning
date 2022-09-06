@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:conditioning/bloc/login_option.dart';
-import 'package:conditioning/ui/animations/navigation/my_animated_slide.dart';
+import 'package:conditioning/service/utils/constants/option_login.dart';
+import 'package:conditioning/ui/elements/_generics/my_animated_slide.dart';
 import 'package:meta/meta.dart';
 
 part 'login_event.dart';

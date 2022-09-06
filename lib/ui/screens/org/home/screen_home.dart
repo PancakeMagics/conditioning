@@ -1,10 +1,7 @@
-import 'package:conditioning/bloc/services/auth/app/auth_app_bloc.dart';
 import 'package:conditioning/bloc/services/auth/auth_state.dart';
 import 'package:conditioning/bloc/services/auth/org/auth_org_bloc.dart';
-import 'package:conditioning/bloc/ui/app/app_bloc.dart';
 import 'package:conditioning/bloc/ui/org/org_bloc.dart';
 import 'package:conditioning/service/utils/extensions/buildcontext.dart';
-import 'package:conditioning/ui/elements/not_yet_complete_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart' show BlocBuilder, ReadContext;
 
@@ -37,9 +34,9 @@ class _OrgHomeScreenState extends State<OrgHomeScreen> {
                     onPressed: () {
                       context
                           .read<OrgBloc>()
-                          .add(const OrgEventHomeToTeam());
+                          .add(const OrgEventHomeToGroup());
                     },
-                    child: Text(context.loc.screenName_orgDocumention),
+                    child: Text(context.loc.screenName_orgGroup),
                   ),
                   ElevatedButton(
                     onPressed: () {
@@ -78,7 +75,6 @@ class _OrgHomeScreenState extends State<OrgHomeScreen> {
                   image: DecorationImage(
                     image: FadeInImage.assetNetwork(
                       placeholder: 'assets/conditioning.png',
-                      //TODO: make a gif
                       image: 'https://picsum.photos/400',
                     ).image,
                   ),

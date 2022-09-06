@@ -2,7 +2,7 @@ part of 'org_bloc.dart';
 
 @immutable
 abstract class OrgState extends StoreOrgsState {
-  final Org org;
+  final StoreOrg org;
 
   const OrgState({
     required this.org,
@@ -40,8 +40,8 @@ class OrgNavigationStateHomeToDocumention extends OrgNavigationState {
   });
 }
 
-class OrgNavigationStateHomeToTeam extends OrgNavigationState {
-  const OrgNavigationStateHomeToTeam({
+class OrgNavigationStateHomeToGroup extends OrgNavigationState {
+  const OrgNavigationStateHomeToGroup({
     required super.org,
     required super.isLoading,
     super.loadingText,
@@ -49,8 +49,8 @@ class OrgNavigationStateHomeToTeam extends OrgNavigationState {
   });
 }
 
-class OrgNavigationStateTeamToDocumention extends OrgNavigationState {
-  const OrgNavigationStateTeamToDocumention({
+class OrgNavigationStateGroupToDocumention extends OrgNavigationState {
+  const OrgNavigationStateGroupToDocumention({
     required super.org,
     required super.isLoading,
     super.loadingText,
@@ -58,8 +58,8 @@ class OrgNavigationStateTeamToDocumention extends OrgNavigationState {
   });
 }
 
-class OrgNavigationStateTeamToHome extends OrgNavigationState {
-  const OrgNavigationStateTeamToHome({
+class OrgNavigationStateGroupToHome extends OrgNavigationState {
+  const OrgNavigationStateGroupToHome({
     required super.org,
     required super.isLoading,
     super.loadingText,
@@ -67,8 +67,8 @@ class OrgNavigationStateTeamToHome extends OrgNavigationState {
   });
 }
 
-class OrgNavigationStateDocumentionToTeam extends OrgNavigationState {
-  const OrgNavigationStateDocumentionToTeam({
+class OrgNavigationStateDocumentionToGroup extends OrgNavigationState {
+  const OrgNavigationStateDocumentionToGroup({
     required super.org,
     required super.isLoading,
     super.loadingText,

@@ -2,7 +2,7 @@ part of 'event_bloc.dart';
 
 @immutable
 abstract class EventState extends StoreEventsState {
-  final Event event;
+  final StoreEvent event;
 
   const EventState({
     required this.event,

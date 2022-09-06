@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "328469599724",
+    "project_id": "conditioning-b820e",
+    "storage_bucket": "conditioning-b820e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:328469599724:android:c4dc4b2acd211e26f95cc9",
+        "android_client_info": {
+          "package_name": "com.example.conditioning"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "328469599724-89qjfa07oe8i1glvgevraq9022mqjpcm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBofZSf2wk2Wx57AF3J772cEhRsKEZf9xY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "328469599724-89qjfa07oe8i1glvgevraq9022mqjpcm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,12 +1,5 @@
 part of 'explore_bloc.dart';
 
-enum ExploreViewOption {
-  user,
-  org,
-  event,
-  topic,
-}
-
 /// explore user
 
 @immutable
@@ -20,7 +13,7 @@ abstract class ExploreUserState extends StoreUsersState {
 }
 
 class ExploreUserStateAddFriend extends ExploreUserState {
-  final User user;
+  final StoreUser user;
 
   const ExploreUserStateAddFriend(
       {required this.user,
@@ -42,7 +35,7 @@ abstract class ExploreOrgStateOrg extends StoreOrgsState {
 }
 
 class ExploreOrgStateLogin extends ExploreOrgStateOrg {
-  final Org org;
+  final StoreOrg org;
 
   const ExploreOrgStateLogin({
     required this.org,
@@ -73,7 +66,7 @@ class ExploreEventState extends StoreEventsState {
 }
 
 class ExploreEventStateLogin extends ExploreEventState {
-  final Event event;
+  final StoreEvent event;
 
   const ExploreEventStateLogin({
     required this.event,

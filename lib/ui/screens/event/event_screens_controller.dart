@@ -1,4 +1,4 @@
-import 'package:conditioning/ui/animations/navigation/my_animated_slide.dart';
+import 'package:conditioning/ui/elements/_generics/my_animated_slide.dart';
 import 'package:conditioning/ui/screens/event/management/screen_management.dart';
 import 'package:flutter/material.dart';
 

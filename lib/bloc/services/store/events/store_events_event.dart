@@ -1,19 +1,19 @@
 part of 'store_events_bloc.dart';
 
 @immutable
-abstract class StoreEventsEvent extends StoreEvent {
-  const StoreEventsEvent();
+abstract class StoreEventsBlocEvent extends StoreBlocEvent {
+  const StoreEventsBlocEvent();
 }
 
-class StoreEventsEventFilterByLocation extends StoreEventsEvent {
-  const StoreEventsEventFilterByLocation();
+class StoreEventsBlocEventFilterByLocation extends StoreEventsBlocEvent {
+  const StoreEventsBlocEventFilterByLocation();
 }
 
-class StoreEventsEventFilterByText extends StoreEventsEvent {
+class StoreEventsBlocEventFilterByText extends StoreEventsBlocEvent {
   final String searchingText;
-  const StoreEventsEventFilterByText({required this.searchingText,});
+  const StoreEventsBlocEventFilterByText({required this.searchingText,});
 }
 
-class StoreEventsEventRestore extends StoreEventsEvent {
-  const StoreEventsEventRestore();
+class StoreEventsBlocEventRestore extends StoreEventsBlocEvent {
+  const StoreEventsBlocEventRestore();
 }

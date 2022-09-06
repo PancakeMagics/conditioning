@@ -1,8 +1,8 @@
 part of 'store_users_bloc.dart';
 
 @immutable
-abstract class StoreUsersState extends StoreState {
-  final List<User>? userList;
+abstract class StoreUsersState extends StoreBlocState {
+  final List<StoreUser>? userList;
   const StoreUsersState({
     required this.userList,
     required super.isLoading,

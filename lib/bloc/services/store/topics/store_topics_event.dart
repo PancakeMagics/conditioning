@@ -1,7 +1,7 @@
 part of 'store_topics_bloc.dart';
 
 @immutable
-abstract class StoreTopicsEvent extends StoreEvent {
+abstract class StoreTopicsEvent extends StoreBlocEvent {
   const StoreTopicsEvent();
 }
 

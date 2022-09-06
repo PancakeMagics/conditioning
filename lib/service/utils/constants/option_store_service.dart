@@ -1,0 +1,4 @@
+
+enum StoreServiceOption {
+  firebase,
+}
